@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:10.16.0 AS builder
 WORKDIR /app
-COPY . .
+COPY package.json .
 RUN yarn
 RUN yarn run build
 
