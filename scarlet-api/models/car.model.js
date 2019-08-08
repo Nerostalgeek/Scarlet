@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 require("mongoose-type-email");
 
-let User = new Schema({
+let Car = new Schema({
   firstName: {
     type: String
   },
