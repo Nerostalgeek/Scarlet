@@ -1,7 +1,5 @@
 const CarModel = require("../models/car.model");
 
-const mongoose = require("mongoose");
-
 const express = require("express"),
   carRoute = express.Router();
 
@@ -28,7 +26,6 @@ carRoute.get("/:id", (req, res) => {
 
 carRoute.route("/add").post(function(req, res) {
   let carInfos = req.body;
-  console.log(carInfos);
   let newCar = new CarModel({
     firstName: carInfos.firstName,
     lastName: carInfos.lastName,
@@ -38,7 +35,6 @@ carRoute.route("/add").post(function(req, res) {
   newCar
     .save()
     .then(car => {
-      console.log("car => => =>", car);
       res.status(200).json({ car: `car ${car.id} added successfully` });
     })
     .catch(err => {

@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const userRoute = require("./router/user.route");
 
 const config = {
-  name: "sample-express-app",
+  name: "scarlet-api",
   port: 6200,
   host: "0.0.0.0"
 };
