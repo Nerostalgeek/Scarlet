@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-require('mongoose-type-email');
 
 let User = new Schema({
     firstName: {
@@ -15,6 +14,6 @@ let User = new Schema({
     role: {
       type: String
     }
-})
+});
 
 module.exports = mongoose.model("User", User);
