@@ -1,19 +1,47 @@
+const validator = require('validator');
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 let User = new Schema({
     firstName: {
-        type: String
+        type: String,
+        required: true
     },
     lastName: {
-        type: String
+        type: String,
+        required: true
+
     },
     email: {
         type: String,
+        validate: {
+            validator: validator.isEmail,
+            message: '{VALUE} is not a valid email',
+            isAsync: false
+        },
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     },
     role: {
-      type: String
+        type: String,
+        required: true
     }
 });
+
+User.pre("save", function (next) {
+    if (!this.isModified("password")) {
+        return next();
+    }
+    this.password = bcrypt.hashSync(this.password, 10);
+    next();
+});
+
+User.methods.comparePassword = function (plaintext, callback) {
+    return callback(null, bcrypt.compareSync(plaintext, this.password));
+};
 
 module.exports = mongoose.model("User", User);

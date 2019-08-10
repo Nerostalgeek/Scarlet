@@ -22,20 +22,15 @@ user.get('/:id', (req, res) => {
     })
 });
 
-user.route('/add').post(function (req, res) {
-    const userInfos = req.body;
-    const newUser = new User({
-        firstName: userInfos.firstName,
-        lastName: userInfos.lastName,
-        email: userInfos.email,
-        role: userInfos.role
-    });
-    newUser.save()
+user.route('/register').post(async function (req, res) {
+    const user = new User(req.body);
+    const result = await user.save();
+    res.send(result)
         .then(user => {
             res.status(200).json({'user': `User ${user.id} added successfully`});
         })
         .catch(err => {
-            res.status(400).send('Error adding new user');
+            res.status(500).send(err);
         });
 });
 

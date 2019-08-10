@@ -23,24 +23,15 @@ car.get("/:id", (req, res) => {
     });
 });
 
-car.route("/add").post(function (req, res) {
-    let carInfos = req.body;
-    let newCar = new Car({
-        type: carInfos.type,
-        brand: carInfos.brand,
-        model: carInfos.model,
-        color: carInfos.color,
-        transmission: carInfos.transmission,
-        seats: carInfos.seats,
-        options: carInfos.options,
-        price: carInfos.price
-    });
-    newCar.save()
+car.route("/add").post(async function (req, res) {
+    let car = new Car(req.body);
+    const result = await car.save();
+    res.send(result)
         .then(car => {
             res.status(200).json({car: `car ${car.id} added successfully`});
         })
         .catch(err => {
-            res.status(400).send("Error adding new car");
+            res.status(500).send(err);
         });
 });
 
