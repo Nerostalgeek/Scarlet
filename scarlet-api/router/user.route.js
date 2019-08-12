@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const User = require('../model/user.model');
 const express = require('express');
 
 user = express.Router();
@@ -23,15 +23,13 @@ user.get('/:id', (req, res) => {
 });
 
 user.route('/register').post(async function (req, res) {
-    const user = new User(req.body);
-    const result = await user.save();
-    res.send(result)
-        .then(user => {
-            res.status(200).json({'user': `User ${user.id} added successfully`});
-        })
-        .catch(err => {
-            res.status(500).send(err);
-        });
+    try {
+        const user = new User(req.body);
+        const result = await user.save();
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 

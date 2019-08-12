@@ -1,4 +1,4 @@
-const Car = require("../models/car.model");
+const Car = require("../model/car.model");
 
 const express = require("express"),
     car = express.Router();
@@ -8,31 +8,32 @@ const express = require("express"),
 car.get("/", (req, res) => {
     Car.find(function (err, listCars) {
         if (err) {
-            console.log(err);
+            return err;
         } else {
             res.json(listCars);
         }
-    });
+    })
+        .populate('User')
+        .select('User')
+
 });
 
 // Route for a specific car
 car.get("/:id", (req, res) => {
-    let id = req.params.id;
+    const id = req.params.id;
     Car.findById(id, (err, car) => {
         res.json(car);
     });
 });
 
 car.route("/add").post(async function (req, res) {
-    let car = new Car(req.body);
-    const result = await car.save();
-    res.send(result)
-        .then(car => {
-            res.status(200).json({car: `car ${car.id} added successfully`});
-        })
-        .catch(err => {
-            res.status(500).send(err);
-        });
+    try {
+        const car = new Car(req.body);
+        const result = await car.save();
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 module.exports = car;

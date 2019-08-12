@@ -33,13 +33,22 @@ let User = new Schema({
 });
 
 User.pre("save", function (next) {
+    mongoose.models["User"].findOne({email: this.email}, function (err, user) {
+        if (!user) {
+            next();
+        } else {
+            const err = new Error('Email is already used');
+            next(err);
+        }
+    });
+});
+User.pre("save", function (next) {
     if (!this.isModified("password")) {
         return next();
     }
     this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
-
 User.methods.comparePassword = function (plaintext, callback) {
     return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
