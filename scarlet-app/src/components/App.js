@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import "./App.css";
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar links={this.state.navbarLinks} />
+        <Footer links={this.state.navbarLinks} />
       </div>
     );
   }
