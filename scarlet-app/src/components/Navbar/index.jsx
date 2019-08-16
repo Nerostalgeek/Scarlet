@@ -5,10 +5,10 @@ import logo from "../../img/logo.png";
 const NavBar = props => {
   const links = props.links;
 
-  const navbarLinks = links.map(link => (
+  const NavBarLinks = links.map(link => (
     <a
-      className="navbar-link"
-      key={`navbar-${link.name}`}
+      className="NavBar-link"
+      key={`NavBar-${link.name}`}
       href={link.url}
       id={link.customId}
     >
@@ -17,11 +17,11 @@ const NavBar = props => {
   ));
 
   return (
-    <div className="l-navbar">
-      <div className="navbar-logo-container">
+    <div className="l-NavBar">
+      <div className="NavBar-logo-container">
         <img src={logo} alt="logo" />
       </div>
-      <div className="navbar-links-container">{navbarLinks}</div>
+      <div className="NavBar-links-container">{NavBarLinks}</div>
     </div>
   );
 };
