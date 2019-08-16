@@ -1,3 +1,4 @@
+const config = require('../config.default');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -8,14 +9,9 @@ const mongoose = require("mongoose");
 const userRoute = require("./router/user.route");
 const carRoute = require("./router/car.route");
 
-const config = {
-    name: "scarlet-api",
-    port: 6200,
-    host: "0.0.0.0"
-};
 
 const app = express();
-const logger = log({console: true, file: false, label: config.name});
+const logger = log({console: true, file: false, label: config.settings.name});
 
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({
@@ -27,7 +23,7 @@ app.use(cors());
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
 
 // Setup MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/scarlet", {
+mongoose.connect(config.mongodbUrl, {
     useNewUrlParser: true
 });
 const connection = mongoose.connection;
@@ -42,9 +38,9 @@ app.get("/", function (req, res) {
 app.use("/users", userRoute);
 app.use("/cars", carRoute);
 
-app.listen(config.port, config.host, e => {
+app.listen(config.settings.port, config.settings.host, e => {
     if (e) {
         throw new Error("Internal Server Error");
     }
-    logger.info(`${config.name} running on ${config.host}:${config.port}`);
+    logger.info(`${config.settings.name} running on ${config.settings.host}:${config.settings.port}`);
 });
