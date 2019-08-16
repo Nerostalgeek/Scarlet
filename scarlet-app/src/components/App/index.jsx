@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "../Navbar";
+import NavBar from "../NavBar";
 import Footer from "../Footer";
 import "./App.css";
 
@@ -41,7 +41,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar links={this.state.navbarLinks} />
+        <NavBar links={this.state.navbarLinks} />
         <Footer links={this.state.navbarLinks} />
       </div>
     );

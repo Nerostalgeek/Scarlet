@@ -1,8 +1,8 @@
 import React from "react";
-import "./Navbar.css";
+import "./NavBar.css";
 import logo from "../../img/logo.png";
 
-const Navbar = props => {
+const NavBar = props => {
   const links = props.links;
 
   const navbarLinks = links.map(link => (
@@ -26,4 +26,4 @@ const Navbar = props => {
   );
 };
 
-export default Navbar;
+export default NavBar;
