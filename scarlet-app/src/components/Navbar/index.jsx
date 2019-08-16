@@ -5,7 +5,7 @@ import logo from "../../img/logo.png";
 const NavBar = props => {
   const links = props.links;
 
-  const NavBarLinks = links.map(link => (
+  const navBarLinks = links.map(link => (
     <a
       className="NavBar-link"
       key={`NavBar-${link.name}`}
@@ -21,7 +21,7 @@ const NavBar = props => {
       <div className="NavBar-logo-container">
         <img src={logo} alt="logo" />
       </div>
-      <div className="NavBar-links-container">{NavBarLinks}</div>
+      <div className="NavBar-links-container">{navBarLinks}</div>
     </div>
   );
 };

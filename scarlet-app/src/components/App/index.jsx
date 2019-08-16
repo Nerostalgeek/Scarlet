@@ -5,7 +5,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    NavBarLinks: [
+    navBarLinks: [
       {
         name: "Accueil",
         url: "#",
@@ -41,8 +41,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar links={this.state.NavBarLinks} />
-        <Footer links={this.state.NavBarLinks} />
+        <NavBar links={this.state.navBarLinks} />
+        <Footer links={this.state.navBarLinks} />
       </div>
     );
   }
