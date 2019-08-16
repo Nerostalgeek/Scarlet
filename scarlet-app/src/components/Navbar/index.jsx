@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-import logo from "../img/logo.png";
+import logo from "../../img/logo.png";
 
 const Navbar = props => {
   const links = props.links;
