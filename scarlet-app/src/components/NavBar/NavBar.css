@@ -1,13 +1,13 @@
 .l-NavBar {
-  height: 10vh;
+  height: 100px;
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 50px;
-  -webkit-box-shadow: 0px 5px 10px 0px rgba(230, 230, 230, 1);
-  -moz-box-shadow: 0px 5px 10px 0px rgba(230, 230, 230, 1);
-  box-shadow: 0px 5px 10px 0px rgba(230, 230, 230, 1);
+  -webkit-box-shadow: 0px 5px 10px 0px rgb(150, 150, 150);
+  -moz-box-shadow: 0px 5px 10px 0px rgb(150, 150, 150);
+  box-shadow: 0px 5px 10px 0px rgb(150, 150, 150);
   position: relative;
   overflow: hidden;
 }
@@ -24,13 +24,13 @@
   text-decoration: none;
 }
 
-.NavBar-link:last-child {
+/* a.NavBar-link:last-child {
   color: white;
   padding: 15px 25px;
   border-radius: 15px;
   background-color: #63a4ff;
   background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
-}
+} */
 
 .NavBar-logo-container {
   height: 100%;

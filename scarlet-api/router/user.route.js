@@ -32,5 +32,38 @@ user.route('/register').post(async function (req, res) {
     }
 });
 
+user.route('/login').post(async function (req, res) {
+    const { password, email } = req.body;
+    if (!email || !password) {
+      //Le cas où l'email ou bien le password ne serait pas soumit ou nul
+      return res.status(400).json({
+        text: "Invalid request"
+      });
+    console.log('req body ->', req.body);
+
+    }
+    try {
+      // On check si l'utilisateur existe en base
+      const findUser = await User.findOne({ email });
+      if (!findUser)
+        return res.status(401).json({
+          text: "The User doesn't exist"
+        });
+      if (!findUser.methods.comparePassword(password))
+        return res.status(401).json({
+          text: "User or password doesn't match"
+        });
+      return res.status(200).json({
+        token: findUser.getToken(),
+        text: "Authentication successfull"
+      });
+    } catch (error) {
+      return res.status(500).json({
+        error
+      });
+    }
+  })
+
+
 
 module.exports = user;

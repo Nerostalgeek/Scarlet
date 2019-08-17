@@ -1,3 +1,4 @@
+const jwt = require("jwt-simple");
 const validator = require('validator');
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
@@ -30,7 +31,9 @@ let User = new Schema({
         type: String,
         required: true
     }
-});
+ },
+    { timestamps: { createdAt: "created_at" } }
+);
 
 User.pre("save", function (next) {
     mongoose.models["User"].findOne({email: this.email}, function (err, user) {
@@ -49,8 +52,14 @@ User.pre("save", function (next) {
     this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
-User.methods.comparePassword = function (plaintext, callback) {
-    return callback(null, bcrypt.compareSync(plaintext, this.password));
-};
+User.methods = {
+    comparePassword: function (plaintext, callback) {
+        return callback(null, bcrypt.compareSync(plaintext, this.password));
+        console.log('callback => ', callback);
+    },
+      getToken: function() {
+        return jwt.encode(this, config.secret);
+      }
+}
 
 module.exports = mongoose.model("User", User);

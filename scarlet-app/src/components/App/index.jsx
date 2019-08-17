@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import { BrowserRouter as  Router, Route } from "react-router-dom";
+
 import NavBar from "../NavBar/index";
+import HomePage from "../HomePage"
 import Footer from "../Footer/index";
+import SignUp from "../SignUp/index";
+
 import "./App.css";
 
 class App extends Component {
@@ -8,7 +13,7 @@ class App extends Component {
     navBarLinks: [
       {
         name: "Accueil",
-        url: "#",
+        url: "/",
         customId: ""
       },
       {
@@ -28,7 +33,7 @@ class App extends Component {
       },
       {
         name: "Connexion",
-        url: "#",
+        url: "login",
         customId: ""
       },
       {
@@ -40,10 +45,14 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="App">
-        <NavBar links={this.state.navBarLinks} />
-        <Footer links={this.state.navBarLinks} />
-      </div>
+      <Router>
+        <div className="App">
+          <NavBar links={this.state.navBarLinks} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={SignUp} />
+          <Footer links={this.state.navBarLinks} />
+        </div>
+      </Router>
     );
   }
 }
