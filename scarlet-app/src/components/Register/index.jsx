@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
-import "./signin.css";
+import "./register.css";
 
-class SignIn extends Component {
+class Register extends Component {
   state = {};
-
   render() {
     return (
       <div className="l-signin">
@@ -43,4 +43,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default Register;

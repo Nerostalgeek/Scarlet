@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./ConnectPage.css";
-import SignUp from "../SignUp";
-import SignIn from "../SignIn";
+import Register from "../Register";
+import Login from "../Login";
 
 class Connection extends Component {
   state = {
@@ -21,20 +21,20 @@ class Connection extends Component {
           <div className="signup-form-action">
             <button
               onClick={this.handleClick}
-              name="signUp"
+              name="register"
               className="signup-form-action-item"
             >
               Se connecter
             </button>
             <button
               onClick={this.handleClick}
-              name="signIn"
+              name="login"
               className="signup-form-action-item"
             >
               S'inscrire
             </button>
-            {this.state.userChoice === "signUp" && <SignUp />}
-            {this.state.userChoice === "signIn" && <SignIn />}
+            {this.state.userChoice === "register" && <Register />}
+            {this.state.userChoice === "login" && <Login />}
           </div>
         </div>
 

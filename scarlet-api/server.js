@@ -27,12 +27,16 @@ app.use(ExpressAPILogMiddleware(logger, {request: true}));
 mongoose.connect(config.mongodbUrl, {
     useNewUrlParser: true
 });
-app.use(passport.initialize());
-//initializes the passport configuration.
+
 const connection = mongoose.connection;
 connection.once("open", function () {
     console.log("MongoDB database connection established successfully");
 });
+
+//initializes the passport configuration.
+app.use(passport.initialize());
+//imports our configuration file which holds our verification callbacks and things like the secret for signing.
+require('./config/passport-config')(passport);
 
 app.get("/", function (req, res) {
     res.send("Main index");

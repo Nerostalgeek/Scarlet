@@ -2,6 +2,7 @@ const User = require('../model/user.model');
 const express = require('express');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const passport = require('passport');
 const config = require('../../config.default');
 
 
@@ -64,7 +65,7 @@ user.route('/login').post(async (req, res) => {
                                 });
                             });
                     } else {
-                        throw new Error("id or pwd is incorrect!");
+                        throw new Error("Invalid credentials");
                     }
                 }).catch(err => {
                 err = "Email or password is incorrect";
