@@ -4,19 +4,17 @@ import logo from "../../img/logo.png";
 
 import { Link } from "react-router-dom";
 
-
 const NavBar = props => {
   const links = props.links;
 
   const navBarLinks = links.map(link => (
-    <Link to={link.url}>
-      <a
-        className="NavBar-link"
-        key={`NavBar-${link.name}`}
-        id={link.customId}
-      >
-        {link.name}
-      </a>
+    <Link
+      className="NavBar-link"
+      key={`NavBar-${link.name}`}
+      id={link.customId}
+      to={link.url}
+    >
+      {link.name}
     </Link>
   ));
 

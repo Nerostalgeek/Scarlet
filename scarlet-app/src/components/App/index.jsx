@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as  Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import NavBar from "../NavBar/index";
-import HomePage from "../HomePage"
+import HomePage from "../HomePage";
 import Footer from "../Footer/index";
-import SignUp from "../SignUp/index";
+import ConnectPage from "../ConnectPage/index";
 
 import "./App.css";
 
@@ -49,7 +49,7 @@ class App extends Component {
         <div className="App">
           <NavBar links={this.state.navBarLinks} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={SignUp} />
+          <Route path="/login" component={ConnectPage} />
           <Footer links={this.state.navBarLinks} />
         </div>
       </Router>
