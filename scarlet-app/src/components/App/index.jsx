@@ -5,6 +5,7 @@ import NavBar from "../NavBar/index";
 import HomePage from "../HomePage";
 import Footer from "../Footer/index";
 import ConnectPage from "../ConnectPage/index";
+import ContactPage from "../ContactPage/index";
 
 import "./App.css";
 
@@ -50,6 +51,7 @@ class App extends Component {
           <NavBar links={this.state.navBarLinks} />
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={ConnectPage} />
+          <Route path="/contact" component={ContactPage} />
           <Footer links={this.state.navBarLinks} />
         </div>
       </Router>
