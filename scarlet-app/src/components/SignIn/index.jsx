@@ -6,14 +6,6 @@ import "./signin.css";
 class SignIn extends Component {
   state = {};
 
-  responseFacebook = response => {
-    console.log(response);
-  };
-
-  responseGoogle = response => {
-    console.log(response);
-  };
-
   render() {
     return (
       <div className="l-signin">
