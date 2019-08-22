@@ -39,8 +39,8 @@ user.route('/register').post(async function (req, res) {
 });
 
 user.route('/login').post(async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = await req.body.email;
+    const password = await req.body.password;
     User.findOne({email})
         .then(user => {
             bcrypt.compare(password, user.password)
@@ -63,11 +63,12 @@ user.route('/login').post(async (req, res) => {
                                     token: `Bearer ${token}`
                                 });
                             });
+                    } else {
+                        throw new Error("id or pwd is incorrect!");
                     }
                 }).catch(err => {
-                err = "Password is incorrect";
-                console.log("errors => ", err);
-                res.status(400).json(err)
+                err = "Email or password is incorrect";
+                return res.status(400).json(err)
             })
         }).catch(errors => {
         errors.email = "No Account Found";

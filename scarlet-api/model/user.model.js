@@ -53,7 +53,6 @@ User.pre("save", function (next) {
     next();
 });
 User.methods.comparePassword = function (plaintext, callback) {
-    console.log('callback is here => ', plaintext,  callback);
     return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
 
