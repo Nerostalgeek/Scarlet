@@ -1,4 +1,4 @@
+config.default.js
 node_modules/
 *.log
 .idea
-./config.default.js

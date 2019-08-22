@@ -1,38 +1,38 @@
-const jwt = require("jwt-simple");
+const jwt = require("jsonwebtoken");
 const validator = require('validator');
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 let User = new Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-
-    },
-    email: {
-        type: String,
-        validate: {
-            validator: validator.isEmail,
-            message: '{VALUE} is not a valid email',
-            isAsync: false
+        firstName: {
+            type: String,
+            required: true
         },
-        required: true
+        lastName: {
+            type: String,
+            required: true
+
+        },
+        email: {
+            type: String,
+            validate: {
+                validator: validator.isEmail,
+                message: '{VALUE} is not a valid email',
+                isAsync: false
+            },
+            required: true
+        },
+        password: {
+            type: String,
+            required: true
+        },
+        role: {
+            type: String,
+            required: true
+        }
     },
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String,
-        required: true
-    }
- },
-    { timestamps: { createdAt: "created_at" } }
+    {timestamps: {createdAt: "created_at"}}
 );
 
 User.pre("save", function (next) {
@@ -52,14 +52,13 @@ User.pre("save", function (next) {
     this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
-User.methods = {
-    comparePassword: function (plaintext, callback) {
-        return callback(null, bcrypt.compareSync(plaintext, this.password));
-        console.log('callback => ', callback);
-    },
-      getToken: function() {
-        return jwt.encode(this, config.secret);
-      }
-}
+User.methods.comparePassword = function (plaintext, callback) {
+    console.log('callback is here => ', plaintext,  callback);
+    return callback(null, bcrypt.compareSync(plaintext, this.password));
+};
+
+User.methods.getToken = function () {
+    return jwt.encode(this, config.secret);
+};
 
 module.exports = mongoose.model("User", User);

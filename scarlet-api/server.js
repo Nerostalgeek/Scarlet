@@ -6,6 +6,7 @@ const {log, ExpressAPILogMiddleware} = require("@rama41222/node-logger");
 
 // Import mongoose
 const mongoose = require("mongoose");
+const passport = require('passport');
 const userRoute = require("./router/user.route");
 const carRoute = require("./router/car.route");
 
@@ -26,6 +27,8 @@ app.use(ExpressAPILogMiddleware(logger, {request: true}));
 mongoose.connect(config.mongodbUrl, {
     useNewUrlParser: true
 });
+app.use(passport.initialize());
+//initializes the passport configuration.
 const connection = mongoose.connection;
 connection.once("open", function () {
     console.log("MongoDB database connection established successfully");

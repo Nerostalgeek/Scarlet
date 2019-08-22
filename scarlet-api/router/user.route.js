@@ -1,5 +1,11 @@
 const User = require('../model/user.model');
 const express = require('express');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require('../../config.default');
+
+
+const secret = config.secretPassport;
 
 user = express.Router();
 
@@ -32,38 +38,42 @@ user.route('/register').post(async function (req, res) {
     }
 });
 
-user.route('/login').post(async function (req, res) {
-    const { password, email } = req.body;
-    if (!email || !password) {
-      //Le cas où l'email ou bien le password ne serait pas soumit ou nul
-      return res.status(400).json({
-        text: "Invalid request"
-      });
-    console.log('req body ->', req.body);
-
-    }
-    try {
-      // On check si l'utilisateur existe en base
-      const findUser = await User.findOne({ email });
-      if (!findUser)
-        return res.status(401).json({
-          text: "The User doesn't exist"
-        });
-      if (!findUser.methods.comparePassword(password))
-        return res.status(401).json({
-          text: "User or password doesn't match"
-        });
-      return res.status(200).json({
-        token: findUser.getToken(),
-        text: "Authentication successfull"
-      });
-    } catch (error) {
-      return res.status(500).json({
-        error
-      });
-    }
-  })
-
+user.route('/login').post(async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    User.findOne({email})
+        .then(user => {
+            bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        const payload = {
+                            id: user._id,
+                            lastName: user.lastName,
+                            firstName: user.firstName
+                        };
+                        jwt.sign(payload, secret, {expiresIn: 36000},
+                            (err, token) => {
+                                if (err) res.status(500)
+                                    .json({
+                                        error: "Error signing token",
+                                        raw: err
+                                    });
+                                res.json({
+                                    success: true,
+                                    token: `Bearer ${token}`
+                                });
+                            });
+                    }
+                }).catch(err => {
+                err = "Password is incorrect";
+                console.log("errors => ", err);
+                res.status(400).json(err)
+            })
+        }).catch(errors => {
+        errors.email = "No Account Found";
+        return res.status(404).json(errors);
+    })
+});
 
 
 module.exports = user;
