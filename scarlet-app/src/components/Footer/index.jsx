@@ -26,7 +26,7 @@ const Footer = props => {
 
   return (
     <div className="l-footer">
-      <div className="footer-network-banner">
+      {/* <div className="footer-network-banner">
         <div className="network-banner-items">
           <div className="network-banner-item">
             <img src={facebookLogo} alt="Facebook Logo" />
@@ -41,7 +41,7 @@ const Footer = props => {
             <img src={youtubeLogo} alt="youtube Logo" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="footer-main">
         <div className="footer-part-one footer-part">
           {/* <div className="footer-part-one-logo">
