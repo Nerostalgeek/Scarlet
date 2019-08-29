@@ -5,7 +5,7 @@ import "./HomePage.css";
 
 import { Link } from "react-router-dom";
 
-import Carousel from "../Carousel/index"
+import Carousel from "../Carousel";
 
 const HomePage = () => {
   return (
