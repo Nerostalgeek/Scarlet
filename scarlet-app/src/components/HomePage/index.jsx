@@ -5,6 +5,8 @@ import "./HomePage.css";
 
 import { Link } from "react-router-dom";
 
+import Carousel from "../Carousel/index"
+
 const HomePage = () => {
   return (
     <div className="l-homepage">
@@ -13,6 +15,7 @@ const HomePage = () => {
           Se connecter
         </button>
       </Link>
+      <Carousel />
     </div>
   );
 };
