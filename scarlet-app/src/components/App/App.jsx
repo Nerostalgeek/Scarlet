@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import NavBar from "../NavBar/index";
-import HomePage from "../HomePage";
-import Footer from "../Footer/index";
-import ConnectPage from "../ConnectPage/index";
+import NavBar from "../NavBar/NavBar";
+import HomePage from "../HomePage/HomePage";
+import Footer from "../Footer/Footer";
+import ConnectPage from "../ConnectPage/ConnectPage";
 
 import "./App.css";
 

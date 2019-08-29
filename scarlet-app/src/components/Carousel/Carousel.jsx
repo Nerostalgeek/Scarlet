@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./Carousel.css";
+import carIcon from "../../img/assets/carousel/car-icon.png";
+import locationIcon from "../../img/assets/carousel/placeholder.png";
+import priceIcon from "../../img/assets/carousel/coins.png";
+import noteIcon from "../../img/assets/carousel/star.png";
 
 const data = [
     {
@@ -88,16 +93,19 @@ class Carousel extends Component {
             centerMode: true,
         };
         return (
-            <div>
+            <div className="l-carousel">
                 <Slider {...settings}>
                     {data.map(({img, name, place, note, price}) => {
                         return (
-                            <div>
-                                <img src={img} alt=""/>
-                                <p>{name}</p>
-                                <p>{place}</p>
-                                <p>{note}</p>
-                                <p>{price}</p>
+                            <div className="carousel-item">
+                                <img className="carousel-image" src={img} alt=""/>
+                                <div className="cars-carousel-text">
+                                    <p className="cars-carousel-name"><span><img className="carousel-icon" src={carIcon} alt="" /></span>{name}</p>
+                                    <p className="cars-carousel-location"><span><img className="carousel-icon" src={locationIcon} alt="" /></span>Disponible à {place}</p>
+                                    <p className="cars-carousel-note"><span><img className="carousel-icon" src={noteIcon} alt="" /></span>{note}</p>
+                                    <p className="cars-carousel-price"><span><img className="carousel-icon" src={priceIcon} alt="" /></span>{price} par jour</p>
+                                    <button className="carousel-button">Louer cette voiture</button>
+                                </div>
                             </div>
                         )
                     })}

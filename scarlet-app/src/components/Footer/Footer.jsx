@@ -1,11 +1,6 @@
 import React from "react";
 import "./Footer.css";
 
-import facebookLogo from "../../img/networks/facebook-logo.png";
-import instagramLogo from "../../img/networks/instagram-logo.png";
-import twitterLogo from "../../img/networks/twitter-logo.png";
-import youtubeLogo from "../../img/networks/youtube-logo.png";
-
 import phoneLogo from "../../img/icons/phone.png";
 import mailLogo from "../../img/icons/mail.png";
 import addressLogo from "../../img/icons/placeholder.png";
@@ -26,27 +21,8 @@ const Footer = props => {
 
   return (
     <div className="l-footer">
-      {/* <div className="footer-network-banner">
-        <div className="network-banner-items">
-          <div className="network-banner-item">
-            <img src={facebookLogo} alt="Facebook Logo" />
-          </div>
-          <div className="network-banner-item">
-            <img src={instagramLogo} alt="Instagram Logo" />
-          </div>
-          <div className="network-banner-item">
-            <img src={twitterLogo} alt="twitter Logo" />
-          </div>
-          <div className="network-banner-item">
-            <img src={youtubeLogo} alt="youtube Logo" />
-          </div>
-        </div>
-      </div> */}
       <div className="footer-main">
         <div className="footer-part-one footer-part">
-          {/* <div className="footer-part-one-logo">
-                        <img src={logo} alt="logo" />
-                    </div> */}
           <h4>Notre histoire</h4>
           <div className="footer-part-one-text">
             <p>

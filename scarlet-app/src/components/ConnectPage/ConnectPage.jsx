@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./ConnectPage.css";
-import Register from "../Register";
-import Login from "../Login";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 class Connection extends Component {
   state = {

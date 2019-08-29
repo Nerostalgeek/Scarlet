@@ -22,6 +22,7 @@
   font-size: 60px;
   padding-bottom: 25px;
   font-family: "Quicksand", sans-serif;
+  line-height: 1.1;
 }
 
 .homepage-landing-text #homepage-landing-description {
@@ -50,6 +51,7 @@
   padding: 15px 25px;
   font-size: 18px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .landing-cta:last-child {
