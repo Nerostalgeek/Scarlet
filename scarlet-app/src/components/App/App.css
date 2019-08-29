@@ -3,13 +3,30 @@
   padding: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Quicksand", sans-serif;
+  color: #232323;
+}
+
+a,
+p,
+button {
+  font-family: "Open Sans", sans-serif;
+  color: #232323;
+}
+
 .App {
   position: relative;
   min-height: 100vh;
 }
 
 .l-NavBar a {
-  font-family: "Open Sans",sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 16px;
 }
