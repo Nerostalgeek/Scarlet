@@ -79,7 +79,7 @@ const data = [
         "note": "5/5",
         "price": "50€",
     },
-    
+
 ];
 
 class Carousel extends Component {
@@ -105,7 +105,8 @@ class Carousel extends Component {
                                     <p className="cars-carousel-note"><span><img className="carousel-icon" src={noteIcon} alt="" /></span>{note}</p>
                                     <p className="cars-carousel-price"><span><img className="carousel-icon" src={priceIcon} alt="" /></span>{price} par jour</p>
                                     <button className="carousel-button">Louer cette voiture</button>
-                                </div>
+
+                            </div>
                             </div>
                         )
                     })}

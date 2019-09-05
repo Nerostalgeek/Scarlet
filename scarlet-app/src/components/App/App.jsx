@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import HomePage from "../HomePage/HomePage";
 import Footer from "../Footer/Footer";
-import ConnectPage from "../ConnectPage/ConnectPage";
+import Login from "../Login/Login";
 
 import "./App.css";
 
@@ -44,12 +44,13 @@ class App extends Component {
     ]
   };
   render() {
+
     return (
       <Router>
         <div className="App">
           <NavBar links={this.state.navBarLinks} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={ConnectPage} />
+          <Route path="/login" component={Login} />
           <Footer links={this.state.navBarLinks} />
         </div>
       </Router>
