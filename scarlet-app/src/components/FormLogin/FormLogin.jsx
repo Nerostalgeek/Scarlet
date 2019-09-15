@@ -3,10 +3,6 @@ import React, {Component} from "react";
 import "./formLogin.css";
 
 class FormLogin extends Component {
-    state = {
-        isHidden: true,
-    };
-
     render() {
         return (
 
@@ -73,6 +69,3 @@ class FormLogin extends Component {
 }
 
 export default FormLogin;
-
-
-

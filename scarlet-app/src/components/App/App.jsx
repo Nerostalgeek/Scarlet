@@ -50,7 +50,10 @@ class App extends Component {
         <div className="App">
           <NavBar links={this.state.navBarLinks} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={Login} />
+        <Route
+          path='/login'
+          render={(props) => <Login {...props}/>}
+        />
           <Footer links={this.state.navBarLinks} />
         </div>
       </Router>

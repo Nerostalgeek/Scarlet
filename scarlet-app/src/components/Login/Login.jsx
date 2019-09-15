@@ -1,27 +1,34 @@
 import React, {Component} from "react";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
+import FormLogin from "../FormLogin/FormLogin.jsx";
 import "./login.css";
 import {connect} from "react-redux";
-import {showLoginModalAction} from '../../actions/loginModalAction';
 
 const mapStateToProps = state => ({
     ...state
 });
-const mapDispatchToProps = dispatch => ({
-    loginModalAction: () => dispatch(showLoginModalAction())
-});
 
 class Login extends Component {
 
+    state = {
+        isHidden: true
+    };
 
     loginModalAction = (event) => {
-        console.log("alors ?", this.props.loginModalAction());
+        // console.log("alors ?", this.loginModalAction());
         this.props.loginModalAction();
     };
 
     responseFacebook = () => {
         console.log('Bouton Facebook cliqué');
+    };
+
+    toggleModal = () => {
+        console.log("STATE HIDDEN ?", this.state.isHidden);
+        this.setState({
+            isHidden: !this.state.isHidden
+        })
     };
 
     render() {
@@ -59,10 +66,13 @@ class Login extends Component {
                             />
                             <button
                                 className="signin-item-button"
-                                onClick={this.loginModalAction}
+                                // onClick={this.loginModalAction}
+                                onClick={this.toggleModal}
                             >
                                 Connexion/Inscription par email
                             </button>
+                            {!this.state.isHidden && <FormLogin/>}
+
                         </div>
                     </div>
                 </div>
@@ -73,4 +83,4 @@ class Login extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
