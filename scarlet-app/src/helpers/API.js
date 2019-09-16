@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios/index";
 const config = require("../../../config.default");
 
 const headers = {
