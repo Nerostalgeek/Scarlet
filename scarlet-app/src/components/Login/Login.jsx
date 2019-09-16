@@ -4,31 +4,31 @@ import GoogleLogin from "react-google-login";
 import FormLogin from "../FormLogin/FormLogin.jsx";
 import "./login.css";
 import {connect} from "react-redux";
+import {modalActions} from "../../actions/modal.actions"
 
-const mapStateToProps = state => ({
-    ...state
-});
+const mapStateToProps = state => {
+    return {showModal: state.displayModal}
+};
+
+const mapActionsToProps = {
+    onShowModalLogin: modalActions.showModalLogin,
+};
+
 
 class Login extends Component {
 
-    state = {
-        isHidden: true
-    };
+    constructor(props) {
+        super(props);
+        this.onShowModalLogin = this.onShowModalLogin.bind(this);
+    }
 
-    loginModalAction = (event) => {
-        // console.log("alors ?", this.loginModalAction());
-        this.props.loginModalAction();
-    };
+    onShowModalLogin() {
+        this.props.onShowModalLogin();
+    }
+
 
     responseFacebook = () => {
         console.log('Bouton Facebook cliqué');
-    };
-
-    toggleModal = () => {
-        console.log("STATE HIDDEN ?", this.state.isHidden);
-        this.setState({
-            isHidden: !this.state.isHidden
-        })
     };
 
     render() {
@@ -66,12 +66,12 @@ class Login extends Component {
                             />
                             <button
                                 className="signin-item-button"
-                                // onClick={this.loginModalAction}
-                                onClick={this.toggleModal}
+                                onClick={this.onShowModalLogin}
                             >
                                 Connexion/Inscription par email
                             </button>
-                            {!this.state.isHidden && <FormLogin/>}
+                            {this.props.showModal.payload &&
+                            <FormLogin showModal={this.props.showModal.payload}/>}
 
                         </div>
                     </div>
@@ -83,4 +83,4 @@ class Login extends Component {
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapActionsToProps)(Login);
