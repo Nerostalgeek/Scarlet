@@ -1,22 +1,22 @@
 import {modalConstants} from '../constants';
 
 export const modalActions = {
-    showModalLogin,
-    hideModalLogin,
+    showModal,
+    hideModal,
     displayLoginForm,
     displayRegisterForm,
 };
 
-    function showModalLogin() {
+function showModal() {
     return {
-        type: modalConstants.SHOW_MODAL_LOGIN,
+        type: modalConstants.SHOW_MODAL,
         open: true
     };
 }
 
-function hideModalLogin() {
+function hideModal() {
     return {
-        type: modalConstants.HIDE_MODAL_LOGIN,
+        type: modalConstants.HIDE_MODAL,
         open: false
     };
 }
@@ -24,13 +24,13 @@ function hideModalLogin() {
 function displayLoginForm() {
     return {
         type: modalConstants.DISPLAY_LOGIN_FORM,
-        displayForm: "login"
+        formValue: "login"
     };
 }
 
 function displayRegisterForm() {
     return {
         type: modalConstants.DISPLAY_REGISTER_FORM,
-        displayForm: "register"
+        formValue: "register"
     };
 }

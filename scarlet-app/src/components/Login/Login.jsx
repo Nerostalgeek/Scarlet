@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import FormLogin from "../FormLogin/FormLogin.jsx";
+import FormRegister from "../FormRegister/FormRegister";
 import "./login.css";
 import {connect} from "react-redux";
 import {modalActions} from "../../actions/modal.actions"
@@ -23,16 +24,16 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.onShowModalLogin = this.onShowModalLogin.bind(this);
-        this.onDisplayLoginForm = this.onDisplayLoginForm.bind(this);
+        this.onShowModal = this.onShowModal.bind(this);
+        this.onDisplayForm = this.onDisplayForm.bind(this);
     }
 
-    onShowModalLogin() {
-        this.props.onShowModalLogin();
+    onShowModal() {
+        this.props.onShowModal();
     }
 
-    onDisplayLoginForm() {
-        this.props.onDisplayLoginForm()
+    onDisplayForm() {
+        this.props.onDisplayForm();
     }
 
 
@@ -75,7 +76,10 @@ class Login extends Component {
                             />
                             <button
                                 className="signin-item-button"
-                                onClick={this.onShowModalLogin}
+                                onClick={() => {
+                                    this.onShowModal();
+                                    this.onDisplayForm()
+                                }}
                             >
                                 Connexion/Inscription par email
                             </button>
@@ -85,7 +89,10 @@ class Login extends Component {
                                 style={customStyles}
                                 contentLabel="Example Modal"
                             >
-                                <FormLogin displayForm={this.props.displayForm}/>
+                                {this.props.displayForm.formValue === "login" &&
+                                <FormLogin displayForm={this.props.displayForm}/>}
+                                {this.props.displayForm.formValue === "register" &&
+                                <FormRegister displayForm={this.props.displayForm}/>}
                             </Modal>}
 
                         </div>
@@ -99,12 +106,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("state in login => =>", state)
     return {showModal: state.displayModal, displayForm: state.displayForm}
 };
 
 const mapActionsToProps = {
-    onShowModalLogin: modalActions.showModalLogin,
+    onShowModal: modalActions.showModal,
     onDisplayForm: modalActions.displayLoginForm
 };
 export default connect(mapStateToProps, mapActionsToProps)(Login);

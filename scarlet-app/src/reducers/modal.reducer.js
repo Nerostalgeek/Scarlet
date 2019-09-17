@@ -2,11 +2,11 @@ import {modalConstants} from '../constants';
 
 export function displayModal(state = {}, {type, open}) {
     switch (type) {
-        case modalConstants.SHOW_MODAL_LOGIN:
+        case modalConstants.SHOW_MODAL:
             return {
                 open
             };
-        case modalConstants.HIDE_MODAL_LOGIN:
+        case modalConstants.HIDE_MODAL:
             return {
                 open
             };
@@ -15,15 +15,15 @@ export function displayModal(state = {}, {type, open}) {
     }
 }
 
-export function displayForm(state = {}, {type, displayForm}) {
+export function displayForm(state = {}, {type, formValue}) {
     switch (type) {
         case modalConstants.DISPLAY_LOGIN_FORM:
             return {
-                displayForm
+                formValue
             };
         case modalConstants.DISPLAY_REGISTER_FORM:
             return {
-                displayForm
+                formValue
             };
         default:
             return state
