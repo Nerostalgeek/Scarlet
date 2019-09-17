@@ -2,28 +2,38 @@ import React, {Component} from "react";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import FormLogin from "../FormLogin/FormLogin.jsx";
+import FormRegister from "../FormRegister/FormRegister";
 import "./login.css";
 import {connect} from "react-redux";
 import {modalActions} from "../../actions/modal.actions"
+import Modal from "react-modal";
 
-const mapStateToProps = state => {
-    return {showModal: state.displayModal}
+Modal.setAppElement('#root');
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
 };
-
-const mapActionsToProps = {
-    onShowModalLogin: modalActions.showModalLogin,
-};
-
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.onShowModalLogin = this.onShowModalLogin.bind(this);
+        this.onShowModal = this.onShowModal.bind(this);
+        this.onDisplayForm = this.onDisplayForm.bind(this);
     }
 
-    onShowModalLogin() {
-        this.props.onShowModalLogin();
+    onShowModal() {
+        this.props.onShowModal();
+    }
+
+    onDisplayForm() {
+        this.props.onDisplayForm();
     }
 
 
@@ -66,12 +76,24 @@ class Login extends Component {
                             />
                             <button
                                 className="signin-item-button"
-                                onClick={this.onShowModalLogin}
+                                onClick={() => {
+                                    this.onShowModal();
+                                    this.onDisplayForm()
+                                }}
                             >
                                 Connexion/Inscription par email
                             </button>
-                            {this.props.showModal.payload &&
-                            <FormLogin showModal={this.props.showModal.payload}/>}
+                            {this.props.showModal.open &&
+                            <Modal
+                                isOpen={this.props.showModal.open}
+                                style={customStyles}
+                                contentLabel="Example Modal"
+                            >
+                                {this.props.displayForm.formValue === "login" &&
+                                <FormLogin displayForm={this.props.displayForm}/>}
+                                {this.props.displayForm.formValue === "register" &&
+                                <FormRegister displayForm={this.props.displayForm}/>}
+                            </Modal>}
 
                         </div>
                     </div>
@@ -83,4 +105,12 @@ class Login extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {showModal: state.displayModal, displayForm: state.displayForm}
+};
+
+const mapActionsToProps = {
+    onShowModal: modalActions.showModal,
+    onDisplayForm: modalActions.displayLoginForm
+};
 export default connect(mapStateToProps, mapActionsToProps)(Login);

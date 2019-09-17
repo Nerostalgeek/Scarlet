@@ -1,5 +1,5 @@
 import axios from "axios/index";
-const config = require("../../../config.default");
+const config = require("./config.default");
 
 const headers = {
   "Content-Type": "application/json"
