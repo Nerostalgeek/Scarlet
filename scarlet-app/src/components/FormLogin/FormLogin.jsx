@@ -1,20 +1,10 @@
 import React, {Component} from "react";
 import "./formLogin.css";
-import Modal from 'react-modal';
 import {connect} from "react-redux";
 import {modalActions} from "../../actions/modal.actions";
 
-Modal.setAppElement('#root');
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    }
-};
+
+
 const mapStateToProps = state => {
     return {hideModal: state.displayModal}
 };
@@ -35,11 +25,7 @@ class FormLogin extends Component {
 
     render() {
         return (
-            <Modal
-                isOpen={this.props.showModal.open}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
+
                 <div className="form">
                     <div className="form-toggle"/>
                     <div className="form-panel one">
@@ -99,7 +85,6 @@ class FormLogin extends Component {
                         </div>
                     </div>
                 </div>
-            </Modal>
         );
     }
 }

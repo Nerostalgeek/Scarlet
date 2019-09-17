@@ -5,25 +5,34 @@ import FormLogin from "../FormLogin/FormLogin.jsx";
 import "./login.css";
 import {connect} from "react-redux";
 import {modalActions} from "../../actions/modal.actions"
+import Modal from "react-modal";
 
-const mapStateToProps = state => {
-    return {showModal: state.displayModal}
+Modal.setAppElement('#root');
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
 };
-
-const mapActionsToProps = {
-    onShowModalLogin: modalActions.showModalLogin,
-};
-
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
         this.onShowModalLogin = this.onShowModalLogin.bind(this);
+        this.onDisplayLoginForm = this.onDisplayLoginForm.bind(this);
     }
 
     onShowModalLogin() {
         this.props.onShowModalLogin();
+    }
+
+    onDisplayLoginForm() {
+        this.props.onDisplayLoginForm()
     }
 
 
@@ -70,8 +79,14 @@ class Login extends Component {
                             >
                                 Connexion/Inscription par email
                             </button>
-                            {this.props.showModal.payload &&
-                            <FormLogin showModal={this.props.showModal.payload}/>}
+                            {this.props.showModal.open &&
+                            <Modal
+                                isOpen={this.props.showModal.open}
+                                style={customStyles}
+                                contentLabel="Example Modal"
+                            >
+                                <FormLogin displayForm={this.props.displayForm}/>
+                            </Modal>}
 
                         </div>
                     </div>
@@ -83,4 +98,13 @@ class Login extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    console.log("state in login => =>", state)
+    return {showModal: state.displayModal, displayForm: state.displayForm}
+};
+
+const mapActionsToProps = {
+    onShowModalLogin: modalActions.showModalLogin,
+    onDisplayForm: modalActions.displayLoginForm
+};
 export default connect(mapStateToProps, mapActionsToProps)(Login);
