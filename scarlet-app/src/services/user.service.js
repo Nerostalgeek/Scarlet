@@ -1,4 +1,7 @@
-import { authHeader } from '../_helpers';
+import {authHeader} from '../helpers';
+import axios from 'axios';
+
+const config = require('../helpers/config.default');
 
 export const userService = {
     login,
@@ -10,14 +13,21 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
-    const requestOptions = {
+function login(email, password) {
+    const options = {
+        url: `${config.apiUrl}/login`,
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        data: {
+            email: email,
+            password: password
+        }
     };
 
-    return fetch(`/users/authenticate`, requestOptions)
+    return axios(options)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -53,7 +63,7 @@ function getById(id) {
 function register(user) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(user)
     };
 
@@ -63,11 +73,12 @@ function register(user) {
 function update(user) {
     const requestOptions = {
         method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: {...authHeader(), 'Content-Type': 'application/json'},
         body: JSON.stringify(user)
     };
 
-    return fetch(`/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`/users/${user.id}`, requestOptions).then(handleResponse);
+    ;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -81,13 +92,14 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
+    console.log("CA CEST LE TEXT => => => ", response)
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                location.reload(true);
+                // location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;
