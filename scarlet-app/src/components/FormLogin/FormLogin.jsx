@@ -41,7 +41,6 @@ class FormLogin extends Component {
         const {email, password} = this.state;
         if (email && password) {
             this.props.login(email, password);
-            console.log('this props in HANDLE SUBMIT -> ', this.state)
         }
     }
 
