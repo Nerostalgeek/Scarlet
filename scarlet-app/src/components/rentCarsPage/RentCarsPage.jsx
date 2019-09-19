@@ -4,8 +4,8 @@ import citadine from "../../img/assets/rent-page/cars-icons/citadine.png";
 import spacieuse from "../../img/assets/rent-page/cars-icons/spacieuse.png";
 import utilitaire from "../../img/assets/rent-page/cars-icons/utilitaire.png";
 
-import "./rentCarsPage.css";
-class rentCarsPage extends Component {
+import "./RentCarsPage.css";
+class RentCarsPage extends Component {
   state = {};
   render() {
     return (
@@ -194,4 +194,4 @@ class rentCarsPage extends Component {
   }
 }
 
-export default rentCarsPage;
+export default RentCarsPage;
