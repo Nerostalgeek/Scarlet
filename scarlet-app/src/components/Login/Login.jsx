@@ -94,13 +94,11 @@ class Login extends Component {
                                 {this.props.displayForm.formValue === "register" &&
                                 <FormRegister displayForm={this.props.displayForm}/>}
                             </Modal>}
-
                         </div>
                     </div>
                 </div>
                 <div className="signup-image signup-section"/>
             </div>
-
         );
     }
 }

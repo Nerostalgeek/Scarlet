@@ -20,8 +20,9 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 app.use(urlencodedParser);
 app.use(bodyParser.json());
-app.use(cors());
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
+app.use(cors());
+
 
 // Setup MongoDB connection
 mongoose.connect(config.mongodbUrl, {
