@@ -56,7 +56,7 @@ User.methods.comparePassword = function (plaintext, callback) {
 };
 
 User.methods.getToken = function () {
-    return jwt.encode(this, config.secret);
+    return jwt.encode(config.secret);
 };
 
 module.exports = mongoose.model("User", User);

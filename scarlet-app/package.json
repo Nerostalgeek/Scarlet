@@ -50,10 +50,12 @@
     "react-dom": "^16.8.6",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.5",
+    "react-modal": "^3.10.1",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-slick": "^0.25.2",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
@@ -69,7 +71,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "HTTPS=true node scripts/start.js",
+    "start": "node scripts/start.js",
     "startWindows": "set HTTPS=true&&node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
@@ -138,5 +140,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }

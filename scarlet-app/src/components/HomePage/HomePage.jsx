@@ -1,5 +1,5 @@
 import React from "react";
-import API from "../../utils/API.js";
+import API from "../../helpers/API.js";
 import landingIllustration from "../../img/assets/landing/landing-car-illustration.svg";
 import Carousel from "../Carousel/Carousel";
 import "./HomePage.css";
