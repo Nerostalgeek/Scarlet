@@ -38,10 +38,6 @@ class FormRegister extends Component {
             },
             ...confirmPassword, [name]: value,
         });
-        if (user.password === confirmPassword) {
-            //this.setState({passwordMatch: true})
-        }
-
     }
 
 
