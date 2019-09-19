@@ -1,5 +1,4 @@
 import React from "react";
-import API from "../../helpers/API.js";
 import landingIllustration from "../../img/assets/landing/landing-car-illustration.svg";
 import Carousel from "../Carousel/Carousel";
 import "./HomePage.css";
@@ -8,8 +7,8 @@ const HomePage = () => {
   return (
     <div className="l-homepage">
 
-      <div class="homepage-landing">
-        <div class="homepage-landing-text">
+      <div className="homepage-landing">
+        <div className="homepage-landing-text">
           <h2 id="homepage-landing-title">
             Lorem ipsum dolor sit amet consectetur.
           </h2>
@@ -18,18 +17,18 @@ const HomePage = () => {
             harum nulla ratione eius eveniet laborum tempora sunt perspiciatis
             rem id!
           </p>
-          <button class="landing-cta">Explorer les voitures</button>
-          <button class="landing-cta">Comment ça marche ?</button>
+          <button className="landing-cta">Explorer les voitures</button>
+          <button className="landing-cta">Comment ça marche ?</button>
         </div>
-        <div class="homepage-landing-image">
+        <div className="homepage-landing-image">
           <img src={landingIllustration} alt="" />
         </div>
       </div>
 
       <div className="homepage-howto">
-        <h2 class="homepage-section-title">Comment ça marche ?</h2>
+        <h2 className="homepage-section-title">Comment ça marche ?</h2>
         <div className="howto-row">
-          <div class="howto-image">
+          <div className="howto-image">
             <img src={landingIllustration} alt="" />
           </div>
           <div className="howto-text">
@@ -52,12 +51,12 @@ const HomePage = () => {
               ipsa cupiditate totam temporibus! Aspernatur, sed libero.
             </p>
           </div>
-          <div class="howto-image">
+          <div className="howto-image">
             <img src={landingIllustration} alt="" />
           </div>
         </div>
         <div className="howto-row">
-          <div class="howto-image">
+          <div className="howto-image">
             <img src={landingIllustration} alt="" />
           </div>
           <div className="howto-text">

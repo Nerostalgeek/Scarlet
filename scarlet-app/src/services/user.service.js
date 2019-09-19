@@ -1,7 +1,6 @@
 import {authHeader} from '../helpers';
-import axios from 'axios';
 
-const config = require('../helpers/config.default');
+const config = require('../../../config.default');
 
 export const userService = {
     login,
