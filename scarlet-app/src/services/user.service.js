@@ -14,20 +14,14 @@ export const userService = {
 };
 
 function login(email, password) {
-    const options = {
-        url: `${config.apiUrl}/login`,
+    const requestOptions = {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        data: {
-            email: email,
-            password: password
-        }
+        headers: {'Content-Type': "application/json; charset=utf-8"},
+        body: JSON.stringify({email, password}),
+        mode: 'cors'
     };
 
-    return axios(options)
+    return fetch(`${config.apiUrl}/users/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -67,7 +61,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -92,9 +86,12 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
-    console.log("CA CEST LE TEXT => => => ", response)
     return response.text().then(text => {
+        console.log("CA CEST LE TEXT => => => ", text);
+
         const data = text && JSON.parse(text);
+        console.log("CA CEST LE DATA => => => ", data);
+
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api

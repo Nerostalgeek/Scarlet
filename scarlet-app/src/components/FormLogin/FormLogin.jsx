@@ -12,8 +12,8 @@ class FormLogin extends Component {
         this.onDisplayRegisterForm = this.onDisplayRegisterForm.bind(this);
 
         this.state = {
-            email: '',
-            password: '',
+            email: "",
+            password: "",
             submitted: false
         };
 
@@ -41,6 +41,7 @@ class FormLogin extends Component {
         const {email, password} = this.state;
         if (email && password) {
             this.props.login(email, password);
+            console.log('this props in HANDLE SUBMIT -> ', this.state)
         }
     }
 

@@ -15,7 +15,7 @@ function login(email, password) {
     return dispatch => {
         dispatch(request({ email }));
 
-        console.log('calling user service');
+        console.log('calling user service => =>');
 
         userService.login(email, password)
             .then(
