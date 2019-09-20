@@ -41,23 +41,6 @@ const Footer = props => {
             <ul>{footerLinks}</ul>
           </div>
         </div>
-        <div className="footer-part-three footer-part">
-          <div className="footer-part-three-contact">
-            <h4>Contactez-nous !</h4>
-            <div className="contact-item">
-              <img src={mailLogo} alt="Email" />
-              <p>sample@scarlet.fr</p>
-            </div>
-            <div className="contact-item">
-              <img src={phoneLogo} alt="Email" />
-              <p>01 02 03 04 05 06</p>
-            </div>
-            <div className="contact-item">
-              <img src={addressLogo} alt="Email" />
-              <p>12, Allée de l'example</p>
-            </div>
-          </div>
-        </div>
         <div className="footer-part-four footer-part">
           <h4>Inscrivez vous à notre newsletter</h4>
           <input placeholder="Entrer votre E-Mail" type="text" />

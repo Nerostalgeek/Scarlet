@@ -20,9 +20,9 @@ const NavBar = props => {
 
   return (
     <div className="l-NavBar">
-      <div className="NavBar-logo-container">
+      {/* <div className="NavBar-logo-container">
         <img src={logo} alt="logo" />
-      </div>
+      </div> */}
       <div className="NavBar-links-container">{navBarLinks}</div>
     </div>
   );
