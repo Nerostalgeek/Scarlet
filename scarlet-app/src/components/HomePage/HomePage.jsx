@@ -6,7 +6,6 @@ import "./HomePage.css";
 const HomePage = () => {
   return (
     <div className="l-homepage">
-
       <div className="homepage-landing">
         <div className="homepage-landing-text">
           <h2 id="homepage-landing-title">
@@ -22,52 +21,6 @@ const HomePage = () => {
         </div>
         <div className="homepage-landing-image">
           <img src={landingIllustration} alt="" />
-        </div>
-      </div>
-
-      <div className="homepage-howto">
-        <h2 className="homepage-section-title">Comment ça marche ?</h2>
-        <div className="howto-row">
-          <div className="howto-image">
-            <img src={landingIllustration} alt="" />
-          </div>
-          <div className="howto-text">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In odio
-              quam deleniti similique dignissimos perspiciatis ipsum, laboriosam
-              consequatur veritatis voluptatum. Ullam exercitationem cum minima
-              ipsa! Illo fugit repellendus magnam tempore corporis, sit quidem
-              ipsa cupiditate totam temporibus! Aspernatur, sed libero.
-            </p>
-          </div>
-        </div>
-        <div className="howto-row">
-          <div className="howto-text">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In odio
-              quam deleniti similique dignissimos perspiciatis ipsum, laboriosam
-              consequatur veritatis voluptatum. Ullam exercitationem cum minima
-              ipsa! Illo fugit repellendus magnam tempore corporis, sit quidem
-              ipsa cupiditate totam temporibus! Aspernatur, sed libero.
-            </p>
-          </div>
-          <div className="howto-image">
-            <img src={landingIllustration} alt="" />
-          </div>
-        </div>
-        <div className="howto-row">
-          <div className="howto-image">
-            <img src={landingIllustration} alt="" />
-          </div>
-          <div className="howto-text">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In odio
-              quam deleniti similique dignissimos perspiciatis ipsum, laboriosam
-              consequatur veritatis voluptatum. Ullam exercitationem cum minima
-              ipsa! Illo fugit repellendus magnam tempore corporis, sit quidem
-              ipsa cupiditate totam temporibus! Aspernatur, sed libero.
-            </p>
-          </div>
         </div>
       </div>
 

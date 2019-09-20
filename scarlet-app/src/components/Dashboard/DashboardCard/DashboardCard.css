@@ -1,0 +1,26 @@
+.dashboard-card {
+  padding: 30px 75px;
+  border: solid 1px lightgray;
+  text-align: center;
+  position: relative;
+  font-size: 25px;
+}
+
+.dashboard-card-number {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  background: #efefef;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%);
+  border: solid 1px lightgray;
+  border-radius: 15px;
+  padding: 10px;
+}
