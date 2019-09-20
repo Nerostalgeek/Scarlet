@@ -25,6 +25,10 @@ export function displayForm(state = {}, { type, formValue }) {
       return {
         formValue
       };
+    case modalConstants.CLOSE_FORM:
+      return {
+        formValue
+      };
     default:
       return state;
   }

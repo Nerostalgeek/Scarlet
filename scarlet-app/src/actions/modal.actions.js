@@ -4,7 +4,8 @@ export const modalActions = {
   showModal,
   hideModal,
   displayLoginForm,
-  displayRegisterForm
+  displayRegisterForm,
+  closeForm
 };
 
 function showModal() {
@@ -32,5 +33,12 @@ function displayRegisterForm() {
   return {
     type: modalConstants.DISPLAY_REGISTER_FORM,
     formValue: "register"
+  };
+}
+
+function closeForm() {
+  return {
+    type: modalConstants.CLOSE_FORM,
+    formValue: null
   };
 }

@@ -42,6 +42,8 @@ class Login extends Component {
   };
 
   render() {
+    const {loggingIn} = this.props;
+
     return (
       <div className="l-signup">
         <div className="signup-form signup-section">
