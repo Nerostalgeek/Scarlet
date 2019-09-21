@@ -3,7 +3,6 @@ import "./formLogin.css";
 import {connect} from "react-redux";
 import {modalActions, userActions} from "../../actions";
 import closeIcon from "../../img/icons/close.png";
-import {history} from "../../helpers";
 
 class FormLogin extends Component {
     constructor(props) {
@@ -141,7 +140,7 @@ const mapStateToProps = state => {
         hideModal: state.displayModal,
         displayRegisterForm: state.displayRegisterForm,
         closeForm: state.closeForm,
-        loggingIn: state.authentication
+        loggingIn: state.authentication,
     };
 };
 const mapActionsToProps = {
@@ -149,7 +148,7 @@ const mapActionsToProps = {
     onDisplayRegisterForm: modalActions.displayRegisterForm,
     onCloseLoginForm: modalActions.closeForm,
     login: userActions.login,
-    logout: userActions.logout
+    logout: userActions.logout,
 };
 export default connect(
     mapStateToProps,

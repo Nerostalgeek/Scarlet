@@ -1,7 +1,8 @@
+import { BehaviorSubject } from 'rxjs';
 import { authHeader } from "../helpers";
 
 const config = require("../../../config.default");
-
+const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
 export const userService = {
   login,
   logout,
@@ -9,7 +10,9 @@ export const userService = {
   getAll,
   getById,
   update,
-  delete: _delete
+  delete: _delete,
+  currentUser: currentUserSubject.asObservable(),
+  get currentUserValue () { return currentUserSubject.value }
 };
 
 function login(email, password) {
@@ -44,14 +47,16 @@ function getAll() {
   return fetch(`/users`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
+async function getById(id) {
   const requestOptions = {
     method: "GET",
     headers: authHeader()
   };
 
-  return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+  return await fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
+
+
 
 function register(user) {
   const requestOptions = {
