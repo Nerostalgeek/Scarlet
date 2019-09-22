@@ -37,23 +37,18 @@ user.get("/", (req, res) => {
 });
 
 // Route for a specific user
-user.get("/:id", checkToken, (req, res) => {
-    //verify the JWT token generated for the user
-    jwt.verify(req.token, config.jwtSecret, (err, authorizedData) => {
-        if (err) {
-            //If error send Forbidden (403)
-            console.log('ERROR: Could not connect to the protected route');
-            res.sendStatus(403);
-        } else {
-            let id = req.params.id;
-            User.findById(id, () => {
-                res.json({
-                    authorizedData
-                });
-            });
-            console.log('SUCCESS: Connected to protected route');
-        }
-    })
+user.get("/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    let id = req.params.id;
+    User.findById(id, (err, user) => {
+        res.json({
+            firstName: user.firstName,
+            lastName: user.lastName,
+        });
+    });
+    console.log('SUCCESS: Connected to protected route');
+
+
 });
 
 
