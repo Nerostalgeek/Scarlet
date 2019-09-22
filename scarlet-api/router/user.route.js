@@ -27,82 +27,82 @@ user = express.Router();
 
 // Route for ALL USERS
 user.get("/", (req, res) => {
-    User.find(function (err, listUsers) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(listUsers);
-        }
-    });
+  User.find(function(err, listUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(listUsers);
+    }
+  });
 });
 
 // Route for a specific user
-user.get("/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
-
+user.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
     let id = req.params.id;
     User.findById(id, (err, user) => {
-        if (!err && user) {
-            res.json({
-                firstName: user.firstName,
-                lastName: user.lastName,
-            });
-        }
+      if (!err && user) {
+        res.json({
+          firstName: user.firstName,
+          lastName: user.lastName
+        });
+      }
     });
-    console.log('SUCCESS: Connected to protected route');
+    console.log("SUCCESS: Connected to protected route");
+  }
+);
 
-
-});
-
-
-user.route("/register").post(async function (req, res) {
-    try {
-        const user = new User(req.body);
-        const result = await user.save();
-        res.send(result);
-    } catch (err) {
-        res.status(500).send(err);
-    }
+user.route("/register").post(async function(req, res) {
+  try {
+    const user = new User(req.body);
+    const result = await user.save();
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 user.route("/login").post((req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    User.findOne({email})
-        .then(user => {
-            bcrypt
-                .compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        const payload = {
-                            id: user._id,
-                            lastName: user.lastName,
-                            firstName: user.firstName
-                        };
-                        jwt.sign(payload, jwtSecret, {expiresIn: 36000}, (err, token) => {
-                            if (err)
-                                res.status(500).json({
-                                    error: "Error signing token",
-                                    raw: err
-                                });
-                            res.json({
-                                success: true,
-                                token: `Bearer ${token}`,
-                                id: user._id
-                            });
-                        });
-                    } else {
-                        throw new Error("Invalid credentials");
-                    }
-                })
-                .catch(err => {
-                    err = "Email or password is incorrect";
-                    return res.status(400).json(err);
+  const email = req.body.email;
+  const password = req.body.password;
+  User.findOne({ email })
+    .then(user => {
+      bcrypt
+        .compare(password, user.password)
+        .then(isMatch => {
+          if (isMatch) {
+            const payload = {
+              id: user._id,
+              lastName: user.lastName,
+              firstName: user.firstName
+            };
+            jwt.sign(payload, jwtSecret, { expiresIn: 36000 }, (err, token) => {
+              if (err)
+                res.status(500).json({
+                  error: "Error signing token",
+                  raw: err
                 });
+              res.json({
+                success: true,
+                token: `Bearer ${token}`,
+                id: user._id
+              });
+            });
+          } else {
+            throw new Error("Invalid credentials");
+          }
         })
-        .catch(errors => {
-            errors.email = "No Account Found";
-            return res.status(404).json(errors);
+        .catch(err => {
+          err = "Email or password is incorrect";
+          return res.status(400).json(err);
         });
+    })
+    .catch(errors => {
+      errors.email = "No Account Found";
+      return res.status(404).json(errors);
+    });
 });
 
 module.exports = user;
