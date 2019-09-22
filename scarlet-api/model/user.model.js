@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const passport = require('passport');
 const validator = require("validator");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
