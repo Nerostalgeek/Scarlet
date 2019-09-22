@@ -24,7 +24,6 @@ app.use(ExpressAPILogMiddleware(logger, {request: true}));
 app.use(cors());
 //initializes the passport configuration.
 app.use(passport.initialize());
-app.use(passport.session());
 require("./config/passport-config")(passport);
 
 //imports our configuration file which holds our verification callbacks and things like the secret for signing.
@@ -46,7 +45,13 @@ app.get("/", function (req, res) {
 
 app.use("/users", userRoute);
 app.use("/cars", carRoute);
-
+app.use(`/users/:id`,
+    passport.authenticate('jwt', {session: false}),
+    function (req, res) {
+        const {user} = req;
+        console.log("coucou je suis" + user);
+        res.status(200).send({user});
+    });
 app.listen(config.settings.port, config.settings.host, e => {
     if (e) {
         throw new Error("Internal Server Error");

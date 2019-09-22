@@ -5,9 +5,25 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const config = require("../../config.default");
 
-const secret = config.secretPassport;
+const jwtSecret = config.jwtSecret;
 
 user = express.Router();
+
+//Check to make sure header is not undefined, if so, return Forbidden (403)
+const checkToken = (req, res, next) => {
+    const header = req.headers['authorization'];
+
+    if (typeof header !== 'undefined') {
+        const bearer = header.split(' ');
+        const token = bearer[1];
+
+        req.token = token;
+        next();
+    } else {
+        //If header is undefined return Forbidden (403)
+        res.sendStatus(403)
+    }
+};
 
 // Route for ALL USERS
 user.get("/", (req, res) => {
@@ -21,12 +37,25 @@ user.get("/", (req, res) => {
 });
 
 // Route for a specific user
-user.get("/:id", (req, res) => {
-    let id = req.params.id;
-    User.findById(id, (err, user) => {
-        res.json(user);
-    });
+user.get("/:id", checkToken, (req, res) => {
+    //verify the JWT token generated for the user
+    jwt.verify(req.token, config.jwtSecret, (err, authorizedData) => {
+        if (err) {
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the protected route');
+            res.sendStatus(403);
+        } else {
+            let id = req.params.id;
+            User.findById(id, () => {
+                res.json({
+                    authorizedData
+                });
+            });
+            console.log('SUCCESS: Connected to protected route');
+        }
+    })
 });
+
 
 user.route("/register").post(async function (req, res) {
     try {
@@ -52,7 +81,7 @@ user.route("/login").post(async (req, res) => {
                             lastName: user.lastName,
                             firstName: user.firstName
                         };
-                        jwt.sign(payload, secret, {expiresIn: 36000}, (err, token) => {
+                        jwt.sign(payload, jwtSecret, {expiresIn: 36000}, (err, token) => {
                             if (err)
                                 res.status(500).json({
                                     error: "Error signing token",
@@ -77,33 +106,6 @@ user.route("/login").post(async (req, res) => {
             errors.email = "No Account Found";
             return res.status(404).json(errors);
         });
-});
-
-//get current user from token
-user.route("users/me", function (req, res, next) {  // check header or url parameters or post parameters for token
-    const token = req.body.token || req.query.token;
-    if (!token) {
-        return res.status(401).json({message: "Must pass token"});
-    }
-    // Check token that was passed by decoding token using secret
-    jwt.verify(token, config.secretPassport, function (err, user) {
-        if (err) throw err;
-        //return user using the id from w/in JWTToken
-        User.findById({
-            "id": user._id
-        }, function (err, user) {
-            if (err) throw err;
-            user = utils.getCleanUser(user);
-            //Note: you can renew token by creating new token(i.e.
-            //refresh it)w/ new expiration time at this point, but I’m
-            //passing the old token back.
-            let token = utils.generateToken(user);
-            res.json({
-                user, //<--- return both user and token
-                token: token
-            });
-        });
-    });
 });
 
 module.exports = user;

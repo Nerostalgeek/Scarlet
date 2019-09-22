@@ -7,7 +7,7 @@ const { Strategy, ExtractJwt } = require("passport-jwt");
 // const Strategy = pp-jwt.Strategy;
 // const ExtractJwt = pp-jwt.ExtractJwt;
 const config = require("../../config.default");
-const secret = config.secretPassport;
+const secret = config.passportSecret;
 const mongoose = require("mongoose");
 const User = require("../model/user.model");
 const opts = {
@@ -23,7 +23,9 @@ module.exports = passport => {
         .then(user => {
           if (user) {
             return done(null, {
-              id: user.id
+              id: user.id,
+              lastName: user.lastName,
+              email: user.email
             });
           }
           return done(null, false);
