@@ -14,8 +14,9 @@ class Dashboard extends Component {
     state = {};
 
     componentDidMount() {
+        this.props.onGetUser(this.props.getUser.id)
         console.log("cucu props", this.props)
-        this.props.onGetUser(this.props.getUser.id);
+
     }
 
     render() {
@@ -39,13 +40,14 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-        getUser: state.authentication.user
+        getUser: state.authentication.user,
+        user: state.users.items
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return {
         onGetUser: (id) => {
-            dispatch(userActions.getById(id))
+            dispatch(userActions.getUser(id))
         }
     }
 };

@@ -8,7 +8,7 @@ export const userActions = {
     logout,
     register,
     getAll,
-    getById,
+    getUser,
     delete: _delete
 };
 
@@ -100,15 +100,18 @@ function getAll() {
     }
 }
 
-function getById(id) {
+function getUser(id) {
     return dispatch => {
         dispatch(request());
-
         userService
-            .getById(id)
+            .getUser(id)
             .then(
                 user => dispatch(success(user)),
-                error => dispatch(failure(error))
+                error => dispatch(failure(error)).then(() => {
+                        localStorage.removeItem('user');
+                        history.push("/login");
+                    }
+                )
             );
     };
 

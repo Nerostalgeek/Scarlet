@@ -6,7 +6,7 @@ export const userService = {
     logout,
     register,
     getAll,
-    getById,
+    getUser,
     update,
     delete: _delete,
 };
@@ -47,7 +47,7 @@ function getAll() {
     return fetch(`/users`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
+function getUser(id) {
     const requestOptions = {
         method: "GET",
         headers: authHeader()

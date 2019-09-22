@@ -10,20 +10,20 @@ const jwtSecret = config.jwtSecret;
 user = express.Router();
 
 //Check to make sure header is not undefined, if so, return Forbidden (403)
-const checkToken = (req, res, next) => {
-    const header = req.headers['authorization'];
-
-    if (typeof header !== 'undefined') {
-        const bearer = header.split(' ');
-        const token = bearer[1];
-
-        req.token = token;
-        next();
-    } else {
-        //If header is undefined return Forbidden (403)
-        res.sendStatus(403)
-    }
-};
+// const checkToken = (req, res, next) => {
+//     const header = req.headers['authorization'];
+//
+//     if (typeof header !== 'undefined') {
+//         const bearer = header.split(' ');
+//         const token = bearer[1];
+//
+//         req.token = token;
+//         next();
+//     } else {
+//         //If header is undefined return Forbidden (403)
+//         res.sendStatus(403)
+//     }
+// };
 
 // Route for ALL USERS
 user.get("/", (req, res) => {
@@ -41,10 +41,12 @@ user.get("/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
 
     let id = req.params.id;
     User.findById(id, (err, user) => {
-        res.json({
-            firstName: user.firstName,
-            lastName: user.lastName,
-        });
+        if (!err && user) {
+            res.json({
+                firstName: user.firstName,
+                lastName: user.lastName,
+            });
+        }
     });
     console.log('SUCCESS: Connected to protected route');
 
@@ -62,9 +64,9 @@ user.route("/register").post(async function (req, res) {
     }
 });
 
-user.route("/login").post( (req, res) => {
-    const email =  req.body.email;
-    const password =  req.body.password;
+user.route("/login").post((req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
     User.findOne({email})
         .then(user => {
             bcrypt
