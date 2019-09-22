@@ -1,8 +1,6 @@
-import {BehaviorSubject} from 'rxjs';
 import {authHeader} from "../helpers";
 
 const config = require("../../../config.default");
-const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
 export const userService = {
     login,
     logout,
@@ -11,18 +9,18 @@ export const userService = {
     getById,
     update,
     delete: _delete,
-    currentUser: currentUserSubject.asObservable(),
-    get currentUserValue() {
-        return currentUserSubject.value
-    }
 };
 
 function login(email, password) {
     const requestOptions = {
         method: "POST",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
+        headers: {
+            "Content-Type": "application/json; charset=utf-8", "Access-Control-Allow-Origin": "http://localhost:6000",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers":
+                "Origin, X-Requested-With, Content-Type, Accept",
+        },
         body: JSON.stringify({email, password}),
-        mode: "cors"
     };
 
     return fetch(`${config.apiUrl}/users/login`, requestOptions)

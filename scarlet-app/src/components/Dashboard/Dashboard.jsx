@@ -3,7 +3,6 @@ import "./Dashboard.css";
 import {connect} from "react-redux";
 import {userActions} from "../../actions";
 
-import {userService} from '../../services';
 
 import DashboardCard from "./DashboardCard/DashboardCard";
 
@@ -16,7 +15,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         console.log("cucu props", this.props)
-        this.props.onGetUser(this.props.id);
+        this.props.onGetUser(this.props.getUser.id);
     }
 
     render() {

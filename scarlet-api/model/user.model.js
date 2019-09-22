@@ -56,10 +56,9 @@ User.pre("save", function(next) {
 User.methods.comparePassword = function(plaintext, callback) {
   return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
-//
-// User.methods.getToken = function() {
-//     console.log("POUET POUET C'EST MOI !")
-//   return jwt.encode(config.secret);
-// };
+
+User.methods.getToken = function() {
+  return jwt.encode(config.secret);
+};
 
 module.exports = mongoose.model("User", User);

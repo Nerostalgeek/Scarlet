@@ -62,9 +62,9 @@ user.route("/register").post(async function (req, res) {
     }
 });
 
-user.route("/login").post(async (req, res) => {
-    const email = await req.body.email;
-    const password = await req.body.password;
+user.route("/login").post( (req, res) => {
+    const email =  req.body.email;
+    const password =  req.body.password;
     User.findOne({email})
         .then(user => {
             bcrypt

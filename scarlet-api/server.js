@@ -12,6 +12,8 @@ const carRoute = require("./router/car.route");
 
 
 const app = express();
+app.use(cors());
+
 const logger = log({console: true, file: false, label: config.settings.name});
 
 //Body Parser
@@ -21,7 +23,6 @@ const urlencodedParser = bodyParser.urlencoded({
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 app.use(ExpressAPILogMiddleware(logger, {request: true}));
-app.use(cors());
 //initializes the passport configuration.
 app.use(passport.initialize());
 require("./config/passport-config")(passport);
