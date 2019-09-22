@@ -23,9 +23,7 @@ module.exports = passport => {
         .then(user => {
           if (user) {
             return done(null, {
-              id: user.id,
-              lastName: user.lastName,
-              email: user.email
+              id: user.id
             });
           }
           return done(null, false);

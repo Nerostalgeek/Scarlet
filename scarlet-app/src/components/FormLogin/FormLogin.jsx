@@ -5,39 +5,33 @@ import {modalActions, userActions} from "../../actions";
 import closeIcon from "../../img/icons/close.png";
 
 class FormLogin extends Component {
-    constructor(props) {
-        super(props);
-        this.onHideModal = this.onHideModal.bind(this);
-        this.onDisplayRegisterForm = this.onDisplayRegisterForm.bind(this);
-        this.onCloseLoginForm = this.onCloseLoginForm.bind(this);
 
-        this.state = {
+        state = {
             email: "",
             password: "",
             submitted: false
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
-    onHideModal() {
+
+
+    onHideModal = () => {
         this.props.onHideModal();
-    }
+    };
 
-    onDisplayRegisterForm() {
+    onDisplayRegisterForm = () => {
         this.props.onDisplayRegisterForm();
-    }
+    };
 
-    onCloseLoginForm() {
+    onCloseLoginForm = () => {
         this.props.onCloseLoginForm();
-    }
+    };
 
-    handleChange(e) {
+    handleChange = e => {
         const {name, value} = e.target;
         this.setState({[name]: value});
-    }
+    };
 
-    handleSubmit(e) {
+    handleSubmit = e => {
         e.preventDefault();
 
         this.setState({submitted: true});
@@ -45,7 +39,7 @@ class FormLogin extends Component {
         if (email && password) {
             this.props.login(email, password);
         }
-    }
+    };
 
     render() {
         const {loggingIn} = this.props;

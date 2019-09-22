@@ -14,6 +14,7 @@ export function users(state = {}, action) {
             return {
                 error: action.error
             };
+
         case userConstants.GETUSER_REQUEST:
             return {
                 loading: true

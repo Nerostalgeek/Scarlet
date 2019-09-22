@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./Dashboard.css";
 import {connect} from "react-redux";
-import {modalActions, userActions} from "../../actions";
+import {userActions} from "../../actions";
 
 import {userService} from '../../services';
 
@@ -10,22 +10,13 @@ import DashboardCard from "./DashboardCard/DashboardCard";
 import userAvatar from "../../img/assets/dashboard/user-avatar.png";
 
 class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.onGetUser = this.onGetUser.bind(this);
-        this.state = {
-            currentUser: userService.currentUserValue,
-            userFromApi: null
-        };
-    }
 
-    onGetUser() {
-        this.props.onGetUser();
-    }
+
+    state = {};
 
     componentDidMount() {
-        const {currentUser} = this.state;
-        this.props.onGetUser(currentUser.id);
+        console.log("cucu props", this.props)
+        this.props.onGetUser(this.props.id);
     }
 
     render() {
@@ -49,7 +40,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-        getUser: state.getById
+        getUser: state.authentication.user
     };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import { Router, Route} from "react-router-dom";
+import {Router, Route} from "react-router-dom";
 import {connect} from "react-redux";
-import { alertActions } from '../../actions';
-import { PrivateRoute } from '../PrivateRoute';
+import {alertActions} from '../../actions';
+import {PrivateRoute} from '../PrivateRoute';
 import NavBar from "../NavBar/NavBar";
 import HomePage from "../HomePage/HomePage";
 import {history} from '../../helpers';
-import RentCarsPage from "../rentCarsPage/RentCarsPage";
+import RentCarsPage from "../RentCarsPage/RentCarsPage";
 import Dashboard from "../Dashboard/Dashboard";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
@@ -14,8 +14,8 @@ import Login from "../Login/Login";
 import "./App.css";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
         history.listen((location, action) => {
             // clear alert on location change
             this.props.clearAlerts();
