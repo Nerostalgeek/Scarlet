@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./FormRegister.css";
 import { connect } from "react-redux";
-import { modalActions, userActions } from "../../actions";
-import closeIcon from "../../img/icons/close.png";
+import { modalActions, userActions } from "../../../actions";
+import closeIcon from "../../../img/icons/close.png";
 
 class FormRegister extends Component {
   state = {
