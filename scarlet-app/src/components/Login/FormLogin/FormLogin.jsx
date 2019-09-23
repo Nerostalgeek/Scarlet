@@ -1,33 +1,36 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./formLogin.css";
-import { connect } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { modalActions, userActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
 
-const FormLogin = props => {
+
+
+
+const FormLogin = () => {
   const [enteredEmail, setEmail] = useState("");
   const [enteredPassword, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const onHideModal = () => {
-    this.props.onHideModal();
-  };
+  const dispatch = useDispatch();
 
-  const onDisplayRegisterForm = () => {
-    this.props.onDisplayRegisterForm();
-  };
+  const displayForm = useSelector(state => state.displayForm);
+  const hideModal = useSelector(state => state.displayModal);
+
 
   const submitHandler = event => {
     event.preventDefault();
 
     setSubmitted(true);
-    const { email, password } = this.state;
+    const  email  = enteredEmail;
+    const  password  = enteredPassword;
     if (email && password) {
-      this.props.login(email, password);
+      dispatch(userActions.login(email, password));
+      dispatch(modalActions.hideModal());
     }
   };
 
-  const { loggingIn } = this.props;
+  // const { loggingIn } = this.props;
 
   return (
     <div className="form">
@@ -97,7 +100,7 @@ const FormLogin = props => {
           <button
             className="form-close-button"
             type="button"
-            onClick={() => onHideModal()}
+            onClick={() => dispatch(modalActions.hideModal())}
           >
             <img src={closeIcon} alt="" />
           </button>
@@ -105,7 +108,7 @@ const FormLogin = props => {
         <button
           className="form-register-button"
           type="button"
-          onClick={() => onDisplayRegisterForm()}
+          onClick={() => dispatch(modalActions.displayRegisterForm())}
         >
           Créer un compte
         </button>
@@ -114,20 +117,4 @@ const FormLogin = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    hideModal: state.displayModal,
-    displayRegisterForm: state.displayRegisterForm,
-    loggingIn: state.authentication
-  };
-};
-const mapActionsToProps = {
-  onHideModal: modalActions.hideModal,
-  onDisplayRegisterForm: modalActions.displayRegisterForm,
-  login: userActions.login,
-  logout: userActions.logout
-};
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(FormLogin);
+export default FormLogin;
