@@ -9,9 +9,10 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
-      <ModalProvider>
-    <App />
-      </ModalProvider>,
+    <ModalProvider>
+      <App />
+    </ModalProvider>
+    ,
   </Provider>,
   document.getElementById("root")
 );

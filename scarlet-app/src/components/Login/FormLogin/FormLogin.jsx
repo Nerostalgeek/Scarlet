@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./formLogin.css";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalActions, userActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
-
-
-
 
 const FormLogin = () => {
   const [enteredEmail, setEmail] = useState("");
@@ -17,13 +14,12 @@ const FormLogin = () => {
   const displayForm = useSelector(state => state.displayForm);
   const hideModal = useSelector(state => state.displayModal);
 
-
   const submitHandler = event => {
     event.preventDefault();
 
     setSubmitted(true);
-    const  email  = enteredEmail;
-    const  password  = enteredPassword;
+    const email = enteredEmail;
+    const password = enteredPassword;
     if (email && password) {
       dispatch(userActions.login(email, password));
       dispatch(modalActions.hideModal());
