@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { ModalProvider } from "react-modal-hook";
 import { store } from "./helpers";
 
 import App from "./components/App/App.jsx";
@@ -8,7 +9,9 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
+      <ModalProvider>
     <App />
+      </ModalProvider>,
   </Provider>,
   document.getElementById("root")
 );

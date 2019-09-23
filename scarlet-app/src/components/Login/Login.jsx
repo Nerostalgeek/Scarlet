@@ -8,11 +8,11 @@ import FormRegister from "./FormRegister/FormRegister";
 import "./login.css";
 import { modalActions } from "../../actions/modal.actions";
 import Modal from "react-modal";
+import { useModal } from "react-modal-hook";
 import googleIcon from "../../img/icons/google-icon.png";
 import mailIconWhite from "../../img/icons/mail-white.png";
 import { userActions } from "../../actions";
 
-Modal.setAppElement("#root");
 const customStyles = {
   content: {
     top: "50%",
@@ -26,21 +26,24 @@ const customStyles = {
 
 const Login = () => {
   const isModalOpened = useSelector(state => state.displayModal);
+  console.log('IS MODALE OPENED => => =>', isModalOpened);
   const displayForm = useSelector(state => state.displayForm);
-  const user = useSelector(state => state.authentication.user);
   const dispatch = useDispatch();
+  const [showModal, hideModal] = useModal(() => (
 
-  useEffect(() => {
-    dispatch(userActions.getUser(user.id));
-  }, [dispatch, user]);
-
-  const onShowModal = () => {
-    dispatch(modalActions.showModal());
-  };
-
-  const onDisplayForm = () => {
-    dispatch(modalActions.displayLoginForm());
-  };
+      <Modal isOpen={isModalOpened}
+             style={customStyles}
+      >
+        {displayForm.formValue === "login" && (
+            <FormLogin displayForm={displayForm} />
+        )}
+        {displayForm.formValue === "register" && (
+            <FormRegister displayForm={displayForm} />
+        )}
+      </Modal>
+  ),
+  console.log("COUCOU CA VA MOI CA VA WALLAH", isModalOpened)
+  );
 
   const responseFacebook = () => {
     console.log("Bouton Facebook cliqué");
@@ -85,28 +88,14 @@ const Login = () => {
             <button
               className="signin-item-button"
               id="signin-mail-button"
-              onClick={() => {
-                onShowModal();
-                onDisplayForm();
-              }}
+              onClick={showModal}
             >
               <img className="login-button-image" src={mailIconWhite} alt="" />
               Connexion / Inscription par E-Mail
             </button>
-            {isModalOpened && (
-              <Modal
-                isOpen={displayForm}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                {this.props.displayForm.formValue === "login" && (
-                  <FormLogin displayForm={displayForm} />
-                )}
-                {this.props.displayForm.formValue === "register" && (
-                  <FormRegister displayForm={displayForm} />
-                )}
-              </Modal>
-            )}
+            {/*{isModalOpened && (*/}
+            {/* */}
+            {/*)}*/}
           </div>
         </div>
       </div>
