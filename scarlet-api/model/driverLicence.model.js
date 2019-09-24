@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-let DriverLicence = new Schema(
+const DriverLicence = new Schema(
   {
     licenceNumber: {
       type: String,

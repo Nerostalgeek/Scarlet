@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-let RentContract = new Schema(
+const RentContract = new Schema(
   {
     beginningAvailability: {
       type: Date,

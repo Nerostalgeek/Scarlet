@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
-let Profile = new Schema(
+const Profile = new Schema(
   {
     photo: {
       type: String,

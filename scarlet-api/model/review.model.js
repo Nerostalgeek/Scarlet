@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // Get the Schema constructor
 const Schema = mongoose.Schema;
 
-let ReviewSchema = new Schema(
+const ReviewSchema = new Schema(
   {
     stars: {
       type: Number,
