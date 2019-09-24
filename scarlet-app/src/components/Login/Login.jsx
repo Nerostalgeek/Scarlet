@@ -94,13 +94,4 @@ const Login = () => {
     </div>
   );
 };
-
-// const mapStateToProps = state => {
-//     return {showModal: state.displayModal, displayForm: state.displayForm};
-// };
-//
-// const mapActionsToProps = {
-//     onShowModal: modalActions.showModal,
-//     onDisplayForm: modalActions.displayLoginForm
-// };
 export default Login;

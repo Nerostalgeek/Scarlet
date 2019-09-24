@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import fourxfour from "../../img/assets/rent-page/cars-icons/4x4.png";
 import citadine from "../../img/assets/rent-page/cars-icons/citadine.png";
 import spacieuse from "../../img/assets/rent-page/cars-icons/spacieuse.png";
 import utilitaire from "../../img/assets/rent-page/cars-icons/utilitaire.png";
 
 import "./RentCarsPage.css";
-class RentCarsPage extends Component {
-  state = {};
-  render() {
+const RentCarsPage = () =>  {
     return (
       <div className="l-rentCars">
         <div className="rentCars-header"></div>
@@ -191,7 +189,6 @@ class RentCarsPage extends Component {
         </div>
       </div>
     );
-  }
-}
+};
 
 export default RentCarsPage;

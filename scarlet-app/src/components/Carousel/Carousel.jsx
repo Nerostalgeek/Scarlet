@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -91,8 +91,7 @@ const data = [
   }
 ];
 
-class Carousel extends Component {
-  render() {
+const Carousel = () => {
     const settings = {
       dots: true,
       infinite: true,
@@ -147,7 +146,6 @@ class Carousel extends Component {
         </Slider>
       </div>
     );
-  }
-}
+};
 
 export default Carousel;
