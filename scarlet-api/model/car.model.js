@@ -4,6 +4,18 @@ const Schema = mongoose.Schema;
 
 let Car = new Schema(
   {
+    description: {
+      type: String,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    },
+    firstRegistrationYear: {
+      type: Number,
+      required: true
+    },
     type: {
       type: String,
       required: true
@@ -20,11 +32,23 @@ let Car = new Schema(
       type: String,
       required: true
     },
+    kilometer: {
+      type: Number,
+      required: true
+    },
+    engine: {
+      type: String,
+      required: true
+    },
     transmission: {
       type: String,
       required: true
     },
-    seats: {
+    seatsNumber: {
+      type: Number,
+      required: true
+    },
+    doorsNumber: {
       type: Number,
       required: true
     },
@@ -33,6 +57,10 @@ let Car = new Schema(
     },
     price: {
       type: Number,
+      required: true
+    },
+    registrationCountry: {
+      type: String,
       required: true
     },
     owner: {
