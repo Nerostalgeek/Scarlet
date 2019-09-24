@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import "./Login.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import FormLogin from "./FormLogin/FormLogin";
 import FormRegister from "./FormRegister/FormRegister";
-import "./login.css";
 import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import { useModal } from "react-modal-hook";

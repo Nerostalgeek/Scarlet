@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./formLogin.css";
+import "./FormLogin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions, userActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
