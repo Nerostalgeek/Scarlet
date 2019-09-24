@@ -28,11 +28,6 @@ const FormRegister = () => {
       isSubmitted: submitted
     };
 
-    if (user.password === formChecker.confirmPassword) {
-      console.log(user, formChecker);
-    }
-    console.log(user, formChecker);
-
     if (
       user.firstName &&
       user.lastName &&
@@ -41,8 +36,6 @@ const FormRegister = () => {
       formChecker.confirmPassword &&
       user.password === formChecker.confirmPassword
     ) {
-      console.log("par ici", user);
-
       dispatch(userActions.register(user));
     }
   };

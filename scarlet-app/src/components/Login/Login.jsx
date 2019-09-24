@@ -29,7 +29,6 @@ const customStyles = {
 const Login = () => {
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayForm = useSelector(state => state.displayForm.formValue);
-  console.log("state", isModalOpened);
   const dispatch = useDispatch();
 
   const responseFacebook = () => {

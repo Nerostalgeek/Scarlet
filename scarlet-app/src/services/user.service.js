@@ -36,7 +36,6 @@ function login(email, password) {
 
 function logout() {
   // remove user from local storage to log user out
-  console.log("JE SUIS DANS LOGOUT");
   localStorage.removeItem("user");
 }
 

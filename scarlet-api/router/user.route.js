@@ -50,7 +50,6 @@ user.get(
         });
       }
     });
-    console.log("SUCCESS: Connected to protected route");
   }
 );
 
