@@ -16,6 +16,10 @@ let RentContract = new Schema(
       type: Number,
       required: true
     },
+    isConfirmed: {
+      type: Boolean,
+      required: false
+    },
     localization: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "RentOffer",
