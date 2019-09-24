@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -91,63 +91,55 @@ const data = [
   }
 ];
 
-class Carousel extends Component {
-  render() {
-    const settings = {
-      dots: true,
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 3,
-      arrows: true,
-      centerMode: true
-    };
-    return (
-      <div className="l-carousel">
-        <Slider {...settings}>
-          {data.map(({ img, name, place, note, price }) => {
-            return (
-              <div className="carousel-item">
-                <img className="carousel-image" src={img} alt="" />
-                <div className="cars-carousel-text">
-                  <p className="cars-carousel-name">
-                    <span>
-                      <img className="carousel-icon" src={carIcon} alt="" />
-                    </span>
-                    {name}
-                  </p>
-                  <p className="cars-carousel-location">
-                    <span>
-                      <img
-                        className="carousel-icon"
-                        src={locationIcon}
-                        alt=""
-                      />
-                    </span>
-                    Disponible à {place}
-                  </p>
-                  <p className="cars-carousel-note">
-                    <span>
-                      <img className="carousel-icon" src={noteIcon} alt="" />
-                    </span>
-                    {note}
-                  </p>
-                  <p className="cars-carousel-price">
-                    <span>
-                      <img className="carousel-icon" src={priceIcon} alt="" />
-                    </span>
-                    {price} par jour
-                  </p>
-                  <button className="carousel-button">
-                    Louer cette voiture
-                  </button>
-                </div>
+const Carousel = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    arrows: true,
+    centerMode: true
+  };
+  return (
+    <div className="l-carousel">
+      <Slider {...settings}>
+        {data.map(({ img, name, place, note, price }) => {
+          return (
+            <div className="carousel-item">
+              <img className="carousel-image" src={img} alt="" />
+              <div className="cars-carousel-text">
+                <p className="cars-carousel-name">
+                  <span>
+                    <img className="carousel-icon" src={carIcon} alt="" />
+                  </span>
+                  {name}
+                </p>
+                <p className="cars-carousel-location">
+                  <span>
+                    <img className="carousel-icon" src={locationIcon} alt="" />
+                  </span>
+                  Disponible à {place}
+                </p>
+                <p className="cars-carousel-note">
+                  <span>
+                    <img className="carousel-icon" src={noteIcon} alt="" />
+                  </span>
+                  {note}
+                </p>
+                <p className="cars-carousel-price">
+                  <span>
+                    <img className="carousel-icon" src={priceIcon} alt="" />
+                  </span>
+                  {price} par jour
+                </p>
+                <button className="carousel-button">Louer cette voiture</button>
               </div>
-            );
-          })}
-        </Slider>
-      </div>
-    );
-  }
-}
+            </div>
+          );
+        })}
+      </Slider>
+    </div>
+  );
+};
 
 export default Carousel;
