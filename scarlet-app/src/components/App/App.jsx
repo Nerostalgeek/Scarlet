@@ -16,34 +16,6 @@ import "./App.css";
 const App = () => {
   const dispatch = useDispatch();
 
-  const [navBarLinks, setNavBarLinks] = useState([
-    {
-      name: "Accueil",
-      url: "/",
-      customId: ""
-    },
-    {
-      name: "Louer une voiture",
-      url: "rent-cars",
-      customId: ""
-    },
-    {
-      name: "Mettre ma voiture en location",
-      url: "#",
-      customId: ""
-    },
-    {
-      name: "Connexion",
-      url: "login",
-      customId: ""
-    },
-    {
-      name: "Mon profil",
-      url: "dashboard",
-      customId: ""
-    }
-  ]);
-
   // componentDidMount behavior, if no array dependencies, act like componentDidUpdate
   useEffect(() => {
     history.listen((location, action) => {
@@ -55,12 +27,13 @@ const App = () => {
   return (
     <Router history={history}>
       <div className="App">
-        <NavBar links={navBarLinks} />
+        <NavBar />
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={Login} />
         <Route path="/rent-cars" component={RentCarsPage} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
-        <Footer links={navBarLinks} />
+        <PrivateRoute path="/logout" />
+        <Footer />
       </div>
     </Router>
   );
