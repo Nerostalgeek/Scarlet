@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
 
 import phoneLogo from "../../img/icons/phone.png";
 import mailLogo from "../../img/icons/mail.png";
 import addressLogo from "../../img/icons/placeholder.png";
 
-const Footer = props => {
-  const links = props.links;
+const Footer = () => {
+  const [footerLinks, setFooterLinks] = useState([]);
 
-  const footerLinks = links.map(link => (
+  const fetchLinks = footerLinks.map(link => (
     <a
       className="footer-link"
       key={`footer-${link.name}`}
