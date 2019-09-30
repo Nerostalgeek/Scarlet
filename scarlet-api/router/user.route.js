@@ -12,15 +12,7 @@ user = express.Router();
 
 
 // Route for ALL USERS
-user.get("/", (req, res) => {
-    User.find(function (err, listUsers) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(listUsers);
-        }
-    });
-});
+user.get("/", UserController.getAll);
 
 // Route for a specific user
 user.get("/:id", passport.authenticate("jwt", {session: false}), UserController.getById);

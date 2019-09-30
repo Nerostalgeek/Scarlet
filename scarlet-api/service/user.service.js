@@ -1,5 +1,13 @@
 const User = require("../model/user.model");
 
+exports.getAll = async () => {
+    try {
+      return await User.find({});
+    } catch (e) {
+        throw Error('Error fetching user ' + e )
+    }
+};
+
 exports.getById = async query => {
     try {
         return await User.findById(query);
@@ -12,7 +20,7 @@ exports.register = async query => {
     try {
         const user = new User(query);
         return await user.save();
-    } catch (err) {
+    } catch (e) {
         throw Error('Error registering user ' + e )
     }
 };

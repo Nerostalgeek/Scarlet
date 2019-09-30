@@ -1,9 +1,19 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const UserService = require('../service/user.services');
+const UserService = require('../service/user.service');
 const config = require("../../config.default");
 const jwtSecret = config.jwtSecret;
 
+exports.getAll = async (req, res) => {
+    try {
+        const userList = await UserService.getAll();
+        return res.status(200).json({
+            userList
+        })
+    } catch (e) {
+        return res.status(400).json({status: 400, message: e.message});
+    }
+};
 
 exports.getById = async (req, res) => {
     const id = req.params.id;
