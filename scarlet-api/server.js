@@ -43,7 +43,7 @@ app.get("/", function(req, res) {
 });
 
 app.use("/users", userRoute);
-app.use(`/users/:id`, userRoute);
+app.use("/users/:id", userRoute);
 app.use("/cars", carRoute);
 
 app.listen(config.settings.port, config.settings.host, e => {

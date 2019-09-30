@@ -6,5 +6,4 @@ module.exports = {
   RentOffer: require("./rentOffer.model"),
   RentContract: require("./rentContract.model"),
   Review: require("./review.model"),
-  Payment: require("./payment.model")
 };
