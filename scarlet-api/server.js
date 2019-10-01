@@ -1,16 +1,16 @@
 const config = require("../config.default");
 const express = require("express");
 const bodyParser = require("body-parser");
+const csurf = require('csurf');
+const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
-
 const mongoose = require("mongoose");
 const passport = require("passport");
 
 // ********* ROUTE IMPORTS *********
 const router = require("./router");
 // *********************************
-
 const app = express();
 app.use(
   cors({
@@ -20,12 +20,19 @@ app.use(
 
 const logger = log({ console: true, file: false, label: config.settings.name });
 
+// CSRF Token protection
+const csrfMiddleware = csurf({
+  cookie: true
+});
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({
   extended: true
 });
 app.use(urlencodedParser);
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(csrfMiddleware);
+
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //initializes the passport configuration.
@@ -43,7 +50,7 @@ connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
 
-// ********* USER ROUTE *********
+    // ********* USER ROUTE *********
 app.use("/users", router.User);
 
 // ********* CAR ROUTE *********
