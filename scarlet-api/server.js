@@ -4,14 +4,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 
-// Import mongoose
 const mongoose = require("mongoose");
 const passport = require("passport");
-const userRoute = require("./router/user.route");
-const carRoute = require("./router/car.route");
+
+// ********* ROUTE IMPORTS *********
+const router = require("./router");
+// *********************************
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: config.NonApiServerUrl
+  })
+);
 
 const logger = log({ console: true, file: false, label: config.settings.name });
 
@@ -22,10 +27,10 @@ const urlencodedParser = bodyParser.urlencoded({
 app.use(urlencodedParser);
 app.use(bodyParser.json());
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
+
 //initializes the passport configuration.
 app.use(passport.initialize());
 require("./config/passport-config")(passport);
-
 //imports our configuration file which holds our verification callbacks and things like the secret for signing.
 
 // Setup MongoDB connection
@@ -38,13 +43,26 @@ connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
 
-app.get("/", function(req, res) {
-  res.send("Main index");
-});
+// ********* USER ROUTE *********
+app.use("/users", router.User);
 
-app.use("/users", userRoute);
-app.use(`/users/:id`, userRoute);
-app.use("/cars", carRoute);
+// ********* CAR ROUTE *********
+app.use("/cars", router.Car);
+
+// ********* PROFILE ROUTE *********
+app.use("/profiles", router.Profile);
+
+// ********* DRIVER LICENCE ROUTE *********
+app.use("/driver-licences", router.DriverLicence);
+
+// ********* RENT OFFER ROUTE *********
+app.use("/rent-offers", router.RentOffer);
+
+// ********* RENT CONTRACT ROUTE *********
+app.use("/rent-contracts", router.RentContract);
+
+// ********* REVIEW ROUTE *********
+app.use("/reviews", router.Review);
 
 app.listen(config.settings.port, config.settings.host, e => {
   if (e) {

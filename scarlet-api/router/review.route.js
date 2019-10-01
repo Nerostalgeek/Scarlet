@@ -1,37 +1,12 @@
-const Review = require("../model/rentOffer.model");
+const ReviewController = require("../controller/review.controller");
 
 const express = require("express"),
   review = express.Router();
 
-// Route for ALL CARS
-review.get("/", (req, res) => {
-  Review.find(function(err, listProfiles) {
-    if (err) {
-      return err;
-    } else {
-      res.json(listProfiles);
-    }
-  })
-    .populate("User")
-    .select("User");
-});
+review.get("/", ReviewController.getAll);
 
-// Route for a specific car
-review.get("/:id", (req, res) => {
-  const id = req.params.id;
-  Review.findById(id, (err, car) => {
-    res.json(car);
-  });
-});
+review.get("/:id", ReviewController.getById);
 
-review.route("/add").post(async function(req, res) {
-  try {
-    const review = new Review(req.body);
-    const result = await review.save();
-    res.send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+review.route("/add").post(ReviewController.addReview);
 
 module.exports = review;

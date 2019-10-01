@@ -1,37 +1,12 @@
-const DriverLicence = require("../model/driverLicence.model");
+const DriverLicenceController = require("../controller/driverLicence.controller");
 
 const express = require("express"),
   driverLicence = express.Router();
 
-// Route for ALL CARS
-driverLicence.get("/", (req, res) => {
-  DriverLicence.find(function(err, listProfiles) {
-    if (err) {
-      return err;
-    } else {
-      res.json(listProfiles);
-    }
-  })
-    .populate("User")
-    .select("User");
-});
+driverLicence.get("/", DriverLicenceController.getAll);
 
-// Route for a specific car
-driverLicence.get("/:id", (req, res) => {
-  const id = req.params.id;
-  DriverLicence.findById(id, (err, car) => {
-    res.json(car);
-  });
-});
+driverLicence.get("/:id", DriverLicenceController.getById);
 
-driverLicence.route("/add").post(async function(req, res) {
-  try {
-    const rentContract = new DriverLicence(req.body);
-    const result = await rentContract.save();
-    res.send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+driverLicence.route("/add").post(DriverLicenceController.addDriverLicence);
 
 module.exports = driverLicence;
