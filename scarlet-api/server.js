@@ -8,13 +8,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 
 // ********* ROUTE IMPORTS *********
-const userRoute = require("./router/user.route");
-const carRoute = require("./router/car.route");
-const profileRoute = require("./router/profile.route");
-const driverLicenceRoute = require("./router/driverLicence.route");
-const rentOfferRoute = require("./router/rentOffer.route");
-const rentContractRoute = require("./router/rentContract.route");
-const reviewRoute = require("./router/review.route");
+const router = require("./router");
 // *********************************
 
 const app = express();
@@ -46,25 +40,25 @@ connection.once("open", function () {
 });
 
 // ********* USER ROUTE *********
-app.use("/users", userRoute);
+app.use("/users", router.User);
 
 // ********* CAR ROUTE *********
-app.use("/cars", carRoute);
+app.use("/cars", router.Car);
 
 // ********* PROFILE ROUTE *********
-app.use("/profiles", profileRoute);
+app.use("/profiles", router.Profile);
 
 // ********* DRIVER LICENCE ROUTE *********
-app.use("/driver-licences", driverLicenceRoute);
+app.use("/driver-licences", router.DriverLicence);
 
 // ********* RENT OFFER ROUTE *********
-app.use("/rent-offers", rentOfferRoute);
+app.use("/rent-offers", router.RentOffer);
 
 // ********* RENT CONTRACT ROUTE *********
-app.use("/rent-contracts", rentContractRoute);
+app.use("/rent-contracts", router.RentContract);
 
 // ********* REVIEW ROUTE *********
-app.use("/reviews", reviewRoute);
+app.use("/reviews", router.Review);
 
 
 app.listen(config.settings.port, config.settings.host, e => {
