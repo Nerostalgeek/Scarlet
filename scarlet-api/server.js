@@ -55,7 +55,7 @@ app.use("/cars", carRoute);
 app.use("/profiles", profileRoute);
 
 // ********* DRIVER LICENCE ROUTE *********
-app.use("/driver-licence", driverLicenceRoute);
+app.use("/driver-licences", driverLicenceRoute);
 
 // ********* RENT OFFER ROUTE *********
 app.use("/rent-offers", rentOfferRoute);

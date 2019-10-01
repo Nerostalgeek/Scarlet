@@ -1,37 +1,14 @@
-const RentOffer = require("../model/rentOffer.model");
+const RentOfferController = require("../controller/rentOffer.controller");
 
 const express = require("express"),
   rentOffer = express.Router();
 
 // Route for ALL CARS
-rentOffer.get("/", (req, res) => {
-  RentOffer.find(function(err, listProfiles) {
-    if (err) {
-      return err;
-    } else {
-      res.json(listProfiles);
-    }
-  })
-    .populate("User")
-    .select("User");
-});
+rentOffer.get("/", RentOfferController.getAll);
 
 // Route for a specific car
-rentOffer.get("/:id", (req, res) => {
-  const id = req.params.id;
-  RentOffer.findById(id, (err, car) => {
-    res.json(car);
-  });
-});
+rentOffer.get("/:id", RentOfferController.getById);
 
-rentOffer.route("/add").post(async function(req, res) {
-  try {
-    const rentContract = new RentOffer(req.body);
-    const result = await rentContract.save();
-    res.send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+rentOffer.route("/add").post(RentOfferController.addRentOffer);
 
 module.exports = rentOffer;

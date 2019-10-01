@@ -3,7 +3,6 @@ const Review = require("../model/rentOffer.model");
 const express = require("express"),
   review = express.Router();
 
-// Route for ALL CARS
 review.get("/", (req, res) => {
   Review.find(function(err, listProfiles) {
     if (err) {
@@ -16,7 +15,6 @@ review.get("/", (req, res) => {
     .select("User");
 });
 
-// Route for a specific car
 review.get("/:id", (req, res) => {
   const id = req.params.id;
   Review.findById(id, (err, car) => {
