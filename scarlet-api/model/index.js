@@ -5,5 +5,5 @@ module.exports = {
   DriverLicence: require("./driverLicence.model"),
   RentOffer: require("./rentOffer.model"),
   RentContract: require("./rentContract.model"),
-  Review: require("./review.model"),
+  Review: require("./review.model")
 };

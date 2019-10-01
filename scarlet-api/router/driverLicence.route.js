@@ -1,4 +1,4 @@
-const DriverLicenceController = require('../controller/driverLicence.controller');
+const DriverLicenceController = require("../controller/driverLicence.controller");
 
 const express = require("express"),
   driverLicence = express.Router();

@@ -2,7 +2,7 @@ const config = require("../config.default");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {log, ExpressAPILogMiddleware} = require("@rama41222/node-logger");
+const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -12,17 +12,21 @@ const router = require("./router");
 // *********************************
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: config.NonApiServerUrl
+  })
+);
 
-const logger = log({console: true, file: false, label: config.settings.name});
+const logger = log({ console: true, file: false, label: config.settings.name });
 
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({
-    extended: true
+  extended: true
 });
 app.use(urlencodedParser);
 app.use(bodyParser.json());
-app.use(ExpressAPILogMiddleware(logger, {request: true}));
+app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //initializes the passport configuration.
 app.use(passport.initialize());
@@ -31,12 +35,12 @@ require("./config/passport-config")(passport);
 
 // Setup MongoDB connection
 mongoose.connect(config.mongodbUrl, {
-    useNewUrlParser: true
+  useNewUrlParser: true
 });
 
 const connection = mongoose.connection;
-connection.once("open", function () {
-    console.log("MongoDB database connection established successfully");
+connection.once("open", function() {
+  console.log("MongoDB database connection established successfully");
 });
 
 // ********* USER ROUTE *********
@@ -60,12 +64,11 @@ app.use("/rent-contracts", router.RentContract);
 // ********* REVIEW ROUTE *********
 app.use("/reviews", router.Review);
 
-
 app.listen(config.settings.port, config.settings.host, e => {
-    if (e) {
-        throw new Error("Internal Server Error");
-    }
-    logger.info(
-        `${config.settings.name} running on ${config.settings.host}:${config.settings.port}`
-    );
+  if (e) {
+    throw new Error("Internal Server Error");
+  }
+  logger.info(
+    `${config.settings.name} running on ${config.settings.host}:${config.settings.port}`
+  );
 });
