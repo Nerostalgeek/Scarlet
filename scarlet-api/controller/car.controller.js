@@ -16,8 +16,7 @@ exports.getById = async (req, res) => {
     try {
         const car = await CarService.getById(id);
         return res.status(200).json({
-            firstName: car.firstName,
-            lastName: car.lastName
+           car
         });
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message});
