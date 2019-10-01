@@ -5,6 +5,7 @@ import { registration } from "./registration.reducer";
 import { users } from "./users.reducer";
 import { navBar } from "./navBar.reducer";
 import { alert } from "./alert.reducer";
+import { csrfProtection } from "./csrfToken.reducer";
 import { displayModal, displayForm } from "./modal.reducer";
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   alert,
   displayModal,
   displayForm,
-  navBar
+  navBar,
+  csrfProtection
 });
 
 export default rootReducer;

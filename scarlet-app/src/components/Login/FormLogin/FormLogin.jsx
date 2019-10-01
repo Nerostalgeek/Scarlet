@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./FormLogin.css";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions, userActions } from "../../../actions";
+import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
 
 const FormLogin = () => {
@@ -9,7 +9,15 @@ const FormLogin = () => {
   const [enteredPassword, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const token = useSelector(state => state.csrfProtection.token);
+
+  console.log("TOKEN -> ", token);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(csrfTokenActions.create());
+  }, [dispatch]);
 
   const displayForm = useSelector(state => state.displayForm);
   const hideModal = useSelector(state => state.displayModal);

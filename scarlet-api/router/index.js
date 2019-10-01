@@ -5,5 +5,6 @@ module.exports = {
   DriverLicence: require("./driverLicence.route"),
   RentOffer: require("./rentOffer.route"),
   RentContract: require("./rentContract.route"),
-  Review: require("./review.route")
+  Review: require("./review.route"),
+  CSRFToken: require("./CSRFToken.route")
 };

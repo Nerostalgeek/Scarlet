@@ -1,7 +1,8 @@
 const DriverLicenceController = require("../controller/driverLicence.controller");
 
-const express = require("express"),
-  driverLicence = express.Router();
+const express = require("express");
+
+driverLicence = express.Router();
 
 driverLicence.get("/", DriverLicenceController.getAll);
 

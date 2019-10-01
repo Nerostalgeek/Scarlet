@@ -1,7 +1,8 @@
 const RentContractController = require("../controller/rentContract.controller");
 
-const express = require("express"),
-  rentContract = express.Router();
+const express = require("express");
+
+rentContract = express.Router();
 
 rentContract.get("/", RentContractController.getAll);
 

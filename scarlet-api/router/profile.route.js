@@ -1,7 +1,8 @@
 const ProfileController = require("../controller/profile.controller");
 
-const express = require("express"),
-  profile = express.Router();
+const express = require("express");
+
+profile = express.Router();
 
 // Route for ALL CARS
 profile.get("/", ProfileController.getAll);

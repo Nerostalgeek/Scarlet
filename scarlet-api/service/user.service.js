@@ -4,7 +4,7 @@ exports.getAll = async () => {
   try {
     return await User.find({});
   } catch (e) {
-    throw Error("Error fetching user " + e);
+    throw Error("Error fetching userList " + e);
   }
 };
 
