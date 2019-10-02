@@ -39,7 +39,7 @@ cd scarlet-api && npm run dev
 ```
 
 ```sh
-cd scarlet-api && npm i && cd ../scarlet-app && yarn start
+cd scarlet-app && yarn start
 ```
 
 ## Development setup
