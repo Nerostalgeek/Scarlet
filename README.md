@@ -10,7 +10,7 @@ The given commands are suitable for the `DEV` environment.
 
 Scarlet is a mono-repo that provides both API and App.
 
-You will need Yarn installed globally in order to install and run `scarlet-app`
+You will need `Yarn` installed globally in order to install and run `scarlet-app`
 
 
 OS X, Linux & Windows:
@@ -29,7 +29,7 @@ See the associated documentation to install the latest version : [here](https://
 First thing first, launch the mongodb service: 
 
 ```sh
-sudo service mongodb start
+sudo service mongod start
 ```
 
 Then, you simply have to start the api and the app in two separated shell terminal :
