@@ -26,10 +26,13 @@ function create() {
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
   const requestOptions = {
-    method: "DELETE"
+    method: "DELETE",
+    body: JSON.stringify({ _id: id })
   };
 
-  return fetch(`/token/${id}`, requestOptions).then(handleResponse);
+  return fetch(`${config.apiUrl}/token/remove/${id}`, requestOptions).then(
+    handleResponse
+  );
 }
 
 function handleResponse(response) {

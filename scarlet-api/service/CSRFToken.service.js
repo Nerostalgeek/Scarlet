@@ -1,5 +1,13 @@
 const CSRFToken = require("../model/CSRFToken.model");
 
+exports.getAll = async () => {
+  try {
+    return await CSRFToken.find({});
+  } catch (e) {
+    throw Error("Error fetching CSRF Token list " + e);
+  }
+};
+
 exports.getById = async query => {
   try {
     return await CSRFToken.findById(query);

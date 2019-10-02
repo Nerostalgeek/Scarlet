@@ -1,5 +1,16 @@
 const CSRFTokenService = require("../service/CSRFToken.service");
 
+exports.getAll = async (req, res) => {
+  try {
+    const CsrfTokenList = await CSRFTokenService.getAll();
+    return res.status(200).json({
+      CsrfTokenList
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
 exports.getById = async (req, res) => {
   const id = req.params.id;
   try {
@@ -34,9 +45,9 @@ exports.getToken = async (req, res) => {
 };
 
 exports.deleteToken = async (req, res) => {
-  const CSRFToken = req.body;
+  const id = req.params.id;
   try {
-    const CSRFToken = await CSRFTokenService.deleteToken(CSRFToken);
+    const CSRFToken = await CSRFTokenService.deleteToken({ _id: id });
     return res.status(200).json({
       CSRFToken
     });

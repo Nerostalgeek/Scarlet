@@ -37,10 +37,10 @@ function create() {
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
-  return dispatch => {
-    dispatch(request(id));
+  return async dispatch => {
+    await dispatch(request(id));
 
-    csrfTokenConstants.delete(id).then(
+    await csrfTokenService.delete(id).then(
       token => {
         dispatch(success(id));
       },

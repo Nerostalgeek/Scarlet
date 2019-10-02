@@ -7,15 +7,18 @@ export function csrfProtection(state = initialState, { type, token }) {
   switch (type) {
     case csrfTokenConstants.CREATE_REQUEST:
       return {
-        fetchingToken: true
+        fetchingToken: true,
+        token: token
       };
     case csrfTokenConstants.CREATE_SUCCESS:
       return {
         tokenFetched: true,
-        token: token
+        id: token.CSRFToken._id,
+        token: token.CSRFToken.token
       };
     case csrfTokenConstants.CREATE_FAILURE:
       return {};
+
     case csrfTokenConstants.DELETE_REQUEST:
       return {
         deletingToken: true

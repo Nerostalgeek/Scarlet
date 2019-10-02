@@ -1,7 +1,6 @@
 const config = require("../config.default");
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 const mongoose = require("mongoose");
@@ -26,7 +25,6 @@ const logger = log({ console: true, file: false, label: config.settings.name });
 
 app.use(urlencodedParser);
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
