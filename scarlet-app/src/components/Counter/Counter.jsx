@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Counter.css";
 
-const Counter = () => {
+const Counter = props => {
+  const { initialCount, incrementCounter, decrementCounter } = props;
+
   return (
     <div className="counter">
-      <button className="counter-button">-</button>
-      <h2>0</h2>
-      <button className="counter-button">+</button>
+      <button
+        onClick={event => {
+          event.preventDefault();
+          decrementCounter();
+        }}
+        className="counter-button"
+      >
+        -
+      </button>
+      <h2>{initialCount}</h2>
+      <button
+        onClick={event => {
+          event.preventDefault();
+          incrementCounter();
+        }}
+        className="counter-button"
+      >
+        +
+      </button>
     </div>
   );
 };

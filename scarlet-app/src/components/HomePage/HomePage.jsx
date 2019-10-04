@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 
-import landingIllustration from "../../img/assets/landing/landing-car-illustration.svg";
 import "./HomePage.css";
 
 import FormReservation from "./FormReservation/FormReservation";
