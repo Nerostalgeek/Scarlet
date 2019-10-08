@@ -1,5 +1,5 @@
 const CSRFTokenController = require("../controller/CSRFToken.controller");
-const customMiddleware = require("../middleware")
+const customMiddleware = require("../middleware/CSRFToken.middleware");
 
 const express = require("express");
 const passport = require("passport");
@@ -14,6 +14,6 @@ CSRFToken.get("/create", CSRFTokenController.getToken);
 
 CSRFToken.get("/:id", CSRFTokenController.getById);
 
-CSRFToken.route("/remove").delete(() => customMiddleware.CSRFToken.checkCsrfToken);
+CSRFToken.delete("/remove", customMiddleware.checkCsrfToken);
 
 module.exports = CSRFToken;

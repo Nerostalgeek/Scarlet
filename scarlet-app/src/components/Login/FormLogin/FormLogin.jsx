@@ -5,9 +5,8 @@ import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
 
 const FormLogin = () => {
-
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(csrfTokenActions.create());
   }, [dispatch]);
@@ -18,9 +17,7 @@ const FormLogin = () => {
 
   const csrfToken = useSelector(state => state.csrfProtection);
 
-  const {token, fetchingToken, tokenFetched } = csrfToken;
-
-
+  const { token, fetchingToken, tokenFetched } = csrfToken;
 
   const submitHandler = event => {
     event.preventDefault();
@@ -31,7 +28,7 @@ const FormLogin = () => {
     const CSRFTokenObject = {
       token: token,
       user: null
-    }
+    };
     if (email && password && tokenFetched) {
       dispatch(userActions.login(email, password, CSRFTokenObject));
       dispatch(modalActions.hideModal());

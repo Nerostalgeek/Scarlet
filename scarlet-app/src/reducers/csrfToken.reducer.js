@@ -7,7 +7,7 @@ export function csrfProtection(state = initialState, { type, token }) {
   switch (type) {
     case csrfTokenConstants.CREATE_REQUEST:
       return {
-        fetchingToken: true,
+        fetchingToken: true
       };
     case csrfTokenConstants.CREATE_SUCCESS:
       return {

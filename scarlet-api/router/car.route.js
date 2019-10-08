@@ -10,6 +10,6 @@ car.get("/", CarController.getAll);
 // Route for a specific car
 car.get("/:id", CarController.getById);
 
-car.route("/add").post(CarController.addCar);
+car.route("/register").post(CarController.addCar);
 
 module.exports = car;

@@ -28,9 +28,8 @@ exports.getToken = async query => {
 exports.deleteToken = async query => {
   const token = query.CSRFToken.token;
   const user = query.CSRFToken.user;
-  console.log('query: ', query.CSRFToken._id);
   try {
-    const tokenToDelete = CSRFToken.find({token: token}).where('user', user)
+    const tokenToDelete = CSRFToken.find({ token: token }).where("user", user);
     return await tokenToDelete.deleteOne();
   } catch (e) {
     throw Error("Error deleting CSRF Token " + e);
