@@ -26,7 +26,7 @@ See the associated documentation to install the latest version : [here](https://
 
 ## Usage example
 
-First thing first, launch the mongodb service: 
+First things first, launch the mongodb service: 
 
 ```sh
 sudo service mongod start
