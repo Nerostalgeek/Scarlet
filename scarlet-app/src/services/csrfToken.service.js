@@ -10,11 +10,7 @@ function create() {
   const requestOptions = {
     method: "GET",
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "http://localhost:6200",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept"
+      "Content-Type": "application/json; charset=utf-8"
     }
   };
 
@@ -30,7 +26,7 @@ function _delete(id) {
     body: JSON.stringify({ _id: id })
   };
 
-  return fetch(`${config.apiUrl}/token/remove/${id}`, requestOptions).then(
+  return fetch(`${config.apiUrl}/token/remove`, requestOptions).then(
     handleResponse
   );
 }

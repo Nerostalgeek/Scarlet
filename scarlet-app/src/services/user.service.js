@@ -11,17 +11,13 @@ export const userService = {
   delete: _delete
 };
 
-function login(email, password) {
+function login(email, password, CSRFTokenObject) {
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "http://localhost:6000",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Headers":
-        "Origin, X-Requested-With, Content-Type, Accept"
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password, CSRFTokenObject })
   };
 
   return fetch(`${config.apiUrl}/users/login`, requestOptions)

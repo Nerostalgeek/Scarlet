@@ -28,11 +28,12 @@ exports.getToken = async (req, res) => {
     return Math.random()
       .toString(36)
       .substr(2); // remove `0.`
-  };
+};
 
   const token = () => {
-    return rand() + rand(); // to make it longer
+    return  rand() + rand() + rand(); // to make it longer
   };
+  
   const getCSRFToken = { user: null, token: token() };
   try {
     const CSRFToken = await CSRFTokenService.getToken(getCSRFToken);
@@ -45,11 +46,14 @@ exports.getToken = async (req, res) => {
 };
 
 exports.deleteToken = async (req, res) => {
-  const id = req.params.id;
+  const CSRFToken = req.body;
+
+  console.log('body: ', CSRFToken);
+  
   try {
-    const CSRFToken = await CSRFTokenService.deleteToken({ _id: id });
+    const deletedToken = await CSRFTokenService.deleteToken(CSRFToken);
     return res.status(200).json({
-      CSRFToken
+      deletedToken
     });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });

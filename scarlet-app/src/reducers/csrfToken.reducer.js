@@ -8,13 +8,13 @@ export function csrfProtection(state = initialState, { type, token }) {
     case csrfTokenConstants.CREATE_REQUEST:
       return {
         fetchingToken: true,
-        token: token
       };
     case csrfTokenConstants.CREATE_SUCCESS:
       return {
         tokenFetched: true,
         id: token.CSRFToken._id,
-        token: token.CSRFToken.token
+        token: token.CSRFToken.token,
+        user: user ? user : null
       };
     case csrfTokenConstants.CREATE_FAILURE:
       return {};

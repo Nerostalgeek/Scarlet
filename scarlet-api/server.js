@@ -9,6 +9,10 @@ const passport = require("passport");
 // ********* ROUTE IMPORTS *********
 const router = require("./router");
 // *********************************
+
+// ***** CUSTOM MIDDLEWARE IMPORTS *****
+const customMiddleware = require("./middleware")
+// *********************************
 const app = express();
 app.use(
   cors({
@@ -41,6 +45,24 @@ connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
 
+// ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
+app.post('*', customMiddleware.CSRFToken);
+
+app.put('*', (req, res, next) => {
+  console.log('PUT happen')
+  next();
+})
+
+app.patch('*', (req, res, next) => {
+  console.log('PATCH happen')
+  next();
+})
+
+app.delete('*', (req, res, next) => {
+  console.log('DELETE happen')
+  next();
+})
+
 // ********* USER ROUTE *********
 app.use("/users", router.User);
 
@@ -64,6 +86,9 @@ app.use("/reviews", router.Review);
 
 // ********* CSRF TOKEN ROUTE *********
 app.use("/token", router.CSRFToken);
+
+
+
 
 app.listen(config.settings.port, config.settings.host, e => {
   if (e) {
