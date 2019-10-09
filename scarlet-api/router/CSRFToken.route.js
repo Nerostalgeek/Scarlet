@@ -10,7 +10,7 @@ CSRFToken = express.Router();
 
 CSRFToken.get("/", CSRFTokenController.getAll);
 
-CSRFToken.get("/create", CSRFTokenController.getToken);
+CSRFToken.post("/create", CSRFTokenController.getToken);
 
 CSRFToken.get("/:id", CSRFTokenController.getById);
 

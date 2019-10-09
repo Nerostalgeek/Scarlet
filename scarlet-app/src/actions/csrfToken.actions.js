@@ -8,10 +8,10 @@ export const csrfTokenActions = {
   _delete
 };
 
-function create() {
+function create(user) {
   return dispatch => {
     dispatch(request());
-    csrfTokenService.create().then(
+    csrfTokenService.create(user).then(
       token => {
         dispatch(success(token));
       },

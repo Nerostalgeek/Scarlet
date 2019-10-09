@@ -6,9 +6,10 @@ import closeIcon from "../../../img/icons/close.png";
 
 const FormLogin = () => {
   const dispatch = useDispatch();
+  const user = null;
 
   useEffect(() => {
-    dispatch(csrfTokenActions.create());
+    dispatch(csrfTokenActions.create(user));
   }, [dispatch]);
 
   const [enteredEmail, setEmail] = useState("");

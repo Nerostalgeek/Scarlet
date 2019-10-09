@@ -24,6 +24,7 @@ exports.getById = async (req, res) => {
 };
 
 exports.getToken = async (req, res) => {
+  const user = req.body.user;
   const rand = () => {
     return Math.random()
       .toString(36)
@@ -34,7 +35,7 @@ exports.getToken = async (req, res) => {
     return rand() + rand() + rand(); // to make it longer
   };
 
-  const getCSRFToken = { user: null, token: token() };
+  const getCSRFToken = { user: user, token: token() };
   try {
     const CSRFToken = await CSRFTokenService.getToken(getCSRFToken);
     return res.status(200).json({

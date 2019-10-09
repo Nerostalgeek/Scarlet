@@ -6,12 +6,13 @@ export const csrfTokenService = {
   delete: _delete
 };
 
-function create() {
+function create(user) {
   const requestOptions = {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
-    }
+    },
+    body: JSON.stringify({ user: user })
   };
 
   return fetch(`${config.apiUrl}/token/create`, requestOptions)

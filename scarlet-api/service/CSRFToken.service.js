@@ -17,6 +17,7 @@ exports.getById = async query => {
 };
 
 exports.getToken = async query => {
+  console.log("query: ", query);
   try {
     const csrfToken = new CSRFToken(query);
     return await csrfToken.save();

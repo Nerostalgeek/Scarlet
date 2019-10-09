@@ -45,6 +45,8 @@ connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
 
+// ********* CSRF TOKEN ROUTE *********
+app.use("/token", router.CSRFToken);
 // ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
 app.post("*", customMiddleware.checkCsrfToken);
 
@@ -83,9 +85,6 @@ app.use("/rent-contracts", router.RentContract);
 
 // ********* REVIEW ROUTE *********
 app.use("/reviews", router.Review);
-
-// ********* CSRF TOKEN ROUTE *********
-app.use("/token", router.CSRFToken);
 
 app.listen(config.settings.port, config.settings.host, e => {
   if (e) {
