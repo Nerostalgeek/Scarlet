@@ -1,7 +1,7 @@
 const RentOfferController = require("../controller/rentOffer.controller");
 
-const express = require("express"),
-  rentOffer = express.Router();
+const express = require("express");
+rentOffer = express.Router();
 
 // Route for ALL CARS
 rentOffer.get("/", RentOfferController.getAll);
