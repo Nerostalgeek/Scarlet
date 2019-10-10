@@ -7,6 +7,7 @@ import "./FormReservation.css";
 const FormReservation = () => {
   const [citySelected, setCitySelected] = useState("");
   const [count, setCount] = useState(1);
+  const [rangeDate, setRangeDate] = useState(new Date());
 
   function incrementCounter(event) {
     setCount(count + 1);
@@ -17,12 +18,18 @@ const FormReservation = () => {
     }
   }
 
+  function onCalendarChange(value) {
+    console.log(value);
+  }
+
   // Date for activeStartDate calendar
   let date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDay();
   const todayDate = `${year},${month},${day}`;
+
+  const newRangeDate = rangeDate;
 
   return (
     <div className="reservation-box">
@@ -47,6 +54,9 @@ const FormReservation = () => {
             selectRange
             activeStartDate={new Date(todayDate)}
             minDate={new Date()}
+            onChange={rangeDate => alert("New value is : ", rangeDate)}
+            value={[new Date(), new Date()]}
+            returnValue={"range"}
           />
         </div>
 

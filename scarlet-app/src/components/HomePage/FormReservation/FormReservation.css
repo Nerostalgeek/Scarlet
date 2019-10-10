@@ -45,6 +45,7 @@
 }
 
 #submitInput {
+  cursor: pointer;
   width: 80%;
   background: #00c6ff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
