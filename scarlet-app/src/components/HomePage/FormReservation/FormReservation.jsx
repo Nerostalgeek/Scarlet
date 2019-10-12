@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Counter from "../../Counter/Counter";
 
@@ -7,7 +7,8 @@ import "./FormReservation.css";
 const FormReservation = () => {
   const [citySelected, setCitySelected] = useState("");
   const [count, setCount] = useState(1);
-  const [rangeDate, setRangeDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
+  const [selectedRange, setSelectedRange] = useState("");
 
   function incrementCounter(event) {
     setCount(count + 1);
@@ -18,18 +19,14 @@ const FormReservation = () => {
     }
   }
 
-  function onCalendarChange(value) {
-    console.log(value);
+  function onChange(date) {
+    let newRange = [...date];
+    newRange = [
+      newRange[0].toLocaleDateString(),
+      newRange[1].toLocaleDateString()
+    ];
+    setSelectedRange(newRange);
   }
-
-  // Date for activeStartDate calendar
-  let date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDay();
-  const todayDate = `${year},${month},${day}`;
-
-  const newRangeDate = rangeDate;
 
   return (
     <div className="reservation-box">
@@ -51,12 +48,10 @@ const FormReservation = () => {
         <p className="reservation-label">Durée du trajet</p>
         <div className="form-reservation-row">
           <Calendar
-            selectRange
-            activeStartDate={new Date(todayDate)}
-            minDate={new Date()}
-            onChange={rangeDate => alert("New value is : ", rangeDate)}
-            value={[new Date(), new Date()]}
             returnValue={"range"}
+            minDate={new Date()}
+            onChange={onChange}
+            selectRange={true}
           />
         </div>
 
