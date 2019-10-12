@@ -32,8 +32,9 @@ exports.getById = async (req, res) => {
 
 exports.register = async (req, res) => {
   const userData = req.body;
+  console.log("userData: ", userData);
   try {
-    const user = await UserService.register(userData);
+    const user = await UserService.register(userData.user);
     return res.status(200).json({
       user
     });

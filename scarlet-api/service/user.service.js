@@ -1,4 +1,5 @@
 const User = require("../model/user.model");
+const crypto = require("crypto");
 
 exports.getAll = async () => {
   try {
@@ -35,7 +36,13 @@ exports.login = async query => {
 
 exports.resetPassword = async query => {
   try {
-    return await User.findOne(query);
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    const update = {
+      resetPasswordToken: resetToken,
+      resetPasswordExpires: Date.now() + 360000
+    };
+    return await User.findOneAndUpdate(query, update);
+    console.log("token crypto -> ", resetToken, user);
   } catch {
     throw Error("Error resetting password " + err);
   }

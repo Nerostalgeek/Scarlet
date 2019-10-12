@@ -47,11 +47,11 @@ function logout() {
   return { type: userConstants.LOGOUT };
 }
 
-function register(user) {
+function register(user, CSRFTokenObject) {
   return dispatch => {
     dispatch(request(user));
 
-    userService.register(user).then(
+    userService.register(user, CSRFTokenObject).then(
       user => {
         dispatch(success(user));
         history.push("/");

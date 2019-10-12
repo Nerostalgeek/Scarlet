@@ -53,13 +53,13 @@ async function getUser(id) {
   return handleResponse(response);
 }
 
-async function register(user) {
+async function register(user, CSRFTokenObject) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
+    body: JSON.stringify({ user, CSRFTokenObject })
   };
-
+  console.log("body in register -->", requestOptions.body);
   const response = await fetch(
     `${config.apiUrl}/users/register`,
     requestOptions
