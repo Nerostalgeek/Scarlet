@@ -10,16 +10,16 @@ const FormReservation = () => {
   const [date, setDate] = useState(new Date());
   const [selectedRange, setSelectedRange] = useState("");
 
-  function incrementCounter(event) {
+  const incrementCounter = event => {
     setCount(count + 1);
   }
-  function decrementCounter(event) {
+  const decrementCounter = event => {
     if (count > 1) {
       setCount(count - 1);
     }
   }
 
-  function onChange(date) {
+  const onChangeCalendarValue = date => {
     let newRange = [...date];
     newRange = [
       newRange[0].toLocaleDateString(),
@@ -50,7 +50,7 @@ const FormReservation = () => {
           <Calendar
             returnValue={"range"}
             minDate={new Date()}
-            onChange={onChange}
+            onChange={onChangeCalendarValue}
             selectRange={true}
           />
         </div>
