@@ -1,7 +1,8 @@
 const ReviewController = require("../controller/review.controller");
 
-const express = require("express"),
-  review = express.Router();
+const express = require("express");
+
+review = express.Router();
 
 review.get("/", ReviewController.getAll);
 

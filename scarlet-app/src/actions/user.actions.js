@@ -12,10 +12,10 @@ export const userActions = {
   delete: _delete
 };
 
-function login(email, password) {
+function login(email, password, CSRFTokenObject) {
   return dispatch => {
     dispatch(request({ email }));
-    userService.login(email, password).then(
+    userService.login(email, password, CSRFTokenObject).then(
       user => {
         dispatch(success(user));
         history.push("/dashboard");

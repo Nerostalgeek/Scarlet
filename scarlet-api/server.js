@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
-
 const mongoose = require("mongoose");
 const passport = require("passport");
 
@@ -11,27 +10,30 @@ const passport = require("passport");
 const router = require("./router");
 // *********************************
 
+// ***** CUSTOM MIDDLEWARE IMPORTS *****
+const customMiddleware = require("./middleware/CSRFToken.middleware");
+// *********************************
 const app = express();
 app.use(
   cors({
     origin: config.NonApiServerUrl
   })
 );
-
-const logger = log({ console: true, file: false, label: config.settings.name });
-
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({
   extended: true
 });
+
+// LOGGER IN CONSOLE
+const logger = log({ console: true, file: false, label: config.settings.name });
+
 app.use(urlencodedParser);
 app.use(bodyParser.json());
+
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
 //initializes the passport configuration.
 app.use(passport.initialize());
-require("./config/passport-config")(passport);
-//imports our configuration file which holds our verification callbacks and things like the secret for signing.
 
 // Setup MongoDB connection
 mongoose.connect(config.mongodbUrl, {
@@ -41,6 +43,26 @@ mongoose.connect(config.mongodbUrl, {
 const connection = mongoose.connection;
 connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
+});
+
+// ********* CSRF TOKEN ROUTE *********
+app.use("/token", router.CSRFToken);
+// ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
+app.post("*", customMiddleware.checkCsrfToken);
+
+app.put("*", (req, res, next) => {
+  console.log("PUT happen");
+  next();
+});
+
+app.patch("*", (req, res, next) => {
+  console.log("PATCH happen");
+  next();
+});
+
+app.delete("*", (req, res, next) => {
+  console.log("DELETE happen");
+  next();
 });
 
 // ********* USER ROUTE *********

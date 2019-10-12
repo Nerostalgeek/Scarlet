@@ -1,7 +1,8 @@
 const CarController = require("../controller/car.controller");
 
-const express = require("express"),
-  car = express.Router();
+const express = require("express");
+
+car = express.Router();
 
 // Route for ALL CARS
 car.get("/", CarController.getAll);
@@ -9,6 +10,6 @@ car.get("/", CarController.getAll);
 // Route for a specific car
 car.get("/:id", CarController.getById);
 
-car.route("/add").post(CarController.addCar);
+car.route("/register").post(CarController.addCar);
 
 module.exports = car;
