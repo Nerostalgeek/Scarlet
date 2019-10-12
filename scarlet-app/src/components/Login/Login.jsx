@@ -6,6 +6,7 @@ import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import FormLogin from "./FormLogin/FormLogin";
 import FormRegister from "./FormRegister/FormRegister";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
 import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import { useModal } from "react-modal-hook";
@@ -85,6 +86,7 @@ const Login = () => {
             <ReactModal isOpen={isModalOpened} style={customStyles}>
               {displayForm === "login" && <FormLogin />}
               {displayForm === "register" && <FormRegister />}
+              {displayForm === "forgotPassword" && <ForgotPassword />}
             </ReactModal>
           </div>
         </div>

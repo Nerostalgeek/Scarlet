@@ -48,7 +48,7 @@ connection.once("open", function() {
 // ********* CSRF TOKEN ROUTE *********
 app.use("/token", router.CSRFToken);
 // ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
-//app.post("*", customMiddleware.checkCsrfToken);
+app.post("*", customMiddleware.checkCsrfToken);
 
 app.put("*", (req, res, next) => {
   console.log("PUT happen");

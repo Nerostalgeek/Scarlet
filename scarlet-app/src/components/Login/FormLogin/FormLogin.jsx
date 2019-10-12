@@ -93,7 +93,13 @@ const FormLogin = () => {
                   <input type="checkbox" />
                   Se souvenir de moi
                 </label>
-                <a className="form-recovery" href="#">
+                <a
+                  className="form-recovery"
+                  href="#"
+                  onClick={() =>
+                    dispatch(modalActions.displayForgotPasswordForm())
+                  }
+                >
                   Mot de passe oublié ?
                 </a>
               </div>

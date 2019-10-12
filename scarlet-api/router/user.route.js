@@ -19,6 +19,6 @@ user.route("/register").post(UserController.register);
 
 user.route("/login").post(UserController.login);
 
-user.post("/reset-password", UserController.resetPassword);
+user.route("/reset-password").post(UserController.resetPassword);
 
 module.exports = user;

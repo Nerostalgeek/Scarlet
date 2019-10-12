@@ -158,9 +158,9 @@ function _delete(id) {
 
 function resetPassword(email, CSRFTokenObject) {
   return dispatch => {
-    dispatch(request(email));
-    userService.resetPassword(email).then(
-      email => dispatch(success(email)),
+    dispatch(request({ email }));
+    userService.resetPassword(email, CSRFTokenObject).then(
+      user => dispatch(success(user)),
       error => {
         dispatch(failure(error));
       }

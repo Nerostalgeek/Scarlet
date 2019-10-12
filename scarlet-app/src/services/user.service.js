@@ -89,11 +89,11 @@ async function _delete(id) {
   return handleResponse(response);
 }
 
-async function resetPassword(email) {
+async function resetPassword(email, CSRFTokenObject) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(email)
+    body: JSON.stringify({ email, CSRFTokenObject })
   };
 
   const response = await fetch(

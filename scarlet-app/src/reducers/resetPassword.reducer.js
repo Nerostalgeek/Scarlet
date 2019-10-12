@@ -4,7 +4,8 @@ export function resetPassword(state = {}, { type, email, error }) {
   switch (type) {
     case userConstants.RESET_PASSWORD_REQUEST:
       return {
-        loading: true
+        loading: true,
+        email: email
       };
     case userConstants.RESET_PASSWORD_SUCCESS:
       return {
