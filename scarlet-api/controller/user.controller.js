@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserService = require("../service/user.service");
-const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const config = require("../../config.default");
 const jwtSecret = config.jwtSecret;
@@ -94,13 +93,6 @@ exports.resetPassword = async (req, res) => {
         console.error("Email not in database");
         res.json("Email was not found in the database");
       } else {
-        const resetToken = crypto.randomBytes(20).toString("hex");
-        console.log("token crypto -> ", resetToken, user);
-        user.update({
-          resetPasswordToken: resetToken,
-          resetPasswordExpires: Date.now() + 360000
-        });
-
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
