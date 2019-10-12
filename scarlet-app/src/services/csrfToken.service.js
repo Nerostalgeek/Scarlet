@@ -6,7 +6,7 @@ export const csrfTokenService = {
   delete: _delete
 };
 
-function create(user) {
+async function create(user) {
   const requestOptions = {
     method: "POST",
     headers: {
@@ -15,21 +15,20 @@ function create(user) {
     body: JSON.stringify({ user: user })
   };
 
-  return fetch(`${config.apiUrl}/token/create`, requestOptions)
-    .then(handleResponse)
-    .then(token => token);
+  const response = await fetch(`${config.apiUrl}/token/create`, requestOptions);
+  const token = await handleResponse(response);
+  return token;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+async function _delete(id) {
   const requestOptions = {
     method: "DELETE",
     body: JSON.stringify({ _id: id })
   };
 
-  return fetch(`${config.apiUrl}/token/remove`, requestOptions).then(
-    handleResponse
-  );
+  const response = await fetch(`${config.apiUrl}/token/remove`, requestOptions);
+  return handleResponse(response);
 }
 
 function handleResponse(response) {

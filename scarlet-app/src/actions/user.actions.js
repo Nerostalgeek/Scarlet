@@ -9,7 +9,8 @@ export const userActions = {
   register,
   getAll,
   getUser,
-  delete: _delete
+  delete: _delete,
+  resetPassword
 };
 
 function login(email, password, CSRFTokenObject) {
@@ -152,5 +153,29 @@ function _delete(id) {
 
   function failure(id, error) {
     return { type: userConstants.DELETE_FAILURE, id, error };
+  }
+}
+
+function resetPassword(email, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(email));
+    userService.resetPassword(email).then(
+      email => dispatch(success(email)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(email) {
+    return { type: userConstants.RESET_PASSWORD_REQUEST, email };
+  }
+
+  function success(email) {
+    return { type: userConstants.RESET_PASSWORD_SUCCESS, email };
+  }
+
+  function failure(error) {
+    return { type: userConstants.RESET_PASSWORD_FAILURE, error };
   }
 }

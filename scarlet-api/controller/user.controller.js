@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserService = require("../service/user.service");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 const config = require("../../config.default");
 const jwtSecret = config.jwtSecret;
 
@@ -79,4 +81,52 @@ exports.login = async (req, res) => {
     e.login = "Wrong credentials";
     return res.status(403).json(e);
   }
+};
+
+exports.resetPassword = async (req, res) => {
+  const email = req.body.email;
+  try {
+    console.log("email -> ", email);
+    await UserService.resetPassword({ email: email }).then(user => {
+      if (user === null) {
+        console.error("Email not in database");
+        res.json("Email was not found in the database");
+      } else {
+        const token = crypto.randomBytes(20).toString("hex");
+        console.log("token crypto -> ", token, user);
+        user.update({
+          resetPasswordToken: token,
+          resetPasswordExpires: Date.now() + 360000
+        });
+
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: `${config.emailSender}`,
+            pass: `${config.passwordEmail}`
+          }
+        });
+
+        const mailOptions = {
+          from: `${config.emailSender}`,
+          to: `${user.email}`,
+          subject: "Scarlet - Reset your password",
+          text:
+            `You are receiving this because you (or someone else) have requested the reset of te password for your account. \n\n` +
+            `Please click on the following link, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
+            `${config.NonApiServerUrl}/reset/${token}\n\n` +
+            `If you did not request this, please ignore this email and your password will remain unchanged. \n`
+        };
+
+        console.log("Sending email");
+
+        transporter.sendMail(mailOptions, (err, response) => {
+          if (err) {
+          } else {
+            console.log("response from email => ", response);
+          }
+        });
+      }
+    });
+  } catch (e) {}
 };

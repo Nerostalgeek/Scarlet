@@ -30,6 +30,14 @@ const User = new Schema(
     role: {
       type: String,
       required: true
+    },
+    resetPasswordToken: {
+      type: String,
+      required: false
+    },
+    resetPasswordExpires: {
+      type: Date,
+      required: false
     }
   },
   { timestamps: { createdAt: "created_at" } }

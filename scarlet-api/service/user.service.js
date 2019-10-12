@@ -33,6 +33,14 @@ exports.login = async query => {
   }
 };
 
+exports.resetPassword = async query => {
+  try {
+    return await User.findOne(query);
+  } catch {
+    throw Error("Error resetting password " + err);
+  }
+};
+
 //Check to make sure header is not undefined, if so, return Forbidden (403)
 exports.checkToken = (req, res, next) => {
   const header = req.headers["authorization"];
