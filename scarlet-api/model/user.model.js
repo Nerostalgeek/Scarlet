@@ -57,7 +57,7 @@ User.pre("save", function(next) {
   if (!this.isModified("password")) {
     return next();
   }
-  this.password = bcrypt.hashSync(this.password, 10);
+  this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
 User.methods.comparePassword = function(plaintext, callback) {

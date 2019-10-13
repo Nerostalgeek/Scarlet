@@ -10,7 +10,8 @@ export const userService = {
   update,
   delete: _delete,
   resetPassword,
-  checkResetToken
+  checkResetToken,
+  updatePassword
 };
 
 async function login(email, password, CSRFTokenObject) {
@@ -117,11 +118,11 @@ async function checkResetToken(resetToken) {
   return handleResponse(response);
 }
 
-async function updatePassword(email, password, resetToken, CSRFTokenObject) {
+async function updatePassword(email, password, CSRFTokenObject) {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password, resetToken, CSRFTokenObject })
+    body: JSON.stringify({ email, password, CSRFTokenObject })
   };
 
   const response = await fetch(

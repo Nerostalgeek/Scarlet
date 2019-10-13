@@ -206,25 +206,23 @@ function checkResetToken(resetToken) {
   }
 }
 
-function updatePassword(email, password, resetToken, CSRFTokenObject) {
+function updatePassword(email, password, CSRFTokenObject) {
   return dispatch => {
     dispatch(request({ email }));
-    userService
-      .updatePassword(email, password, resetToken, CSRFTokenObject)
-      .then(
-        user => dispatch(success(user)),
-        error => {
-          dispatch(failure(error));
-        }
-      );
+    userService.updatePassword(email, password, CSRFTokenObject).then(
+      user => dispatch(success(user)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
   };
 
-  function request(email) {
-    return { type: userConstants.UPDATE_PASSWORD_REQUEST, email };
+  function request(user) {
+    return { type: userConstants.UPDATE_PASSWORD_REQUEST, user };
   }
 
-  function success(email) {
-    return { type: userConstants.UPDATE_PASSWORD_SUCCESS, email };
+  function success(user) {
+    return { type: userConstants.UPDATE_PASSWORD_SUCCESS, user };
   }
 
   function failure(error) {

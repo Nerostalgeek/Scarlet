@@ -134,8 +134,10 @@ exports.resetPassword = async (req, res) => {
       }
     });
   } catch (e) {
-    console.log("error in resetpassword controller => ", e);
-    // TODO: HANDLING ERROR
+    res.status(500).send({
+      email: user.email,
+      message: "Error sending email, please try again "
+    });
   }
 };
 
@@ -158,6 +160,25 @@ exports.checkResetToken = async (req, res) => {
     });
   } catch (e) {
     console.log("error in checkresetToken controller => ", e);
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  const BCRYPT_SALT_ROUNDS = 12;
+  const email = req.body.email;
+  const password = req.body.password;
+  const saltedPassword = bcrypt.hashSync(password, BCRYPT_SALT_ROUNDS);
+  const update = {
+    password: saltedPassword,
+    resetPasswordToken: null,
+    resetPasswordExpires: null
+  };
+  if (email) {
+    await UserService.updatePassword({ email, saltedPassword, update }).then(
+      res.status(200).send({
+        message: "Password successfully reset"
+      })
+    );
   }
 };
 

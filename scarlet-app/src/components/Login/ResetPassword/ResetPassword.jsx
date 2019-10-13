@@ -6,7 +6,6 @@ import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 const ResetPassword = props => {
   const dispatch = useDispatch();
   const user = null;
-  const [enteredEmail, setEmail] = useState("");
   const [enteredPassword, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -21,26 +20,26 @@ const ResetPassword = props => {
   }, [dispatch]);
 
   const csrfToken = useSelector(state => state.csrfProtection);
+  const responseResetToken = useSelector(state => state.resetPassword);
 
   const { token, fetchingToken, tokenFetched } = csrfToken;
+  const { isChecked, email } = responseResetToken;
 
   const submitHandler = event => {
     event.preventDefault();
 
     setSubmitted(true);
-    const email = enteredEmail;
+    const user = email;
     const password = enteredPassword;
     const CSRFTokenObject = {
       token: token,
       user: null
     };
-    if (email && password && tokenFetched) {
-      dispatch(userActions.login(email, password, CSRFTokenObject));
-      dispatch(modalActions.hideModal());
+    if (user && password && tokenFetched && isChecked) {
+      dispatch(userActions.updatePassword(user, password, CSRFTokenObject));
     }
   };
 
-  // const { loggingIn } = this.props;
   return (
     <div className="form">
       <div className="form-toggle" />
@@ -71,33 +70,12 @@ const ResetPassword = props => {
                   <div className="help-block">Le mot de passe est requis</div>
                 )}
               </div>
+              <div className="form-group"></div>
               <div className="form-group">
-                <label className="form-remember">
-                  <input type="checkbox" />
-                  Se souvenir de moi
-                </label>
-                <a
-                  className="form-recovery"
-                  href="#"
-                  onClick={() =>
-                    dispatch(modalActions.displayForgotPasswordForm())
-                  }
-                >
-                  Mot de passe oublié ?
-                </a>
-              </div>
-              <div className="form-group">
-                <button type="submit">Se connecter</button>
+                <button type="submit">Reset password</button>
               </div>
             </form>
           </div>
-          <button
-            className="form-register-button"
-            type="button"
-            onClick={() => dispatch(modalActions.displayRegisterForm())}
-          >
-            Créer un compte
-          </button>
         </div>
       )}
     </div>

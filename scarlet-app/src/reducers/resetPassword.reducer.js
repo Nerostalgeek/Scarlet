@@ -39,12 +39,12 @@ export function resetPassword(
     case userConstants.UPDATE_PASSWORD_REQUEST:
       return {
         loading: true,
-        email: email
+        email: user.email
       };
     case userConstants.UPDATE_PASSWORD_SUCCESS:
       return {
         updatePassword: true,
-        email: email
+        email: user.email
       };
     case userConstants.UPDATE_PASSWORD_FAILURE:
       return {

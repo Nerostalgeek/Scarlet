@@ -35,7 +35,6 @@ exports.login = async query => {
 
 exports.resetPassword = async query => {
   try {
-    console.log("token crypto -> ", query);
     const email = query.email;
     const updateData = query.update;
 
@@ -65,5 +64,20 @@ exports.checkResetToken = async query => {
     );
   } catch (e) {
     throw Error("Error checking Reset token " + e);
+  }
+};
+
+exports.updatePassword = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+    console.log("query in update password service", query);
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error resetting password " + e);
   }
 };
