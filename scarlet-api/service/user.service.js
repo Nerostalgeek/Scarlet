@@ -57,7 +57,7 @@ exports.checkResetToken = async query => {
       "date now -> -> ->",
       Date.now()
     );
-    return await User.find({ resetPasswordToken: query.resetToken }).where(
+    return await User.findOne({ resetPasswordToken: query.resetToken }).where(
       "resetPasswordExpires",
       {
         $gte: Date.now()

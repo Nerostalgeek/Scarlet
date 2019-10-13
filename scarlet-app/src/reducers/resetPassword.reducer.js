@@ -28,7 +28,8 @@ export function resetPassword(
     case userConstants.CHECK_RESET_TOKEN_SUCCESS:
       return {
         isChecked: true,
-        user: user
+        email: user.email,
+        message: user.message
       };
     case userConstants.CHECK_RESET_TOKEN_FAILURE:
       return {

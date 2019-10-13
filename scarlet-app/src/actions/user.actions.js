@@ -186,7 +186,7 @@ function checkResetToken(resetToken) {
   return dispatch => {
     dispatch(request(resetToken));
     userService.checkResetToken(resetToken).then(
-      user => dispatch(success(user.email)),
+      user => dispatch(success(user)),
       error => {
         dispatch(failure(error));
       }
@@ -197,8 +197,8 @@ function checkResetToken(resetToken) {
     return { type: userConstants.CHECK_RESET_TOKEN_REQUEST, resetToken };
   }
 
-  function success(email) {
-    return { type: userConstants.CHECK_RESET_TOKEN_SUCCESS, email };
+  function success(user) {
+    return { type: userConstants.CHECK_RESET_TOKEN_SUCCESS, user };
   }
 
   function failure(error) {
