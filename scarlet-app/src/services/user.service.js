@@ -9,7 +9,8 @@ export const userService = {
   getUser,
   update,
   delete: _delete,
-  resetPassword
+  resetPassword,
+  checkResetToken
 };
 
 async function login(email, password, CSRFTokenObject) {
@@ -98,6 +99,33 @@ async function resetPassword(email, CSRFTokenObject) {
 
   const response = await fetch(
     `${config.apiUrl}/users/reset-password`,
+    requestOptions
+  );
+  return handleResponse(response);
+}
+
+async function checkResetToken(resetToken) {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  };
+
+  const response = await fetch(
+    `${config.apiUrl}/users/check-reset-token?resetToken=${resetToken}`,
+    requestOptions
+  );
+  return handleResponse(response);
+}
+
+async function updatePassword(email, password, resetToken, CSRFTokenObject) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, resetToken, CSRFTokenObject })
+  };
+
+  const response = await fetch(
+    `${config.apiUrl}/users/update-password`,
     requestOptions
   );
   return handleResponse(response);

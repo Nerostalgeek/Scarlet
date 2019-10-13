@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const UserService = require("../service/user.service");
 const nodemailer = require("nodemailer");
 const config = require("../../config.default");
@@ -85,10 +86,13 @@ exports.login = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   const email = req.body.email;
-  console.log("email blabla -> ", email);
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  const update = {
+    resetPasswordToken: resetToken,
+    resetPasswordExpires: Date.now() + 3600000
+  };
   try {
-    console.log("email -> ", email);
-    await UserService.resetPassword({ email }).then(user => {
+    await UserService.resetPassword({ email, update }).then(user => {
       if (user === null) {
         console.error("Email not in database");
         res.json("Email was not found in the database");
@@ -106,9 +110,9 @@ exports.resetPassword = async (req, res) => {
           to: `${user.email}`,
           subject: "Scarlet - Reset your password",
           text:
-            `You are receiving this because you (or someone else) have requested the reset of te password for your account. \n\n` +
+            `You are receiving this because you (or someone else) have requested the reset of the password for your account. \n\n` +
             `Please click on the following link, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
-            `${config.NonApiServerUrl}/reset/${resetToken}\n\n` +
+            `${config.NonApiServerUrl}/reset-password/${resetToken}\n\n` +
             `If you did not request this, please ignore this email and your password will remain unchanged. \n`
         };
 
@@ -116,11 +120,59 @@ exports.resetPassword = async (req, res) => {
 
         transporter.sendMail(mailOptions, (err, response) => {
           if (err) {
+            res.status(500).send({
+              message:
+                "A problem occurred while sending the reset Link. Please try again or contact us to solve this problem"
+            });
           } else {
             console.log("response from email => ", response);
+            res.status(200).send({
+              email: user.email,
+              message: "Email sent"
+            });
           }
         });
       }
     });
-  } catch (e) {}
+  } catch (e) {
+    console.log("error in resetpassword controller => ", e);
+    // TODO: HANDLING ERROR
+  }
+};
+
+exports.checkResetToken = async (req, res) => {
+  console.log("param tavu ", req.params, req.query.resetToken);
+  const resetToken = req.query.resetToken;
+  try {
+    await UserService.checkResetToken({ resetToken }).then(user => {
+      console.log("user :: ", user);
+      if (user === null) {
+        res.status(403).send({
+          message: "The Reset password token is no longer valid"
+        });
+        console.error("Reset token is no longer valid");
+      } else {
+        res.status(200).send({
+          email: user.email,
+          message: "Password reset link a-ok"
+        });
+      }
+    });
+  } catch (e) {
+    console.log("error in checkresetToken controller => ", e);
+  }
+};
+
+//Check to make sure header is not undefined, if so, return Forbidden (403)
+exports.checkJwtToken = (req, res, next) => {
+  const header = req.headers["authorization"];
+
+  if (typeof header !== "undefined") {
+    const bearer = header.split(" ");
+    req.token = bearer[1];
+    next();
+  } else {
+    //If header is undefined return Forbidden (403)
+    res.sendStatus(403);
+  }
 };

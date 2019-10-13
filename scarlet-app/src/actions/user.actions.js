@@ -10,7 +10,9 @@ export const userActions = {
   getAll,
   getUser,
   delete: _delete,
-  resetPassword
+  resetPassword,
+  checkResetToken,
+  updatePassword
 };
 
 function login(email, password, CSRFTokenObject) {
@@ -177,5 +179,55 @@ function resetPassword(email, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.RESET_PASSWORD_FAILURE, error };
+  }
+}
+
+function checkResetToken(resetToken) {
+  return dispatch => {
+    dispatch(request(resetToken));
+    userService.checkResetToken(resetToken).then(
+      user => dispatch(success(user.email)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(resetToken) {
+    return { type: userConstants.CHECK_RESET_TOKEN_REQUEST, resetToken };
+  }
+
+  function success(email) {
+    return { type: userConstants.CHECK_RESET_TOKEN_SUCCESS, email };
+  }
+
+  function failure(error) {
+    return { type: userConstants.CHECK_RESET_TOKEN_FAILURE, error };
+  }
+}
+
+function updatePassword(email, password, resetToken, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request({ email }));
+    userService
+      .updatePassword(email, password, resetToken, CSRFTokenObject)
+      .then(
+        user => dispatch(success(user)),
+        error => {
+          dispatch(failure(error));
+        }
+      );
+  };
+
+  function request(email) {
+    return { type: userConstants.UPDATE_PASSWORD_REQUEST, email };
+  }
+
+  function success(email) {
+    return { type: userConstants.UPDATE_PASSWORD_SUCCESS, email };
+  }
+
+  function failure(error) {
+    return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
   }
 }

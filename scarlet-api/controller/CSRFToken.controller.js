@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 const CSRFTokenService = require("../service/CSRFToken.service");
 
 exports.getAll = async (req, res) => {
@@ -25,17 +27,10 @@ exports.getById = async (req, res) => {
 
 exports.getToken = async (req, res) => {
   const user = req.body.user;
-  const rand = () => {
-    return Math.random()
-      .toString(36)
-      .substr(2); // remove `0.`
-  };
 
-  const token = () => {
-    return rand() + rand() + rand(); // to make it longer
-  };
+  const csrfToken = crypto.randomBytes(20).toString("hex");
 
-  const getCSRFToken = { user: user, token: token() };
+  const getCSRFToken = { user: user, token: csrfToken };
   try {
     const CSRFToken = await CSRFTokenService.getToken(getCSRFToken);
     return res.status(200).json({

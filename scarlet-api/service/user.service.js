@@ -1,5 +1,4 @@
 const User = require("../model/user.model");
-const crypto = require("crypto");
 
 exports.getAll = async () => {
   try {
@@ -36,28 +35,35 @@ exports.login = async query => {
 
 exports.resetPassword = async query => {
   try {
-    const resetToken = crypto.randomBytes(20).toString("hex");
-    const update = {
-      resetPasswordToken: resetToken,
-      resetPasswordExpires: Date.now() + 360000
-    };
-    return await User.findOneAndUpdate(query, update);
-    console.log("token crypto -> ", resetToken, user);
-  } catch {
-    throw Error("Error resetting password " + err);
+    console.log("token crypto -> ", query);
+    const email = query.email;
+    const updateData = query.update;
+
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error resetting password " + e);
   }
 };
 
-//Check to make sure header is not undefined, if so, return Forbidden (403)
-exports.checkToken = (req, res, next) => {
-  const header = req.headers["authorization"];
-
-  if (typeof header !== "undefined") {
-    const bearer = header.split(" ");
-    req.token = bearer[1];
-    next();
-  } else {
-    //If header is undefined return Forbidden (403)
-    res.sendStatus(403);
+exports.checkResetToken = async query => {
+  try {
+    console.log(
+      "query in checkReset:   ",
+      query,
+      "date now -> -> ->",
+      Date.now()
+    );
+    return await User.find({ resetPasswordToken: query.resetToken }).where(
+      "resetPasswordExpires",
+      {
+        $gte: Date.now()
+      }
+    );
+  } catch (e) {
+    throw Error("Error checking Reset token " + e);
   }
 };

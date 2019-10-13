@@ -10,6 +10,7 @@ import RentCarsPage from "../RentCarsPage/RentCarsPage";
 import Dashboard from "../Dashboard/Dashboard";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
+import ResetPassword from "../Login/ResetPassword/ResetPassword";
 
 import "./App.css";
 
@@ -30,6 +31,7 @@ const App = () => {
         <NavBar />
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={Login} />
+        <Route path="/reset-password" component={ResetPassword} />
         <Route path="/rent-cars" component={RentCarsPage} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/logout" />
