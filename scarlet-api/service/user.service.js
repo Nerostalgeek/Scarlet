@@ -33,16 +33,51 @@ exports.login = async query => {
   }
 };
 
-//Check to make sure header is not undefined, if so, return Forbidden (403)
-exports.checkToken = (req, res, next) => {
-  const header = req.headers["authorization"];
+exports.resetPassword = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
 
-  if (typeof header !== "undefined") {
-    const bearer = header.split(" ");
-    req.token = bearer[1];
-    next();
-  } else {
-    //If header is undefined return Forbidden (403)
-    res.sendStatus(403);
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error resetting password " + e);
+  }
+};
+
+exports.checkResetToken = async query => {
+  try {
+    console.log(
+      "query in checkReset:   ",
+      query,
+      "date now -> -> ->",
+      Date.now()
+    );
+    return await User.findOne({ resetPasswordToken: query.resetToken }).where(
+      "resetPasswordExpires",
+      {
+        $gte: Date.now()
+      }
+    );
+  } catch (e) {
+    throw Error("Error checking Reset token " + e);
+  }
+};
+
+exports.updatePassword = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+    console.log("query in update password service", query);
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error resetting password " + e);
   }
 };

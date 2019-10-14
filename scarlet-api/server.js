@@ -50,15 +50,9 @@ app.use("/token", router.CSRFToken);
 // ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
 app.post("*", customMiddleware.checkCsrfToken);
 
-app.put("*", (req, res, next) => {
-  console.log("PUT happen");
-  next();
-});
+app.put("*", customMiddleware.checkCsrfToken);
 
-app.patch("*", (req, res, next) => {
-  console.log("PATCH happen");
-  next();
-});
+app.patch("*", customMiddleware.checkCsrfToken);
 
 app.delete("*", (req, res, next) => {
   console.log("DELETE happen");

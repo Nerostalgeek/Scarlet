@@ -9,6 +9,8 @@ user = express.Router();
 
 user.get("/", UserController.getAll);
 
+user.get("/check-reset-token", UserController.checkResetToken);
+
 user.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
@@ -18,5 +20,9 @@ user.get(
 user.route("/register").post(UserController.register);
 
 user.route("/login").post(UserController.login);
+
+user.route("/reset-password").post(UserController.resetPassword);
+
+user.route("/update-password").put(UserController.updatePassword);
 
 module.exports = user;

@@ -6,6 +6,8 @@ import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import FormLogin from "./FormLogin/FormLogin";
 import FormRegister from "./FormRegister/FormRegister";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import ConfirmPage from "./ConfirmPage/ConfirmPage";
 import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import { useModal } from "react-modal-hook";
@@ -28,7 +30,7 @@ const customStyles = {
 
 const Login = () => {
   const isModalOpened = useSelector(state => state.displayModal.open);
-  const displayForm = useSelector(state => state.displayForm.formValue);
+  const displayPage = useSelector(state => state.displayPage.pageValue);
   const dispatch = useDispatch();
 
   const responseFacebook = () => {
@@ -83,8 +85,13 @@ const Login = () => {
               Connexion / Inscription par E-Mail
             </button>
             <ReactModal isOpen={isModalOpened} style={customStyles}>
-              {displayForm === "login" && <FormLogin />}
-              {displayForm === "register" && <FormRegister />}
+              {displayPage === "login" && <FormLogin />}
+              {displayPage === "register" && <FormRegister />}
+              {displayPage === "forgotPassword" && <ForgotPassword />}
+              {displayPage ===
+                ("confirmPageResetPassword" || "confirmPageRegister") && (
+                <ConfirmPage />
+              )}
             </ReactModal>
           </div>
         </div>

@@ -9,7 +9,10 @@ export const userActions = {
   register,
   getAll,
   getUser,
-  delete: _delete
+  delete: _delete,
+  resetPassword,
+  checkResetToken,
+  updatePassword
 };
 
 function login(email, password, CSRFTokenObject) {
@@ -46,11 +49,11 @@ function logout() {
   return { type: userConstants.LOGOUT };
 }
 
-function register(user) {
+function register(user, CSRFTokenObject) {
   return dispatch => {
     dispatch(request(user));
 
-    userService.register(user).then(
+    userService.register(user, CSRFTokenObject).then(
       user => {
         dispatch(success(user));
         history.push("/");
@@ -152,5 +155,77 @@ function _delete(id) {
 
   function failure(id, error) {
     return { type: userConstants.DELETE_FAILURE, id, error };
+  }
+}
+
+function resetPassword(email, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request({ email }));
+    userService.resetPassword(email, CSRFTokenObject).then(
+      user => dispatch(success(user)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(email) {
+    return { type: userConstants.RESET_PASSWORD_REQUEST, email };
+  }
+
+  function success(email) {
+    return { type: userConstants.RESET_PASSWORD_SUCCESS, email };
+  }
+
+  function failure(error) {
+    return { type: userConstants.RESET_PASSWORD_FAILURE, error };
+  }
+}
+
+function checkResetToken(resetToken) {
+  return dispatch => {
+    dispatch(request(resetToken));
+    userService.checkResetToken(resetToken).then(
+      user => dispatch(success(user)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(resetToken) {
+    return { type: userConstants.CHECK_RESET_TOKEN_REQUEST, resetToken };
+  }
+
+  function success(user) {
+    return { type: userConstants.CHECK_RESET_TOKEN_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.CHECK_RESET_TOKEN_FAILURE, error };
+  }
+}
+
+function updatePassword(email, password, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request({ email }));
+    userService.updatePassword(email, password, CSRFTokenObject).then(
+      user => dispatch(success(user)),
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.UPDATE_PASSWORD_REQUEST, user };
+  }
+
+  function success(user) {
+    return { type: userConstants.UPDATE_PASSWORD_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
   }
 }
