@@ -2,32 +2,23 @@
   height: 100%;
   text-align: center;
   overflow: hidden;
-  padding-top: 75px;
 }
 
 .homepage-landing {
-  height: calc(100vh - 75px);
-  background-image: url("../../img/assets/landing/background-homepage.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: calc(100vh - 100px);
+  background: white; /* fallback for old browsers */
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 0 100px;
 }
 
 .homepage-landing-text {
-  flex: 1;
-  padding: 0 50px;
+  flex: 1.5;
+  padding: 0 100px;
   text-align: left;
 }
 
-.homepage-reservation {
-  flex: 1;
-}
-
 .homepage-landing-text #homepage-landing-title {
-  color: white;
   font-size: 60px;
   padding-bottom: 25px;
   font-family: "Quicksand", sans-serif;
@@ -38,7 +29,6 @@
   font-size: 20px;
   padding-bottom: 25px;
   font-family: "Open-Sans", sans-serif;
-  color: white;
 }
 
 .landing-cta {
@@ -78,10 +68,62 @@
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.homepage-landing-image {
+  flex: 3;
+}
+
+.homepage-landing-image img {
+  max-width: 100%;
+  padding: 0 100px;
+  height: auto;
+}
+
 .homepage-button {
   margin: 0 5px;
 }
 
-.homepage-reservation {
-  width: 40%;
+.homepage-howto {
+  padding: 50px 0;
+}
+
+.homepage-section-title {
+  font-size: 35px;
+  padding-bottom: 50px;
+}
+
+.howto-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.howto-image {
+  flex: 3;
+  text-align: center;
+}
+
+.howto-image img {
+  padding: 50px;
+  width: 70%;
+}
+
+.howto-text {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
+  font-size: 20px;
+}
+
+.howto-text:nth-child(even) {
+  text-align: left;
+}
+
+.howto-text:nth-child(odd) {
+  text-align: right;
+}
+
+.homepage-available-cars {
+  height: 500px;
+  width: 100%;
 }
