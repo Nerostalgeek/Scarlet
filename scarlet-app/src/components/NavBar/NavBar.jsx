@@ -20,12 +20,12 @@ const NavBar = () => {
       },
       {
         name: "Louer une voiture",
-        url: "cars-offers",
+        url: "rent-cars",
         customId: ""
       },
       {
         name: "Mettre ma voiture en location",
-        url: "rent-my-car",
+        url: "#",
         customId: ""
       },
       {
@@ -43,12 +43,12 @@ const NavBar = () => {
         },
         {
           name: "Louer une voiture",
-          url: "cars-offers",
+          url: "rent-cars",
           customId: ""
         },
         {
           name: "Mettre ma voiture en location",
-          url: "rent-my-car",
+          url: "#",
           customId: ""
         },
         {
