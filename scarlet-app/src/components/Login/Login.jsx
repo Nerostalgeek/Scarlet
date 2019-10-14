@@ -10,7 +10,6 @@ import ForgotPassword from "./ForgotPassword/ForgotPassword";
 import ConfirmPage from "./ConfirmPage/ConfirmPage";
 import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
-import { useModal } from "react-modal-hook";
 import googleIcon from "../../img/icons/google-icon.png";
 import mailIconWhite from "../../img/icons/mail-white.png";
 import { userActions } from "../../actions";

@@ -174,7 +174,103 @@ exports.updatePassword = async (req, res) => {
     resetPasswordExpires: null
   };
   if (email) {
-    await UserService.updatePassword({ email, saltedPassword, update }).then(
+    await UserService.updatePassword({ email, update }).then(
+      res.status(200).send({
+        message: "Password successfully reset"
+      })
+    );
+  }
+};
+
+exports.setValidationToken = async (req, res) => {
+  const email = req.body.email;
+  const validationToken = crypto.randomBytes(20).toString("hex");
+  const update = {
+    confirmEmailToken: validationToken,
+    confirmEmailExpires: Date.now() + 3600000
+  };
+  try {
+    await UserService.setValidationToken({ email, update }).then(user => {
+      if (user === null) {
+        console.error("Email not in database");
+        res.json("Email was not found in the database");
+      } else {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: `${config.emailSender}`,
+            pass: `${config.passwordEmail}`
+          }
+        });
+
+        const mailOptions = {
+          from: `${config.emailSender}`,
+          to: `${user.email}`,
+          subject: "Scarlet - Confirm your account!",
+          text:
+            `You are receiving this because you have registered into Scarlet's services. \n\n` +
+            `Please click on the following link to activate your account, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
+            `${config.NonApiServerUrl}/validate-account/${validationToken}\n\n` +
+            `We hope that you will enjoy our services!. \n`
+        };
+
+        console.log("Sending email");
+
+        transporter.sendMail(mailOptions, (err, response) => {
+          if (err) {
+            res.status(500).send({
+              message:
+                "A problem occurred while sending the validation account's Link. Please try again or contact us to solve this problem"
+            });
+          } else {
+            console.log("response from email => ", response);
+            res.status(200).send({
+              email: user.email,
+              message: "Email sent"
+            });
+          }
+        });
+      }
+    });
+  } catch (e) {
+    res.status(500).send({
+      email: user.email,
+      message: "Error sending email, please try again "
+    });
+  }
+};
+
+exports.checkValidationToken = async (req, res) => {
+  const validationToken = req.query.validationToken;
+  try {
+    await UserService.checkValidationToken({ validationToken }).then(user => {
+      console.log("user :: ", user);
+      if (user === null) {
+        res.status(403).send({
+          message: "The Validation account token is no longer valid"
+        });
+        console.error("Validation account token is no longer valid");
+      } else {
+        res.status(200).send({
+          email: user.email,
+          message: "Validation account link a-ok"
+        });
+      }
+    });
+  } catch (e) {
+    console.log("error in checkValidationTokenController  => ", e);
+  }
+};
+
+exports.validateEmail = async (req, res) => {
+  const email = req.body.email;
+  const update = {
+    isVerified: true,
+    confirmEmailToken: null,
+    confirmEmailExpires: null
+  };
+  if (email) {
+    await UserService.validateEmail({ email, update }).then(
       res.status(200).send({
         message: "Password successfully reset"
       })

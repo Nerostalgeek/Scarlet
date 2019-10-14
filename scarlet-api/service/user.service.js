@@ -78,6 +78,48 @@ exports.updatePassword = async query => {
       { useFindAndModify: false }
     );
   } catch (e) {
-    throw Error("Error resetting password " + e);
+    throw Error("Error updating password " + e);
+  }
+};
+
+exports.setValidationToken = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error setting validation token " + e);
+  }
+};
+
+exports.checkValidationToken = async query => {
+  try {
+    return await User.findOne({
+      confirmEmailToken: query.validationToken
+    }).where("confirmEmailExpires", {
+      $gte: Date.now()
+    });
+  } catch (e) {
+    throw Error("Error checking validation token " + e);
+  }
+};
+
+exports.validateEmail = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+    console.log("query in update password service", query);
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error while validating email  " + e);
   }
 };
