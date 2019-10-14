@@ -1,0 +1,12 @@
+.dashboard-card {
+  padding: 30px 75px;
+  border: solid 1px lightgray;
+  text-align: center;
+  position: relative;
+  font-size: 25px;
+}
+
+img {
+  max-width: 50%;
+  max-height: 50%;
+}
