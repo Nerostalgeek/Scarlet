@@ -56,7 +56,6 @@ function register(user, CSRFTokenObject) {
     userService.register(user, CSRFTokenObject).then(
       user => {
         dispatch(success(user));
-        history.push("/");
         dispatch(alertActions.success("Registration successful"));
       },
       error => {

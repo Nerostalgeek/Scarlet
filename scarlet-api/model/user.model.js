@@ -39,11 +39,11 @@ const User = new Schema(
       type: Date,
       required: false
     },
-    confirmEmailToken: {
+    confirmAccountToken: {
       type: String,
       required: false
     },
-    confirmEmailExpires: {
+    confirmAccountExpires: {
       type: Date,
       required: false
     },

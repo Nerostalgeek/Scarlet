@@ -18,6 +18,7 @@ exports.getById = async query => {
 
 exports.register = async query => {
   try {
+    console.log("query: ", query);
     const user = new User(query);
     return await user.save();
   } catch (e) {
@@ -82,26 +83,11 @@ exports.updatePassword = async query => {
   }
 };
 
-exports.setValidationToken = async query => {
-  try {
-    const email = query.email;
-    const updateData = query.update;
-
-    return await User.findOneAndUpdate(
-      { email },
-      { $set: updateData },
-      { useFindAndModify: false }
-    );
-  } catch (e) {
-    throw Error("Error setting validation token " + e);
-  }
-};
-
 exports.checkValidationToken = async query => {
   try {
     return await User.findOne({
-      confirmEmailToken: query.validationToken
-    }).where("confirmEmailExpires", {
+      confirmAccountToken: query.validationToken
+    }).where("confirmAccountExpires", {
       $gte: Date.now()
     });
   } catch (e) {
@@ -109,7 +95,7 @@ exports.checkValidationToken = async query => {
   }
 };
 
-exports.validateEmail = async query => {
+exports.validateAccount = async query => {
   try {
     const email = query.email;
     const updateData = query.update;

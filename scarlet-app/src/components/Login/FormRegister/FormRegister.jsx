@@ -29,8 +29,7 @@ const FormRegister = () => {
       lastName: enteredLastName,
       firstName: enteredFirstName,
       email: enteredEmail,
-      password: enteredPassword,
-      role: "user"
+      password: enteredPassword
     };
 
     const formChecker = {
@@ -53,6 +52,7 @@ const FormRegister = () => {
       tokenFetched
     ) {
       dispatch(userActions.register(user, CSRFTokenObject));
+      dispatch(modalActions.displayConfirmPageRegister());
     }
   };
 

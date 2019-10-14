@@ -87,9 +87,11 @@ const Login = () => {
               {displayPage === "login" && <FormLogin />}
               {displayPage === "register" && <FormRegister />}
               {displayPage === "forgotPassword" && <ForgotPassword />}
-              {displayPage ===
-                ("confirmPageResetPassword" || "confirmPageRegister") && (
-                <ConfirmPage />
+              {displayPage === "confirmPageResetPassword" && (
+                <ConfirmPage page={displayPage} />
+              )}
+              {displayPage === "confirmPageRegister" && (
+                <ConfirmPage page={displayPage} />
               )}
             </ReactModal>
           </div>
