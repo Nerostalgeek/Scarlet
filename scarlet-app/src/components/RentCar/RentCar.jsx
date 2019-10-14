@@ -11,7 +11,7 @@ const RentCar = () => {
   if (userIsConnected) {
     return (
       <div className="l-rent-car">
-        <p>La page la putain de ta race</p>
+        <p>Page de locations de voitures</p>
       </div>
     );
   } else {
