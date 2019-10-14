@@ -8,7 +8,6 @@ import closeIcon from "../../../img/icons/close.png";
 const ForgotPassword = () => {
   const [enteredEmail, setEmail] = useState("");
   const [showError, setError] = useState(false);
-  const [messageFromServer, setMessageFromServer] = useState("");
 
   const dispatch = useDispatch();
   const user = null;
@@ -34,7 +33,7 @@ const ForgotPassword = () => {
     };
     if (email && tokenFetched) {
       dispatch(userActions.resetPassword(email, CSRFTokenObject));
-      dispatch(modalActions.hideModal());
+      dispatch(modalActions.displayConfirmPagePassword());
     }
   };
 

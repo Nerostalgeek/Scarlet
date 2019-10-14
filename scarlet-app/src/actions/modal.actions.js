@@ -5,7 +5,9 @@ export const modalActions = {
   hideModal,
   displayLoginForm,
   displayRegisterForm,
-  displayForgotPasswordForm
+  displayForgotPasswordForm,
+  displayConfirmPagePassword,
+  displayConfirmPageRegister
 };
 
 function showModal() {
@@ -25,20 +27,34 @@ function hideModal() {
 function displayLoginForm() {
   return {
     type: modalConstants.DISPLAY_LOGIN_FORM,
-    formValue: "login"
+    pageValue: "login"
   };
 }
 
 function displayRegisterForm() {
   return {
     type: modalConstants.DISPLAY_REGISTER_FORM,
-    formValue: "register"
+    pageValue: "register"
   };
 }
 
 function displayForgotPasswordForm() {
   return {
     type: modalConstants.DISPLAY_FORGOT_PASSWORD_FORM,
-    formValue: "forgotPassword"
+    pageValue: "forgotPassword"
+  };
+}
+
+function displayConfirmPagePassword() {
+  return {
+    type: modalConstants.DISPLAY_CONFIRM_PAGE_FORGOT_PASSWORD,
+    pageValue: "confirmPageResetPassword"
+  };
+}
+
+function displayConfirmPageRegister() {
+  return {
+    type: modalConstants.DISPLAY_CONFIRM_PAGE_REGISTER,
+    pageValue: "confirmPageRegister"
   };
 }

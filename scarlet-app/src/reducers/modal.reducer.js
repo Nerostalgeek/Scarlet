@@ -15,23 +15,31 @@ export function displayModal(state = {}, { type, open }) {
   }
 }
 
-export function displayForm(state = {}, { type, formValue }) {
+export function displayPage(state = {}, { type, pageValue }) {
   switch (type) {
     case modalConstants.DISPLAY_LOGIN_FORM:
       return {
-        formValue
+        pageValue
       };
     case modalConstants.DISPLAY_REGISTER_FORM:
       return {
-        formValue
+        pageValue
+      };
+    case modalConstants.DISPLAY_CONFIRM_PAGE_FORGOT_PASSWORD:
+      return {
+        pageValue
+      };
+    case modalConstants.DISPLAY_CONFIRM_PAGE_REGISTER:
+      return {
+        pageValue
       };
     case modalConstants.DISPLAY_FORGOT_PASSWORD_FORM:
       return {
-        formValue
+        pageValue
       };
     case modalConstants.CLOSE_FORM:
       return {
-        formValue
+        pageValue
       };
     default:
       return state;
