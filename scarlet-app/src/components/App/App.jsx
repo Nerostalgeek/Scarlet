@@ -11,6 +11,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import ResetPassword from "../Login/ResetPassword/ResetPassword";
+import validateAccount from "../Login/ValidateAccount/ValidateAccount";
 
 import "./App.css";
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/reset-password" component={ResetPassword} />
         <Route path="/rent-cars" component={RentCarsPage} />
+        <Route path="/validate-account" component={validateAccount} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/logout" />
         <Footer />

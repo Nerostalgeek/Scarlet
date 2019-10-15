@@ -11,7 +11,9 @@ export const userService = {
   delete: _delete,
   resetPassword,
   checkResetToken,
-  updatePassword
+  updatePassword,
+  checkValidationToken,
+  validateAccount
 };
 
 async function login(email, password, CSRFTokenObject) {
@@ -127,6 +129,33 @@ async function updatePassword(email, password, CSRFTokenObject) {
 
   const response = await fetch(
     `${config.apiUrl}/users/update-password`,
+    requestOptions
+  );
+  return handleResponse(response);
+}
+
+async function checkValidationToken(validationToken) {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  };
+
+  const response = await fetch(
+    `${config.apiUrl}/users/check-validation-token?validationToken=${validationToken}`,
+    requestOptions
+  );
+  return handleResponse(response);
+}
+
+async function validateAccount(email, CSRFTokenObject) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, CSRFTokenObject })
+  };
+
+  const response = await fetch(
+    `${config.apiUrl}/users/validate-account`,
     requestOptions
   );
   return handleResponse(response);

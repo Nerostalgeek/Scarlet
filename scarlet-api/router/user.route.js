@@ -11,6 +11,8 @@ user.get("/", UserController.getAll);
 
 user.get("/check-reset-token", UserController.checkResetToken);
 
+user.get("/check-validation-token", UserController.checkValidationToken);
+
 user.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),

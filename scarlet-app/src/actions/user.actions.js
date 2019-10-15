@@ -12,8 +12,60 @@ export const userActions = {
   delete: _delete,
   resetPassword,
   checkResetToken,
-  updatePassword
+  updatePassword,
+  validateAccount
 };
+
+function getAll() {
+  return dispatch => {
+    dispatch(request());
+
+    userService
+      .getAll()
+      .then(
+        users => dispatch(success(users)),
+        error => dispatch(failure(error))
+      );
+  };
+
+  function request() {
+    return { type: userConstants.GETALL_REQUEST };
+  }
+
+  function success(users) {
+    return { type: userConstants.GETALL_SUCCESS, users };
+  }
+
+  function failure(error) {
+    return { type: userConstants.GETALL_FAILURE, error };
+  }
+}
+
+function getUser(id) {
+  return dispatch => {
+    dispatch(request());
+    userService.getUser(id).then(
+      user => dispatch(success(user)),
+      error => {
+        dispatch(failure(error));
+        logout();
+        history.push("/");
+      }
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETUSER_REQUEST };
+  }
+
+  function success(user) {
+    return { type: userConstants.GETUSER_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.GETUSER_FAILURE, error };
+  }
+}
 
 function login(email, password, CSRFTokenObject) {
   return dispatch => {
@@ -75,57 +127,6 @@ function register(user, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
-  }
-}
-
-function getAll() {
-  return dispatch => {
-    dispatch(request());
-
-    userService
-      .getAll()
-      .then(
-        users => dispatch(success(users)),
-        error => dispatch(failure(error))
-      );
-  };
-
-  function request() {
-    return { type: userConstants.GETALL_REQUEST };
-  }
-
-  function success(users) {
-    return { type: userConstants.GETALL_SUCCESS, users };
-  }
-
-  function failure(error) {
-    return { type: userConstants.GETALL_FAILURE, error };
-  }
-}
-
-function getUser(id) {
-  return dispatch => {
-    dispatch(request());
-    userService.getUser(id).then(
-      user => dispatch(success(user)),
-      error => {
-        dispatch(failure(error));
-        logout();
-        history.push("/");
-      }
-    );
-  };
-
-  function request() {
-    return { type: userConstants.GETUSER_REQUEST };
-  }
-
-  function success(user) {
-    return { type: userConstants.GETUSER_SUCCESS, user };
-  }
-
-  function failure(error) {
-    return { type: userConstants.GETUSER_FAILURE, error };
   }
 }
 
@@ -226,5 +227,32 @@ function updatePassword(email, password, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
+  }
+}
+
+function validateAccount(validationToken, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(validationToken));
+    userService.checkValidationToken(validationToken).then(
+      user => {
+        userService.validateAccount(user.email, CSRFTokenObject);
+        dispatch(success(user));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(validationToken) {
+    return { type: userConstants.VALIDATE_ACCOUNT_REQUEST, validationToken };
+  }
+
+  function success(user) {
+    return { type: userConstants.VALIDATE_ACCOUNT_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.VALIDATE_ACCOUNT_FAILURE, error };
   }
 }

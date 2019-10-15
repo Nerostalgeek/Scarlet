@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { authentication } from "./authentication.reducer";
 import { registration } from "./registration.reducer";
 import { resetPassword } from "./resetPassword.reducer";
+import { validatedAccount } from "./accountValidation.reducer";
 import { users } from "./users.reducer";
 import { navBar } from "./navBar.reducer";
 import { alert } from "./alert.reducer";
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   displayPage,
   navBar,
   csrfProtection,
-  resetPassword
+  resetPassword,
+  validatedAccount
 });
 
 export default rootReducer;
