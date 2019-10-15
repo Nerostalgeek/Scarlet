@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./ResetPassword.css";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions, userActions, csrfTokenActions } from "../../../actions";
+import {  userActions, csrfTokenActions } from "../../../actions";
 
 const ResetPassword = props => {
   const dispatch = useDispatch();

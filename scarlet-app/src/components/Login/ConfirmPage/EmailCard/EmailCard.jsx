@@ -5,7 +5,7 @@ const EmailCard = props => {
   const { title, img, link } = props;
   return (
     <div className="email-card">
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         <img alt="email-services" src={img}></img>
       </a>
 
