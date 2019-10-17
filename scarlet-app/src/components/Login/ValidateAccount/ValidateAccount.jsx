@@ -11,6 +11,9 @@ const ValidateAccount = props => {
   const csrfToken = useSelector(state => state.csrfProtection);
   const title =
     "Votre compte a bien été activé ! Vous pouvez désormais vous connecter afin de profiter de nos services !";
+
+  const error =
+    "Un problème est survenu lors de l'activation de votre compte. Veuillez réessayer";
   const { token } = csrfToken;
 
   const url = props.location.pathname.split("/");
@@ -32,8 +35,10 @@ const ValidateAccount = props => {
   return (
     <div className="l-signup">
       <div className="signup-form signup-section">
-        {accountValidator.validatedAccount && (
+        {accountValidator.validatedAccount ? (
           <h1 id="register-title">{title}</h1>
+        ) : (
+          <h1 id="register-title">{error}</h1>
         )}
       </div>
     </div>
