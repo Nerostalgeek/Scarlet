@@ -1,5 +1,6 @@
 import React from "react";
 import landingIllustration from "../../img/assets/landing/landing-car-illustration.svg";
+import Carousel from "../Carousel/Carousel";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -22,6 +23,9 @@ const HomePage = () => {
           <img src={landingIllustration} alt="" />
         </div>
       </div>
+
+      <Carousel />
+
       <div className="homepage-available-cars" />
     </div>
   );
