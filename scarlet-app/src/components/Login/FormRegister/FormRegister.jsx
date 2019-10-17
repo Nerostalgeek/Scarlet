@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./FormRegister.css";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
@@ -29,8 +28,7 @@ const FormRegister = () => {
       lastName: enteredLastName,
       firstName: enteredFirstName,
       email: enteredEmail,
-      password: enteredPassword,
-      role: "user"
+      password: enteredPassword
     };
 
     const formChecker = {
@@ -53,6 +51,7 @@ const FormRegister = () => {
       tokenFetched
     ) {
       dispatch(userActions.register(user, CSRFTokenObject));
+      dispatch(modalActions.displayConfirmPageRegister());
     }
   };
 

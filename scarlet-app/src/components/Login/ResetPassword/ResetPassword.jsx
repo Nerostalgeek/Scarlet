@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./ResetPassword.css";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions, userActions, csrfTokenActions } from "../../../actions";
+import { userActions, csrfTokenActions } from "../../../actions";
 
 const ResetPassword = props => {
   const dispatch = useDispatch();
@@ -13,11 +12,9 @@ const ResetPassword = props => {
   const resetToken = url[2];
 
   useEffect(() => {
-    console.log("props -> ", props);
-
     dispatch(userActions.checkResetToken(resetToken));
     dispatch(csrfTokenActions.create(user));
-  }, [dispatch]);
+  }, [dispatch, props, resetToken]);
 
   const csrfToken = useSelector(state => state.csrfProtection);
   const responseResetToken = useSelector(state => state.resetPassword);

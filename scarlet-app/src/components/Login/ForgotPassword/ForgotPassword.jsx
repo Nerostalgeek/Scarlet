@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 
-import "./ForgotPassword.css";
 import closeIcon from "../../../img/icons/close.png";
 
 const ForgotPassword = () => {

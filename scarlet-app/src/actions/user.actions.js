@@ -12,72 +12,10 @@ export const userActions = {
   delete: _delete,
   resetPassword,
   checkResetToken,
-  updatePassword
+  updatePassword,
+  validateAccount,
+  resendValidationEmail
 };
-
-function login(email, password, CSRFTokenObject) {
-  return dispatch => {
-    dispatch(request({ email }));
-    userService.login(email, password, CSRFTokenObject).then(
-      user => {
-        dispatch(success(user));
-        history.push("/dashboard");
-      },
-      error => {
-        dispatch(failure(error));
-        dispatch(alertActions.error(error));
-      }
-    );
-  };
-
-  function request(user) {
-    return { type: userConstants.LOGIN_REQUEST, user };
-  }
-
-  function success(user) {
-    return { type: userConstants.LOGIN_SUCCESS, user };
-  }
-
-  function failure(error) {
-    return { type: userConstants.LOGIN_FAILURE, error };
-  }
-}
-
-function logout() {
-  userService.logout();
-  history.push("/");
-  return { type: userConstants.LOGOUT };
-}
-
-function register(user, CSRFTokenObject) {
-  return dispatch => {
-    dispatch(request(user));
-
-    userService.register(user, CSRFTokenObject).then(
-      user => {
-        dispatch(success(user));
-        history.push("/");
-        dispatch(alertActions.success("Registration successful"));
-      },
-      error => {
-        dispatch(failure(error));
-        dispatch(alertActions.error(error));
-      }
-    );
-  };
-
-  function request(user) {
-    return { type: userConstants.REGISTER_REQUEST, user };
-  }
-
-  function success(user) {
-    return { type: userConstants.REGISTER_SUCCESS, user };
-  }
-
-  function failure(error) {
-    return { type: userConstants.REGISTER_FAILURE, error };
-  }
-}
 
 function getAll() {
   return dispatch => {
@@ -127,6 +65,69 @@ function getUser(id) {
 
   function failure(error) {
     return { type: userConstants.GETUSER_FAILURE, error };
+  }
+}
+
+function login(email, password, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request({ email }));
+    userService.login(email, password, CSRFTokenObject).then(
+      user => {
+        dispatch(success(user));
+        history.push("/dashboard");
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.LOGIN_REQUEST, user };
+  }
+
+  function success(user) {
+    return { type: userConstants.LOGIN_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.LOGIN_FAILURE, error };
+  }
+}
+
+function logout() {
+  userService.logout();
+  history.push("/");
+  return { type: userConstants.LOGOUT };
+}
+
+function register(user, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(user));
+
+    userService.register(user, CSRFTokenObject).then(
+      user => {
+        dispatch(success(user));
+        dispatch(alertActions.success("Registration successful"));
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.REGISTER_REQUEST, user };
+  }
+
+  function success(user) {
+    return { type: userConstants.REGISTER_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.REGISTER_FAILURE, error };
   }
 }
 
@@ -227,5 +228,63 @@ function updatePassword(email, password, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.UPDATE_PASSWORD_FAILURE, error };
+  }
+}
+
+function validateAccount(validationToken, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(validationToken));
+    userService.checkValidationToken(validationToken).then(
+      user => {
+        userService.validateAccount(user.email, CSRFTokenObject);
+        dispatch(success(user));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
+
+  function request(validationToken) {
+    return { type: userConstants.VALIDATE_ACCOUNT_REQUEST, validationToken };
+  }
+
+  function success(user) {
+    return { type: userConstants.VALIDATE_ACCOUNT_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.VALIDATE_ACCOUNT_FAILURE, error };
+  }
+}
+
+function resendValidationEmail(email, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(email));
+
+    userService.resendValidationEmail(email, CSRFTokenObject).then(
+      user => {
+        dispatch(success(user));
+        dispatch(alertActions.success("Validation Email sent successfully"));
+        logout();
+        window.location.reload(false);
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_REQUEST, user };
+  }
+
+  function success(user) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_FAILURE, error };
   }
 }

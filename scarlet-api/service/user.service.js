@@ -50,12 +50,6 @@ exports.resetPassword = async query => {
 
 exports.checkResetToken = async query => {
   try {
-    console.log(
-      "query in checkReset:   ",
-      query,
-      "date now -> -> ->",
-      Date.now()
-    );
     return await User.findOne({ resetPasswordToken: query.resetToken }).where(
       "resetPasswordExpires",
       {
@@ -71,13 +65,52 @@ exports.updatePassword = async query => {
   try {
     const email = query.email;
     const updateData = query.update;
-    console.log("query in update password service", query);
     return await User.findOneAndUpdate(
       { email },
       { $set: updateData },
       { useFindAndModify: false }
     );
   } catch (e) {
-    throw Error("Error resetting password " + e);
+    throw Error("Error updating password " + e);
+  }
+};
+
+exports.checkValidationToken = async query => {
+  try {
+    return await User.findOne({
+      confirmAccountToken: query.validationToken
+    }).where("confirmAccountExpires", {
+      $gte: Date.now()
+    });
+  } catch (e) {
+    throw Error("Error checking validation token " + e);
+  }
+};
+
+exports.validateAccount = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error while validating email  " + e);
+  }
+};
+
+exports.resendValidationEmail = async query => {
+  try {
+    const email = query.email;
+    const updateData = query.update;
+    return await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { useFindAndModify: false }
+    );
+  } catch (e) {
+    throw Error("Error while validating email  " + e);
   }
 };

@@ -38,6 +38,19 @@ const User = new Schema(
     resetPasswordExpires: {
       type: Date,
       required: false
+    },
+    confirmAccountToken: {
+      type: String,
+      required: false
+    },
+    confirmAccountExpires: {
+      type: Date,
+      required: false
+    },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   { timestamps: { createdAt: "created_at" } }
