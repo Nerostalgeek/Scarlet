@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions, csrfTokenActions } from "../../../actions";
 
 const ValidateAccount = props => {
-  console.log("props ma gueule => => =>", props);
-
   const user = null;
 
   const dispatch = useDispatch();

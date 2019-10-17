@@ -13,7 +13,8 @@ export const userActions = {
   resetPassword,
   checkResetToken,
   updatePassword,
-  validateAccount
+  validateAccount,
+  resendValidationEmail
 };
 
 function getAll() {
@@ -254,5 +255,36 @@ function validateAccount(validationToken, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.VALIDATE_ACCOUNT_FAILURE, error };
+  }
+}
+
+function resendValidationEmail(email, CSRFTokenObject) {
+  return dispatch => {
+    dispatch(request(email));
+
+    userService.resendValidationEmail(email, CSRFTokenObject).then(
+      user => {
+        dispatch(success(user));
+        dispatch(alertActions.success("Validation Email sent successfully"));
+        logout();
+        window.location.reload(false);
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_REQUEST, user };
+  }
+
+  function success(user) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.RESEND_VALIDATION_EMAIL_FAILURE, error };
   }
 }

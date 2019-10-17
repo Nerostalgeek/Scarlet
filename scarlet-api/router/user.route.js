@@ -27,6 +27,10 @@ user.route("/reset-password").post(UserController.resetPassword);
 
 user.route("/update-password").put(UserController.updatePassword);
 
+user
+  .route("/resend-validation-token")
+  .put(UserController.resendValidationEmail);
+
 user.route("/validate-account").put(UserController.validateAccount);
 
 module.exports = user;

@@ -1,5 +1,5 @@
 import { userConstants } from "../constants/";
-
+let user = JSON.parse(localStorage.getItem("user"));
 export function users(state = {}, action) {
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
@@ -17,7 +17,8 @@ export function users(state = {}, action) {
 
     case userConstants.GETUSER_REQUEST:
       return {
-        loading: true
+        loading: true,
+        user: action.user
       };
     case userConstants.GETUSER_SUCCESS:
       return {

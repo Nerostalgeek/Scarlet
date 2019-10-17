@@ -13,7 +13,8 @@ export const userService = {
   checkResetToken,
   updatePassword,
   checkValidationToken,
-  validateAccount
+  validateAccount,
+  resendValidationEmail
 };
 
 async function login(email, password, CSRFTokenObject) {
@@ -63,7 +64,6 @@ async function register(user, CSRFTokenObject) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user, CSRFTokenObject })
   };
-  console.log("body in register -->", requestOptions.body);
   const response = await fetch(
     `${config.apiUrl}/users/register`,
     requestOptions
@@ -156,6 +156,19 @@ async function validateAccount(email, CSRFTokenObject) {
 
   const response = await fetch(
     `${config.apiUrl}/users/validate-account`,
+    requestOptions
+  );
+  return handleResponse(response);
+}
+
+async function resendValidationEmail(email, CSRFTokenObject) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, CSRFTokenObject })
+  };
+  const response = await fetch(
+    `${config.apiUrl}/users/resend-validation-token`,
     requestOptions
   );
   return handleResponse(response);

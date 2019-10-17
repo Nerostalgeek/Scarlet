@@ -7,8 +7,7 @@ export function authentication(state = initialState, { type, user }) {
   switch (type) {
     case userConstants.LOGIN_REQUEST:
       return {
-        loggingIn: true,
-        user: user
+        loggingIn: true
       };
     case userConstants.LOGIN_SUCCESS:
       return {

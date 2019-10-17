@@ -20,6 +20,21 @@ export function validateAccount(
       return {
         error: error
       };
+
+    case userConstants.RESEND_VALIDATION_EMAIL_REQUEST:
+      return {
+        sendingEmail: true,
+        email: user.email
+      };
+    case userConstants.RESEND_VALIDATION_EMAIL_SUCCESS:
+      return {
+        emailSent: true,
+        email: user.email
+      };
+    case userConstants.RESEND_VALIDATION_EMAIL_FAILURE:
+      return {
+        error: error
+      };
     default:
       return state;
   }
