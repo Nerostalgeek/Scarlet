@@ -44,9 +44,25 @@
   padding-bottom: 5px;
 }
 
-#submitInput {
+.submitInput {
   cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.input-disabled {
+  opacity: 0;
+  pointer-events: none;
+  background: gray;
+  cursor: crosshair;
+  width: 60%;
+}
+
+.input-enabled {
+  opacity: 1;
   width: 80%;
+  pointer-events: auto;
+  background: gray;
   background: #00c6ff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -59,5 +75,5 @@
     #3f8ffe
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
-  border: none;
+  cursor: pointer;
 }

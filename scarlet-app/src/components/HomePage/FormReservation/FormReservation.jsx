@@ -6,18 +6,19 @@ import "./FormReservation.css";
 
 const FormReservation = () => {
   const [citySelected, setCitySelected] = useState("");
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const [date, setDate] = useState(new Date());
   const [selectedRange, setSelectedRange] = useState("");
 
   const incrementCounter = event => {
     setCount(count + 1);
-  }
+  };
+
   const decrementCounter = event => {
     if (count > 1) {
       setCount(count - 1);
     }
-  }
+  };
 
   const onChangeCalendarValue = date => {
     let newRange = [...date];
@@ -26,7 +27,18 @@ const FormReservation = () => {
       newRange[1].toLocaleDateString()
     ];
     setSelectedRange(newRange);
-  }
+  };
+
+  const submitSearchRequest = e => {
+    e.preventDefault();
+
+    let request = {
+      citySelected: citySelected,
+      selectedRange,
+      count
+    };
+    console.log(request);
+  };
 
   return (
     <div className="reservation-box">
@@ -34,12 +46,17 @@ const FormReservation = () => {
         Trouvez le véhicule parfait dès aujourd'hui
       </h3>
 
-      <form className="form-reservation" action="">
+      <form
+        onSubmit={submitSearchRequest}
+        className="form-reservation"
+        action=""
+      >
         <div className="form-reservation-row">
           <div className="reservation-row-item">
             <p className="reservation-label">Ville</p>
             <input
               type="text"
+              id="selectCityInput"
               value={citySelected}
               onChange={event => setCitySelected(event.target.value)}
             />
@@ -65,7 +82,16 @@ const FormReservation = () => {
             />
           </div>
         </div>
-        <input id="submitInput" type="submit" value="Rechercher" />
+        <input
+          className={
+            citySelected && count !== 0 && selectedRange
+              ? "submitInput input-enabled"
+              : "submitInput input-disabled"
+          }
+          id="submitInput"
+          type="submit"
+          value="Valider"
+        />
       </form>
     </div>
   );
