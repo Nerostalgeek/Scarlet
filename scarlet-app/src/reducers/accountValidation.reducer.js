@@ -1,6 +1,6 @@
 import { userConstants } from "../constants/";
 
-export function validatedAccount(
+export function validateAccount(
   state = {},
   { type, user, validationToken, error }
 ) {

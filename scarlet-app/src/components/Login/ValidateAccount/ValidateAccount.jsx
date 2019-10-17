@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions, csrfTokenActions } from "../../../actions";
 
 const ValidateAccount = props => {
+  console.log("props ma gueule => => =>", props);
+
   const user = null;
 
   const dispatch = useDispatch();
+  const accountValidator = useSelector(state => state.validateAccount);
 
   const csrfToken = useSelector(state => state.csrfProtection);
   const title =
@@ -26,12 +29,14 @@ const ValidateAccount = props => {
 
   useEffect(() => {
     dispatch(userActions.validateAccount(validationToken, CSRFTokenObject));
-  }, [validationToken, CSRFTokenObject]);
+  }, []);
 
   return (
     <div className="l-signup">
       <div className="signup-form signup-section">
-        <h1 id="register-title">{title}</h1>
+        {accountValidator.validatedAccount && (
+          <h1 id="register-title">{title}</h1>
+        )}
       </div>
     </div>
   );
