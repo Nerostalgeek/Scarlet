@@ -28,10 +28,6 @@ const Car = new Schema(
       type: String,
       required: true
     },
-    color: {
-      type: String,
-      required: true
-    },
     kilometer: {
       type: Number,
       required: true
@@ -45,10 +41,6 @@ const Car = new Schema(
       required: true
     },
     seatsNumber: {
-      type: Number,
-      required: true
-    },
-    doorsNumber: {
       type: Number,
       required: true
     },
