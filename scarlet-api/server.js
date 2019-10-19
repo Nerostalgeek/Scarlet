@@ -1,7 +1,9 @@
 const config = require("../config.default");
-const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const express = require("express");
+const https = require("https");
+const fs = require("fs");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -40,10 +42,13 @@ mongoose.connect(config.mongodbUrl, {
   useNewUrlParser: true
 });
 
+mongoose.set('useCreateIndex', true);
+
 const connection = mongoose.connection;
 connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
+app.use("/users", router.User);
 
 // ********* CSRF TOKEN ROUTE *********
 app.use("/token", router.CSRFToken);
@@ -60,7 +65,6 @@ app.delete("*", (req, res, next) => {
 });
 
 // ********* USER ROUTE *********
-app.use("/users", router.User);
 
 // ********* CAR ROUTE *********
 app.use("/cars", router.Car);
@@ -80,7 +84,14 @@ app.use("/rent-contracts", router.RentContract);
 // ********* REVIEW ROUTE *********
 app.use("/reviews", router.Review);
 
-app.listen(config.settings.port, config.settings.host, e => {
+const server = https.createServer(
+  {
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.cert")
+  },
+  app
+);
+server.listen(config.settings.port, config.settings.host, e => {
   if (e) {
     throw new Error("Internal Server Error");
   }

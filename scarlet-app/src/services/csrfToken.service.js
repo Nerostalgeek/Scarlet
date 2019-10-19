@@ -10,6 +10,7 @@ async function create(user) {
   const requestOptions = {
     method: "POST",
     headers: {
+      "Access-Control-Allow-Origin": config.NonApiServerUrl,
       "Content-Type": "application/json; charset=utf-8"
     },
     body: JSON.stringify({ user: user })

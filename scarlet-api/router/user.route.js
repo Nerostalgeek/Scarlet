@@ -2,6 +2,9 @@ const UserController = require("../controller/user.controller");
 
 const express = require("express");
 
+var { generateToken, sendToken } = require('../utils/token.utils');
+
+
 const passport = require("passport");
 require("../config/passport-config")(passport);
 
@@ -32,5 +35,29 @@ user
   .put(UserController.resendValidationEmail);
 
 user.route("/validate-account").put(UserController.validateAccount);
+
+user.route('/auth/facebook')
+    .post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        }
+        req.auth = {
+            id: req.user.id
+        };
+
+        next();
+    }, generateToken, sendToken);
+
+user.route('/auth/google')
+    .post(passport.authenticate('google-token', {session: false}), function(req, res, next) {
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        }
+        req.auth = {
+            id: req.user.id
+        };
+
+        next();
+    }, generateToken, sendToken);
 
 module.exports = user;
