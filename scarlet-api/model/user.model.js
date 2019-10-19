@@ -93,8 +93,6 @@ User.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
       "facebookProvider.id": profile.id
     },
     function(err, user) {
-  console.log('profile: ', profile);
-
       // no user was found, lets create a new one
       if (!user) {
         var newUser = new that({
@@ -102,6 +100,7 @@ User.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
           lastName: profile.name.givenName,
           email: profile.emails[0].value,
           role: 'user',
+          isVerified: true,
           facebookProvider: {
             id: profile.id,
             token: accessToken
