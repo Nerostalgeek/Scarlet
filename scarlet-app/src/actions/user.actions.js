@@ -4,6 +4,7 @@ import { alertActions } from "./";
 import { history } from "../helpers";
 
 export const userActions = {
+  facebookLogin,
   login,
   logout,
   register,
@@ -96,10 +97,10 @@ function login(email, password, CSRFTokenObject) {
   }
 }
 
-function facebookLogin(email, password, CSRFTokenObject) {
+function facebookLogin(access_token, CSRFTokenObject) {
   return dispatch => {
-    dispatch(request({ email }));
-    userService.login(email, password, CSRFTokenObject).then(
+    dispatch(request({access_token}));
+    userService.facebookLogin(access_token, CSRFTokenObject).then(
       user => {
         dispatch(success(user));
         history.push("/dashboard");
@@ -109,18 +110,19 @@ function facebookLogin(email, password, CSRFTokenObject) {
         dispatch(alertActions.error(error));
       }
     );
-  };
+};
 
-  function request(user) {
-    return { type: userConstants.LOGIN_REQUEST, user };
+ 
+  function request(facebookToken) {
+    return { type: userConstants.FACEBOOK_LOGIN_REQUEST, facebookToken };
   }
 
   function success(user) {
-    return { type: userConstants.LOGIN_SUCCESS, user };
+    return { type: userConstants.FACEBOOK_LOGIN_SUCCESS, user };
   }
 
   function failure(error) {
-    return { type: userConstants.LOGIN_FAILURE, error };
+    return { type: userConstants.FACEBOOK_LOGIN_FAILURE, error };
   }
 }
 

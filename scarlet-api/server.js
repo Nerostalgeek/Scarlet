@@ -42,13 +42,13 @@ mongoose.connect(config.mongodbUrl, {
   useNewUrlParser: true
 });
 
-mongoose.set('useCreateIndex', true);
+mongoose.set("useCreateIndex", true);
 
 const connection = mongoose.connection;
 connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
-app.use("/users", router.User);
+
 
 // ********* CSRF TOKEN ROUTE *********
 app.use("/token", router.CSRFToken);
@@ -65,6 +65,7 @@ app.delete("*", (req, res, next) => {
 });
 
 // ********* USER ROUTE *********
+app.use("/users", router.User);
 
 // ********* CAR ROUTE *********
 app.use("/cars", router.Car);

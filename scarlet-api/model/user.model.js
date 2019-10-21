@@ -21,10 +21,10 @@ const User = new Schema(
       required: true
     },
     password: {
-      type: String,
-    },
-    role: {
-      type: String,
+      type: String
+        },
+    admin: {
+      type: Boolean,
       required: true
     },
     resetPasswordToken: {
@@ -85,7 +85,6 @@ User.pre("save", function(next) {
 });
 
 User.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
-  
   let that = this;
 
   return this.findOne(
@@ -95,11 +94,11 @@ User.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
     function(err, user) {
       // no user was found, lets create a new one
       if (!user) {
-        var newUser = new that({
+        const newUser = new that({
           firstName: profile.name.familyName,
           lastName: profile.name.givenName,
           email: profile.emails[0].value,
-          role: 'user',
+          admin: false,
           isVerified: true,
           facebookProvider: {
             id: profile.id,
@@ -134,10 +133,13 @@ User.statics.upsertGoogleUser = function(
     function(err, user) {
       // no user was found, lets create a new one
       if (!user) {
-        var newUser = new that({
-          fullName: profile.displayName,
+        const newUser = new that({
+          firstName: profile.name.familyName,
+          lastName: profile.name.givenName,
           email: profile.emails[0].value,
-          googleProvider: {
+          admin: false,
+          isVerified: true,
+          facebookProvider: {
             id: profile.id,
             token: accessToken
           }

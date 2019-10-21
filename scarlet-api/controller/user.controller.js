@@ -35,7 +35,7 @@ exports.getById = async (req, res) => {
 exports.register = async (req, res) => {
   const user = req.body.user;
   const validationToken = crypto.randomBytes(20).toString("hex");
-  user.role = "user";
+  user.admin = false;
   user.confirmAccountToken = validationToken;
   user.confirmAccountExpires = Date.now() + 3600000;
 
@@ -105,6 +105,17 @@ exports.login = async (req, res) => {
     e.login = "Wrong credentials";
     return res.status(403).json(e);
   }
+};
+
+exports.facebookLogin = async(req, res, next) => {
+  if (!req.user) {
+    return res.send(401, "User Not Authenticated");
+  }
+  req.auth = {
+    id: req.user.id
+  };
+
+  next();
 };
 
 exports.resetPassword = async (req, res) => {

@@ -3,7 +3,6 @@ const customMiddleware = require("../middleware/CSRFToken.middleware");
 
 const express = require("express");
 
-
 CSRFToken = express.Router();
 //imports our configuration file which holds our verification callbacks and things like the secret for signing.
 

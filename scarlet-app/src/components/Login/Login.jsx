@@ -12,7 +12,7 @@ import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import googleIcon from "../../img/icons/google-icon.png";
 import mailIconWhite from "../../img/icons/mail-white.png";
-import { userActions } from "../../actions";
+import { userActions, csrfTokenActions } from "../../actions";
 import { history } from "../../helpers";
 import config from "../../../../config.default";
 
@@ -29,46 +29,50 @@ const customStyles = {
 };
 
 const Login = () => {
-  const isModalOpened = useSelector(state => state.displayModal.open);
-  const displayPage = useSelector(state => state.displayPage.pageValue);
+  const user = null;
   const dispatch = useDispatch();
 
-  const facebookResponse = (response) => {
-    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
-    const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default'
-    };
-    fetch('https://localhost:6200/users/auth/facebook', options).then(r => {
-        const token = r.headers.get('x-auth-token');
-        r.json().then(user => {
-            if (token) {
-                this.setState({isAuthenticated: true, user, token})
-            }
-        });
-    })
-};
+  useEffect(() => {
+    dispatch(csrfTokenActions.create(user));
+  }, [dispatch]);
+  
+  const isModalOpened = useSelector(state => state.displayModal.open);
+  const displayPage = useSelector(state => state.displayPage.pageValue);
 
-const googleResponse = (response) => {
-    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
-    const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default'
-    };
-    fetch('https://localhost:6200/users/auth/google', options).then(r => {
-        const token = r.headers.get('x-auth-token');
-        r.json().then(user => {
-            if (token) {
-                this.setState({isAuthenticated: true, user, token})
-            }
-        });
-    })
-};
+  const csrfToken = useSelector(state => state.csrfProtection);
 
+  const { token, fetchingToken, tokenFetched } = csrfToken;
+
+  
+
+  const facebookResponse = response => {
+    const facebookToken =  {access_token: response.accessToken} ;
+    const CSRFTokenObject = {
+      token: token,
+      user: user
+    };
+    if (facebookToken && tokenFetched) {
+      dispatch(userActions.facebookLogin(facebookToken, CSRFTokenObject));
+    }
+  };
+
+  const googleResponse = response => {
+    const tokenBlob = { access_token: response.accessToken };
+    const options = {
+      method: "POST",
+      body: tokenBlob,
+      mode: "cors",
+      cache: "default"
+    };
+    fetch("https://localhost:6200/users/auth/google", options).then(r => {
+      const token = r.headers.get("x-auth-token");
+      r.json().then(user => {
+        if (token) {
+          this.setState({ isAuthenticated: true, user, token });
+        }
+      });
+    });
+  };
 
   // const {loggingIn} = this.props;
 
