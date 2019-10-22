@@ -2,7 +2,7 @@ const UserController = require("../controller/user.controller");
 
 const express = require("express");
 
-const { generateToken, sendToken } = require("../utils/token.utils");
+const { generateJwtToken, sendJwtToken } = require("../utils/token.utils");
 
 const passport = require("passport");
 require("../config/passport-config")(passport);
@@ -35,11 +35,12 @@ user
 
 user.route("/validate-account").put(UserController.validateAccount);
 
-user.post("/auth/facebook",
+user.post(
+  "/auth/facebook",
   passport.authenticate("facebook-token", { session: false }),
   UserController.facebookLogin,
-  generateToken,
-  sendToken
+  generateJwtToken,
+  sendJwtToken
 );
 
 user.route("/auth/google").post(
@@ -54,8 +55,8 @@ user.route("/auth/google").post(
 
     next();
   },
-  generateToken,
-  sendToken
+  generateJwtToken,
+  sendJwtToken
 );
 
 module.exports = user;

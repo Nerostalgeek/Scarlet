@@ -29,33 +29,32 @@ async function login(email, password, CSRFTokenObject) {
 
   const response = await fetch(`${config.apiUrl}/users/login`, requestOptions);
   const user = await handleResponse(response);
-  console.log('user: ', user);
+  console.log("user: ", user);
   // store user details and jwt token in local storage to keep user logged in between page refreshes
   localStorage.setItem("user", JSON.stringify(user));
   return user;
 }
 
-async function facebookLogin(access_token, CSRFTokenObject) {
+async function facebookLogin(access_token) {
   const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
     },
-    body: JSON.stringify({ access_token, CSRFTokenObject}),
+    body: JSON.stringify(access_token),
     mode: "cors",
     cache: "default"
   };
   const response = await fetch(
-    `${config.apiUrl}/users/auth/facebook`, requestOptions
+    `${config.apiUrl}/users/auth/facebook`,
+    requestOptions
   );
-  
-  const user = await handleResponse(response);
 
+  const user = await handleResponse(response);
 
   localStorage.setItem("user", JSON.stringify(user));
 
   return user;
-
 }
 
 function logout() {
@@ -201,8 +200,8 @@ async function resendValidationEmail(email, CSRFTokenObject) {
 
 function handleResponse(response) {
   return response.text().then(text => {
-    console.log('text: ', text);
-    
+    console.log("text: ", text);
+
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {

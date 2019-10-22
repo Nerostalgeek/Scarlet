@@ -22,7 +22,7 @@ const User = new Schema(
     },
     password: {
       type: String
-        },
+    },
     admin: {
       type: Boolean,
       required: true

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../../config.default");
 
-const createToken = function(auth) {
+const createJwtToken = function(auth) {
   return jwt.sign(
     {
       id: auth.id
@@ -14,12 +14,16 @@ const createToken = function(auth) {
 };
 
 module.exports = {
-  generateToken: function(req, res, next) {
-    req.token = createToken(req.auth);
+  generateJwtToken: function(req, res, next) {
+    req.token = createJwtToken(req.auth);
     return next();
   },
-  sendToken: function(req, res) {
+  sendJwtToken: function(req, res) {
     res.setHeader("x-auth-token", req.token);
-    return res.status(200).send(JSON.stringify(req.user));
+    return res.status(200).json({
+      token: `Bearer ${req.token}`,
+      id: req.user.id,
+      isVerified: req.user.isVerified
+    });
   }
 };

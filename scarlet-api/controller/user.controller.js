@@ -107,7 +107,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.facebookLogin = async(req, res, next) => {
+exports.facebookLogin = async (req, res, next) => {
   if (!req.user) {
     return res.send(401, "User Not Authenticated");
   }

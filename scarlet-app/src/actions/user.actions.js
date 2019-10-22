@@ -97,10 +97,10 @@ function login(email, password, CSRFTokenObject) {
   }
 }
 
-function facebookLogin(access_token, CSRFTokenObject) {
+function facebookLogin(access_token) {
   return dispatch => {
-    dispatch(request({access_token}));
-    userService.facebookLogin(access_token, CSRFTokenObject).then(
+    dispatch(request({ access_token }));
+    userService.facebookLogin(access_token).then(
       user => {
         dispatch(success(user));
         history.push("/dashboard");
@@ -110,9 +110,8 @@ function facebookLogin(access_token, CSRFTokenObject) {
         dispatch(alertActions.error(error));
       }
     );
-};
+  };
 
- 
   function request(facebookToken) {
     return { type: userConstants.FACEBOOK_LOGIN_REQUEST, facebookToken };
   }

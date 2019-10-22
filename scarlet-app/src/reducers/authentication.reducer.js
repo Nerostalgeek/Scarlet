@@ -17,15 +17,14 @@ export function authentication(state = initialState, action) {
     case userConstants.LOGIN_FAILURE:
       return {};
     case userConstants.FACEBOOK_LOGIN_REQUEST:
-        console.log("actiooooooooon   ", action);
+      console.log("actiooooooooon   ", action);
 
       return {
         loggingIn: true
       };
     case userConstants.FACEBOOK_LOGIN_SUCCESS:
       return {
-        loggedIn: action,
-        
+        loggedIn: action
       };
     case userConstants.FACEBOOK_LOGIN_FAILURE:
       return {};

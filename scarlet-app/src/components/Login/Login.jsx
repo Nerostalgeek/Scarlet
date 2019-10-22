@@ -35,7 +35,7 @@ const Login = () => {
   useEffect(() => {
     dispatch(csrfTokenActions.create(user));
   }, [dispatch]);
-  
+
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
 
@@ -43,16 +43,10 @@ const Login = () => {
 
   const { token, fetchingToken, tokenFetched } = csrfToken;
 
-  
-
   const facebookResponse = response => {
-    const facebookToken =  {access_token: response.accessToken} ;
-    const CSRFTokenObject = {
-      token: token,
-      user: user
-    };
+    const facebookToken = { access_token: response.accessToken };
     if (facebookToken && tokenFetched) {
-      dispatch(userActions.facebookLogin(facebookToken, CSRFTokenObject));
+      dispatch(userActions.facebookLogin(facebookToken));
     }
   };
 

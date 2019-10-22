@@ -1,5 +1,5 @@
 //passport-config.js
-const passport = require('passport');
+const passport = require("passport");
 
 //Let's import some things!
 //this is using ES6 Destructuring. If you're not using a build step,
@@ -18,8 +18,7 @@ const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: secret
 };
-module.exports = function () {
-
+module.exports = function() {
   passport.use(
     new Strategy(opts, (payload, done) => {
       User.findById(payload.id)
@@ -37,24 +36,37 @@ module.exports = function () {
     })
   );
 
-  passport.use(new FacebookTokenStrategy({
-          clientID: config.facebookAuth.clientID,
-          clientSecret: config.facebookAuth.clientSecret
+  passport.use(
+    new FacebookTokenStrategy(
+      {
+        clientID: config.facebookAuth.clientID,
+        clientSecret: config.facebookAuth.clientSecret
       },
-      function (accessToken, refreshToken, profile, done) {
-        console.log("ACCESS TOKEN PASSPORT -> -> ", accessToken);
-          User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
-              return done(err, user);
-          });
-      }));
+      function(accessToken, refreshToken, profile, done) {
+        User.upsertFbUser(accessToken, refreshToken, profile, function(
+          err,
+          user
+        ) {
+          return done(err, user);
+        });
+      }
+    )
+  );
 
-  passport.use(new GoogleTokenStrategy({
-          clientID: config.googleAuth.clientID,
-          clientSecret: config.googleAuth.clientSecret
+  passport.use(
+    new GoogleTokenStrategy(
+      {
+        clientID: config.googleAuth.clientID,
+        clientSecret: config.googleAuth.clientSecret
       },
-      function (accessToken, refreshToken, profile, done) {
-          User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
-              return done(err, user);
-          });
-      }));
+      function(accessToken, refreshToken, profile, done) {
+        User.upsertGoogleUser(accessToken, refreshToken, profile, function(
+          err,
+          user
+        ) {
+          return done(err, user);
+        });
+      }
+    )
+  );
 };
