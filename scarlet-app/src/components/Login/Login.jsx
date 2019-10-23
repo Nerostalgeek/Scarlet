@@ -29,7 +29,6 @@ const customStyles = {
 };
 
 const Login = () => {
-  
   const dispatch = useDispatch();
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
