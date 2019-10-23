@@ -22,7 +22,8 @@ async function login(email, password, CSRFTokenObject) {
   const requestOptions = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json; charset=utf-8"
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": config.NonApiServerUrl
     },
     body: JSON.stringify({ email, password, CSRFTokenObject })
   };
@@ -39,7 +40,8 @@ async function facebookLogin(access_token) {
   const requestOptions = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json; charset=utf-8"
+      "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": config.NonApiServerUrl
     },
     body: JSON.stringify(access_token),
     mode: "cors",

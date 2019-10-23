@@ -71,7 +71,7 @@ exports.updatePassword = async query => {
       { useFindAndModify: false }
     );
   } catch (e) {
-    throw Error("Error updating password " + e);
+    throw Error("Error while updating password " + e);
   }
 };
 
@@ -83,7 +83,7 @@ exports.checkValidationToken = async query => {
       $gte: Date.now()
     });
   } catch (e) {
-    throw Error("Error checking validation token " + e);
+    throw Error("Error while checking validation token " + e);
   }
 };
 
@@ -97,7 +97,7 @@ exports.validateAccount = async query => {
       { useFindAndModify: false }
     );
   } catch (e) {
-    throw Error("Error while validating email  " + e);
+    throw Error("Error while validating account  " + e);
   }
 };
 
@@ -111,6 +111,6 @@ exports.resendValidationEmail = async query => {
       { useFindAndModify: false }
     );
   } catch (e) {
-    throw Error("Error while validating email  " + e);
+    throw Error("Error while resending validation email  " + e);
   }
 };
