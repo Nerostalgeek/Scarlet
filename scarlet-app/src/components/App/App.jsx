@@ -12,8 +12,8 @@ import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import ResetPassword from "../Login/ResetPassword/ResetPassword";
 import validateAccount from "../Login/ValidateAccount/ValidateAccount";
-
 import "./App.css";
+require("dotenv").config();
 
 const App = () => {
   const dispatch = useDispatch();

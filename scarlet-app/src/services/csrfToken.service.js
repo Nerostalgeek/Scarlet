@@ -1,6 +1,5 @@
 import { authHeader } from "../helpers";
 
-const config = require("../../../config.default");
 export const csrfTokenService = {
   create,
   delete: _delete
@@ -10,13 +9,16 @@ async function create(user) {
   const requestOptions = {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": config.NonApiServerUrl,
+      "Access-Control-Allow-Origin": process.env.REACT_APP_BASE_URL,
       "Content-Type": "application/json; charset=utf-8"
     },
     body: JSON.stringify({ user: user })
   };
 
-  const response = await fetch(`${config.apiUrl}/token/create`, requestOptions);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/token/create`,
+    requestOptions
+  );
   const token = await handleResponse(response);
   return token;
 }
@@ -28,7 +30,10 @@ async function _delete(id) {
     body: JSON.stringify({ _id: id })
   };
 
-  const response = await fetch(`${config.apiUrl}/token/remove`, requestOptions);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/token/remove`,
+    requestOptions
+  );
   return handleResponse(response);
 }
 

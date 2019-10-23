@@ -12,9 +12,8 @@ import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import googleIcon from "../../img/icons/google-icon.png";
 import mailIconWhite from "../../img/icons/mail-white.png";
-import { userActions, csrfTokenActions } from "../../actions";
+import { userActions } from "../../actions";
 import { history } from "../../helpers";
-import config from "../../../../config.default";
 
 ReactModal.setAppElement("#root");
 const customStyles = {
@@ -29,6 +28,9 @@ const customStyles = {
 };
 
 const Login = () => {
+  const FACEBOOK_AUTH_CLIENT_ID = process.env.REACT_APP_FACEBOOK_AUTH_CLIENT_ID;
+
+  console.log("DOT ENV =====>     ", FACEBOOK_AUTH_CLIENT_ID);
   const dispatch = useDispatch();
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
@@ -70,7 +72,7 @@ const Login = () => {
           <div className="signin-buttons">
             <FacebookLogin
               cssClass="signin-item-button facebook-button"
-              appId={config.facebookAuth.clientID}
+              appId={FACEBOOK_AUTH_CLIENT_ID}
               autoLoad={false}
               fields="first_name, last_name, email, picture"
               callback={facebookResponse}

@@ -1,4 +1,3 @@
-const config = require("../config.default");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
@@ -7,7 +6,7 @@ const fs = require("fs");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 const mongoose = require("mongoose");
 const passport = require("passport");
-
+const dotenv = require("dotenv").config({ path: "../ENV/.env.development" });
 // ********* ROUTE IMPORTS *********
 const router = require("./router");
 // *********************************
@@ -18,7 +17,7 @@ const customMiddleware = require("./middleware/CSRFToken.middleware");
 const app = express();
 app.use(
   cors({
-    origin: config.NonApiServerUrl
+    origin: process.env.BASE_URL
   })
 );
 //Body Parser
@@ -27,7 +26,11 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 // LOGGER IN CONSOLE
-const logger = log({ console: true, file: false, label: config.settings.name });
+const logger = log({
+  console: true,
+  file: false,
+  label: process.env.API_SETTINGS_NAME
+});
 
 app.use(urlencodedParser);
 app.use(bodyParser.json());
@@ -38,7 +41,7 @@ app.use(ExpressAPILogMiddleware(logger, { request: true }));
 app.use(passport.initialize());
 
 // Setup MongoDB connection
-mongoose.connect(config.mongodbUrl, {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true
 });
 
@@ -91,11 +94,15 @@ const server = https.createServer(
   },
   app
 );
-server.listen(config.settings.port, config.settings.host, e => {
-  if (e) {
-    throw new Error("Internal Server Error");
+server.listen(
+  process.env.API_SETTINGS_PORT,
+  process.env.API_SETTINGS_HOST,
+  e => {
+    if (e) {
+      throw new Error("Internal Server Error");
+    }
+    logger.info(
+      `${process.env.API_SETTINGS_NAME} running on ${process.env.API_SETTINGS_HOST}:${process.env.API_SETTINGS_PORT}`
+    );
   }
-  logger.info(
-    `${config.settings.name} running on ${config.settings.host}:${config.settings.port}`
-  );
-});
+);

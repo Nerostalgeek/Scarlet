@@ -6,7 +6,7 @@ const createJwtToken = function(auth) {
     {
       id: auth.id
     },
-    config.jwtSecret,
+    process.env.JWT_SECRET,
     {
       expiresIn: 60 * 120
     }
