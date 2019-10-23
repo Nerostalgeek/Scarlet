@@ -4,6 +4,7 @@ import { alertActions } from "./";
 import { history } from "../helpers";
 
 export const userActions = {
+  facebookLogin,
   login,
   logout,
   register,
@@ -93,6 +94,34 @@ function login(email, password, CSRFTokenObject) {
 
   function failure(error) {
     return { type: userConstants.LOGIN_FAILURE, error };
+  }
+}
+
+function facebookLogin(access_token) {
+  return dispatch => {
+    dispatch(request({ access_token }));
+    userService.facebookLogin(access_token).then(
+      user => {
+        dispatch(success(user));
+        history.push("/dashboard");
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      }
+    );
+  };
+
+  function request(facebookToken) {
+    return { type: userConstants.FACEBOOK_LOGIN_REQUEST, facebookToken };
+  }
+
+  function success(user) {
+    return { type: userConstants.FACEBOOK_LOGIN_SUCCESS, user };
+  }
+
+  function failure(error) {
+    return { type: userConstants.FACEBOOK_LOGIN_FAILURE, error };
   }
 }
 

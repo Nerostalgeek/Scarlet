@@ -2,6 +2,8 @@ const UserController = require("../controller/user.controller");
 
 const express = require("express");
 
+const { generateJwtToken, sendJwtToken } = require("../utils/token.utils");
+
 const passport = require("passport");
 require("../config/passport-config")(passport);
 
@@ -32,5 +34,29 @@ user
   .put(UserController.resendValidationEmail);
 
 user.route("/validate-account").put(UserController.validateAccount);
+
+user.post(
+  "/auth/facebook",
+  passport.authenticate("facebook-token", { session: false }),
+  UserController.facebookLogin,
+  generateJwtToken,
+  sendJwtToken
+);
+
+user.route("/auth/google").post(
+  passport.authenticate("google-token", { session: false }),
+  function(req, res, next) {
+    if (!req.user) {
+      return res.send(401, "User Not Authenticated");
+    }
+    req.auth = {
+      id: req.user.id
+    };
+
+    next();
+  },
+  generateJwtToken,
+  sendJwtToken
+);
 
 module.exports = user;

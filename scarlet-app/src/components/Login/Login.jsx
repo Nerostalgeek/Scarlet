@@ -12,8 +12,9 @@ import { modalActions } from "../../actions/modal.actions";
 import ReactModal from "react-modal";
 import googleIcon from "../../img/icons/google-icon.png";
 import mailIconWhite from "../../img/icons/mail-white.png";
-import { userActions } from "../../actions";
+import { userActions, csrfTokenActions } from "../../actions";
 import { history } from "../../helpers";
+import config from "../../../../config.default";
 
 ReactModal.setAppElement("#root");
 const customStyles = {
@@ -28,12 +29,33 @@ const customStyles = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
-  const dispatch = useDispatch();
 
-  const responseFacebook = () => {
-    console.log("Bouton Facebook cliqué");
+  const facebookResponse = response => {
+    const facebookToken = { access_token: response.accessToken };
+    if (facebookToken) {
+      dispatch(userActions.facebookLogin(facebookToken));
+    }
+  };
+
+  const googleResponse = response => {
+    const tokenBlob = { access_token: response.accessToken };
+    const options = {
+      method: "POST",
+      body: tokenBlob,
+      mode: "cors",
+      cache: "default"
+    };
+    fetch("https://localhost:6200/users/auth/google", options).then(r => {
+      const token = r.headers.get("x-auth-token");
+      r.json().then(user => {
+        if (token) {
+          this.setState({ isAuthenticated: true, user, token });
+        }
+      });
+    });
   };
 
   // const {loggingIn} = this.props;
@@ -48,10 +70,10 @@ const Login = () => {
           <div className="signin-buttons">
             <FacebookLogin
               cssClass="signin-item-button facebook-button"
-              appId="460733124511623"
+              appId={config.facebookAuth.clientID}
               autoLoad={false}
-              fields="name,email,picture"
-              callback={responseFacebook}
+              fields="first_name, last_name, email, picture"
+              callback={facebookResponse}
               icon="fa-facebook-square"
               textButton="Connexion avec Facebook"
             />
