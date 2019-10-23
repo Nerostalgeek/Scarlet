@@ -10,8 +10,6 @@ import userAvatar from "../../img/assets/dashboard/user-avatar.png";
 const Dashboard = () => {
   const user = useSelector(state => state.authentication.user);
   const dispatch = useDispatch();
-  const errorTitle =
-    "Vous devez vérifier votre compte afin de pouvoir utiliser nos services.";
 
   useEffect(() => {
     dispatch(userActions.getUser(user.id));

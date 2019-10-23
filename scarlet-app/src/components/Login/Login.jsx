@@ -29,23 +29,14 @@ const customStyles = {
 };
 
 const Login = () => {
-  const user = null;
+  
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(csrfTokenActions.create(user));
-  }, [dispatch]);
-
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
 
-  const csrfToken = useSelector(state => state.csrfProtection);
-
-  const { token, fetchingToken, tokenFetched } = csrfToken;
-
   const facebookResponse = response => {
     const facebookToken = { access_token: response.accessToken };
-    if (facebookToken && tokenFetched) {
+    if (facebookToken) {
       dispatch(userActions.facebookLogin(facebookToken));
     }
   };

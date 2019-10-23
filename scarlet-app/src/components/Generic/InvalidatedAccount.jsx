@@ -37,7 +37,7 @@ const InvalidatedAccount = () => {
               )
             }
           >
-            Renvoyez l'email de confirmation.
+            Renvoyer l'email de confirmation.
           </button>
         </div>
       </div>
