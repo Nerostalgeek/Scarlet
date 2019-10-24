@@ -20,17 +20,17 @@ const NavBar = () => {
       },
       {
         name: "Louer une voiture",
-        url: "cars-offers",
+        url: "/rent-cars",
         customId: ""
       },
       {
         name: "Mettre ma voiture en location",
-        url: "rent-my-car",
+        url: "#",
         customId: ""
       },
       {
         name: "Se connecter",
-        url: "login",
+        url: "/login",
         customId: ""
       }
     ];
@@ -43,22 +43,22 @@ const NavBar = () => {
         },
         {
           name: "Louer une voiture",
-          url: "cars-offers",
+          url: "/rent-cars",
           customId: ""
         },
         {
           name: "Mettre ma voiture en location",
-          url: "rent-my-car",
+          url: "#",
           customId: ""
         },
         {
           name: "Mon profil",
-          url: "dashboard",
+          url: "/dashboard",
           customId: ""
         },
         {
           name: "Se déconnecter",
-          url: "logout",
+          url: "/logout",
           customId: "",
           onClick: () => dispatch(userActions.logout())
         }
@@ -81,9 +81,11 @@ const NavBar = () => {
 
   return (
     <div className="l-NavBar">
-      {/* <div className="NavBar-logo-container">
-        <img src={logo} alt="logo" />
-      </div> */}
+      {
+        <div className="NavBar-logo-container">
+          <img src={logo} alt="logo" />
+        </div>
+      }
       <div className="NavBar-links-container">{fetchLinks}</div>
     </div>
   );

@@ -1,7 +1,9 @@
 const config = require("../config.default");
-const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const express = require("express");
+const https = require("https");
+const fs = require("fs");
 const { log, ExpressAPILogMiddleware } = require("@rama41222/node-logger");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -40,6 +42,8 @@ mongoose.connect(config.mongodbUrl, {
   useNewUrlParser: true
 });
 
+mongoose.set("useCreateIndex", true);
+
 const connection = mongoose.connection;
 connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
@@ -50,15 +54,9 @@ app.use("/token", router.CSRFToken);
 // ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
 app.post("*", customMiddleware.checkCsrfToken);
 
-app.put("*", (req, res, next) => {
-  console.log("PUT happen");
-  next();
-});
+app.put("*", customMiddleware.checkCsrfToken);
 
-app.patch("*", (req, res, next) => {
-  console.log("PATCH happen");
-  next();
-});
+app.patch("*", customMiddleware.checkCsrfToken);
 
 app.delete("*", (req, res, next) => {
   console.log("DELETE happen");
@@ -86,7 +84,14 @@ app.use("/rent-contracts", router.RentContract);
 // ********* REVIEW ROUTE *********
 app.use("/reviews", router.Review);
 
-app.listen(config.settings.port, config.settings.host, e => {
+const server = https.createServer(
+  {
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.cert")
+  },
+  app
+);
+server.listen(config.settings.port, config.settings.host, e => {
   if (e) {
     throw new Error("Internal Server Error");
   }

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import "./FormRegister.css";
-import { useDispatch } from "react-redux";
-import { modalActions, userActions } from "../../../actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
 
 const FormRegister = () => {
   const dispatch = useDispatch();
+  const user = null;
+
+  useEffect(() => {
+    dispatch(csrfTokenActions.create(user));
+  }, [dispatch]);
+
   const [enteredFirstName, setFirstName] = useState("");
   const [enteredLastName, setLastName] = useState("");
   const [enteredEmail, setEmail] = useState("");
@@ -13,19 +18,27 @@ const FormRegister = () => {
   const [enteredConfirmPassword, setConfirmPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const csrfToken = useSelector(state => state.csrfProtection);
+
+  const { token, fetchingToken, tokenFetched } = csrfToken;
+
   const submitHandler = event => {
     event.preventDefault();
     const user = {
       lastName: enteredLastName,
       firstName: enteredFirstName,
       email: enteredEmail,
-      password: enteredPassword,
-      role: "user"
+      password: enteredPassword
     };
 
     const formChecker = {
       confirmPassword: enteredConfirmPassword,
       isSubmitted: submitted
+    };
+
+    const CSRFTokenObject = {
+      token: token,
+      user: null
     };
 
     if (
@@ -34,9 +47,11 @@ const FormRegister = () => {
       user.email &&
       user.password &&
       formChecker.confirmPassword &&
-      user.password === formChecker.confirmPassword
+      user.password === formChecker.confirmPassword &&
+      tokenFetched
     ) {
-      dispatch(userActions.register(user));
+      dispatch(userActions.register(user, CSRFTokenObject));
+      dispatch(modalActions.displayConfirmPageRegister());
     }
   };
 

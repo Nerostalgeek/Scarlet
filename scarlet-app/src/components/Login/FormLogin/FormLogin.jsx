@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./FormLogin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions, userActions, csrfTokenActions } from "../../../actions";
 import closeIcon from "../../../img/icons/close.png";
@@ -93,7 +92,13 @@ const FormLogin = () => {
                   <input type="checkbox" />
                   Se souvenir de moi
                 </label>
-                <a className="form-recovery" href="#">
+                <a
+                  className="form-recovery"
+                  href="#"
+                  onClick={() =>
+                    dispatch(modalActions.displayForgotPasswordForm())
+                  }
+                >
                   Mot de passe oublié ?
                 </a>
               </div>

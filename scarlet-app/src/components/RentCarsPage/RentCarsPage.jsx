@@ -4,7 +4,7 @@ import citadine from "../../img/assets/rent-page/cars-icons/citadine.png";
 import spacieuse from "../../img/assets/rent-page/cars-icons/spacieuse.png";
 import utilitaire from "../../img/assets/rent-page/cars-icons/utilitaire.png";
 
-import "./OffersCarsPage.css";
+import "./RentCarsPage.css";
 const RentCarsPage = () => {
   return (
     <div className="l-rentCars">

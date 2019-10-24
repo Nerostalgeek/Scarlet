@@ -6,6 +6,10 @@ let settings;
 let apiUrl;
 let passportSecret;
 let jwtSecret;
+let emailSender;
+let passwordEmail;
+let facebookAuth;
+let googleAuth;
 
 
 if (ENV === "PROD") {
@@ -23,6 +27,16 @@ if (ENV === "PROD") {
         port: 6200,
         host: "0.0.0.0"
     };
+    emailSender = "Your email sender (GMAIL is used by default";
+    passwordEmail = "Your email sender password";
+    facebookAuth = {
+        clientID: "YOUR APP ID HERE",
+        clientSecret: "YOUR SECRET KEY HERE"
+    };
+    googleAuth = {
+        clientID: "YOUR APP ID HERE",
+        clientSecret: "YOUR APP ID HERE"
+    };
 }
 
 module.exports = {
@@ -33,5 +47,9 @@ module.exports = {
     passportSecret,
     jwtSecret,
     settings,
+    emailSender,
+    passwordEmail,
+    facebookAuth,
+    googleAuth,
     ENV,
 };

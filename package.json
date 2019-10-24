@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "format": "cd scarlet-api && npm run format && cd ../scarlet-app && yarn format"
+      }
+    }

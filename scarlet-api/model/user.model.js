@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const validator = require("validator");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
@@ -16,20 +15,52 @@ const User = new Schema(
     },
     email: {
       type: String,
-      validate: {
-        validator: validator.isEmail,
-        message: "{VALUE} is not a valid email",
-        isAsync: false
-      },
+      trim: true,
+      unique: true,
+      match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       required: true
     },
     password: {
-      type: String,
+      type: String
+    },
+    admin: {
+      type: Boolean,
       required: true
     },
-    role: {
+    resetPasswordToken: {
       type: String,
-      required: true
+      required: false
+    },
+    resetPasswordExpires: {
+      type: Date,
+      required: false
+    },
+    confirmAccountToken: {
+      type: String,
+      required: false
+    },
+    confirmAccountExpires: {
+      type: Date,
+      required: false
+    },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    facebookProvider: {
+      type: {
+        id: String,
+        token: String
+      },
+      select: false
+    },
+    googleProvider: {
+      type: {
+        id: String,
+        token: String
+      },
+      select: false
     }
   },
   { timestamps: { createdAt: "created_at" } }
@@ -49,15 +80,81 @@ User.pre("save", function(next) {
   if (!this.isModified("password")) {
     return next();
   }
-  this.password = bcrypt.hashSync(this.password, 10);
+  this.password = bcrypt.hashSync(this.password, 12);
   next();
 });
-User.methods.comparePassword = function(plaintext, callback) {
-  return callback(null, bcrypt.compareSync(plaintext, this.password));
+
+User.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
+  let that = this;
+
+  return this.findOne(
+    {
+      "facebookProvider.id": profile.id
+    },
+    function(err, user) {
+      // no user was found, lets create a new one
+      if (!user) {
+        const newUser = new that({
+          firstName: profile.name.familyName,
+          lastName: profile.name.givenName,
+          email: profile.emails[0].value,
+          admin: false,
+          isVerified: true,
+          facebookProvider: {
+            id: profile.id,
+            token: accessToken
+          }
+        });
+
+        newUser.save(function(error, savedUser) {
+          if (error) {
+            console.log(error);
+          }
+          return cb(error, savedUser);
+        });
+      } else {
+        return cb(err, user);
+      }
+    }
+  );
 };
 
-User.methods.getToken = function() {
-  return jwt.encode(config.secret);
-};
+User.statics.upsertGoogleUser = function(
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) {
+  let that = this;
+  return this.findOne(
+    {
+      "googleProvider.id": profile.id
+    },
+    function(err, user) {
+      // no user was found, lets create a new one
+      if (!user) {
+        const newUser = new that({
+          firstName: profile.name.familyName,
+          lastName: profile.name.givenName,
+          email: profile.emails[0].value,
+          admin: false,
+          isVerified: true,
+          facebookProvider: {
+            id: profile.id,
+            token: accessToken
+          }
+        });
 
+        newUser.save(function(error, savedUser) {
+          if (error) {
+            console.log(error);
+          }
+          return cb(error, savedUser);
+        });
+      } else {
+        return cb(err, user);
+      }
+    }
+  );
+};
 module.exports = mongoose.model("User", User);
