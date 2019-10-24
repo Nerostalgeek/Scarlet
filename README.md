@@ -44,7 +44,8 @@ cd scarlet-app && yarn start
 
 ## Development setup
 
-In order to access the app you will need to create a `config.default.js` and set it in the root folder `Scarlet`, an example file is provided in the repo, simply fill it out with your own secret key / ENV var and you'll be ready to go !
+In order to access the app you will need to create a `ENV` folder at the root of the project.
+and set it in the root folder `Scarlet`, an example folder with its files is provided in the repo, simply fill it out with your own secret key / ENV var and you'll be ready to go !
 
 
 ## Release History
