@@ -34,3 +34,16 @@ exports.addCar = async (req, res) => {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+exports.getVehicles = async (req, res) => {
+ try{
+  const vehicles = await CarService.getVehicles();
+  console.log("VEHICLES HOHIIIHIIHIHIHIHI ------> ", vehicles)
+  return res.status(200).json({
+    vehicles
+  });
+ } catch(e) {
+  return res.status(400).json({ status: 400, message: e.message})
+ }
+
+}

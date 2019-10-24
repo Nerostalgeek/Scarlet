@@ -1,8 +1,9 @@
 const Car = require("../model/car.model");
+const VehiclesDataProp = require("../model/vehiclesDataProps.model")
 
-exports.getAll = async () => {
+exports.getVehicles = async () => {
   try {
-    return await Car.find({});
+    return await VehiclesDataProp.find({});
   } catch (e) {
     throw Error("Error fetching car " + e);
   }

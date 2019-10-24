@@ -135,7 +135,7 @@ const RentCar = () => {
                 <div id="rentForm4" className="form-rent-car-item">
                   <h4>Moteur :</h4>
                   <select
-                    data-field-name="year"
+                    data-field-name="engine"
                     data-number="4"
                     className="rent-car-input rent-select"
                   >
@@ -150,7 +150,7 @@ const RentCar = () => {
                 <div id="rentForm5" className="form-rent-car-item">
                   <h4>Transmission</h4>
                   <select
-                    data-field-name="engine"
+                    data-field-name="transmission"
                     data-number="5"
                     className="rent-car-input rent-select"
                   >
@@ -194,7 +194,7 @@ const RentCar = () => {
                   <h4>Année d'enregistrement</h4>
                   <input
                     type="text"
-                    data-field-name="kilometers"
+                    data-field-name="registeredYear"
                     data-number="8"
                     className="rent-car-input"
                   />
@@ -203,7 +203,7 @@ const RentCar = () => {
                   <h4>Pays d'enregistrement</h4>
                   <input
                     type="text"
-                    data-field-name="seats"
+                    data-field-name="registeredCountry"
                     data-number="9"
                     className="rent-car-input"
                   />
