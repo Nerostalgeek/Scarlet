@@ -38,7 +38,6 @@ exports.addCar = async (req, res) => {
 exports.getVehicles = async (req, res) => {
  try{
   const vehicles = await CarService.getVehicles();
-  console.log("VEHICLES HOHIIIHIIHIHIHIHI ------> ", vehicles)
   return res.status(200).json({
     vehicles
   });

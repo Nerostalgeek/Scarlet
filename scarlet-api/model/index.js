@@ -6,5 +6,5 @@ module.exports = {
   RentOffer: require("./rentOffer.model"),
   RentContract: require("./rentContract.model"),
   Review: require("./review.model"),
-  VehiclesDataProps: require("./vehiclesDataProps.model")
+  Vehicle: require("./vehicle.model")
 };

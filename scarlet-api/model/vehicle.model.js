@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const VehiclesDataProp = new Schema(
+const Vehicle = new Schema(
   {
     fuelType: {
       type: String,
@@ -27,4 +27,4 @@ const VehiclesDataProp = new Schema(
     }
   });
 
-module.exports = mongoose.model("vehiclesDataProp", VehiclesDataProp);
+module.exports = mongoose.model("Vehicle", Vehicle);
