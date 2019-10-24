@@ -25,7 +25,7 @@ const NavBar = () => {
       },
       {
         name: "Mettre ma voiture en location",
-        url: "#",
+        url: "/rent-my-car",
         customId: ""
       },
       {
@@ -48,7 +48,7 @@ const NavBar = () => {
         },
         {
           name: "Mettre ma voiture en location",
-          url: "#",
+          url: "/rent-my-car",
           customId: ""
         },
         {

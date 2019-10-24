@@ -1,0 +1,78 @@
+.l-rent-car {
+}
+
+.rent-car-content {
+  display: flex;
+  height: calc(100vh - 75px);
+  width: 100%;
+}
+
+.rent-car-image {
+  flex: 1;
+  background-image: url("../../img/assets/rent-car/img-first-page.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.rent-car-form {
+  flex: 1;
+  background: whitesmoke;
+  padding: 0 100px;
+  text-align: center;
+  display: flex;
+}
+
+.rent-car-form form {
+  flex: 1;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.form-rent-car-item {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-rent-car-item input,
+.form-rent-car-item select {
+  text-align: center;
+}
+
+.form-rent-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.form-rent-row .form-rent-car-item {
+  width: 48%;
+}
+
+.rent-car-input {
+  margin: 10px 0 25px 0;
+  width: 100%;
+  height: 30px;
+}
+
+.rentSubmitInput {
+  height: 50px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  background: linear-gradient(to right, #2c58c4, #3f8ffe);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
