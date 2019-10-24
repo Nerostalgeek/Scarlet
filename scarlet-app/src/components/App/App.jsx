@@ -7,6 +7,7 @@ import NavBar from "../NavBar/NavBar";
 import HomePage from "../HomePage/HomePage";
 import { history } from "../../helpers";
 import RentCarsPage from "../RentCarsPage/RentCarsPage";
+import RentCar from "../RentCar/RentCar";
 import Dashboard from "../Dashboard/Dashboard";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/reset-password" component={ResetPassword} />
         <Route path="/rent-cars" component={RentCarsPage} />
+        <Route path="/rent-my-car" component={RentCar} />
         <Route path="/validate-account" component={validateAccount} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/logout" />

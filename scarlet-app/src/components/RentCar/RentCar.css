@@ -1,5 +1,4 @@
 .l-rent-car {
-  padding-top: 75px;
 }
 
 .rent-car-content {
@@ -38,19 +37,20 @@
   display: flex;
   flex-direction: column;
   width: 98%;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-rent-car-item input, .form-rent-car-item select{
-  text-align:center;
+.form-rent-car-item input,
+.form-rent-car-item select {
+  text-align: center;
 }
 
 .form-rent-row {
-  display:flex;
-  justify-content:space-evenly;
-  align-items:center;
-  width:100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
 
 .form-rent-row .form-rent-car-item {
@@ -66,13 +66,13 @@
 .rentSubmitInput {
   height: 50px;
   width: 50%;
-  margin-left:auto;
-    margin-right:auto;
-    font-size: 18px;
-    background: linear-gradient( to right, #2c58c4, #3f8ffe );
-    color:white;
-    border:none;
-    border-radius: 5px;
-    cursor:pointer;
-    margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  background: linear-gradient(to right, #2c58c4, #3f8ffe);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
 }
