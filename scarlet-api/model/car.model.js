@@ -24,6 +24,12 @@ const Car = new Schema(
       type: String,
       required: true
     },
+    color: {
+      type: String
+    },
+    doorsNumber: {
+      type: Number
+    },
     model: {
       type: String,
       required: true
