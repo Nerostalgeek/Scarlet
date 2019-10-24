@@ -3,8 +3,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const UserService = require("../service/user.service");
 const nodemailer = require("nodemailer");
-const config = require("../../config.default");
-const jwtSecret = config.jwtSecret;
+const jwtSecret = process.env.JWT_SECRET;
 
 exports.getAll = async (req, res) => {
   try {
@@ -51,7 +50,7 @@ exports.register = async (req, res) => {
         const message =
           `You are receiving this because you have registered into Scarlet's services. \n\n` +
           `Please click on the following link to activate your account, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
-          `${config.NonApiServerUrl}/validate-account/${validationToken}\n\n` +
+          `${process.env.BASE_URL}/validate-account/${validationToken}\n\n` +
           `We hope that you will enjoy our services!. \n`;
         const error =
           "A problem occurred while sending the validation account's Link. Please try again or contact us to solve this problem";
@@ -135,7 +134,7 @@ exports.resetPassword = async (req, res) => {
         const message =
           `You are receiving this because you (or someone else) have requested the reset of the password for your account. \n\n` +
           `Please click on the following link, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
-          `${config.NonApiServerUrl}/reset-password/${resetToken}\n\n` +
+          `${process.env.BASE_URL}/reset-password/${resetToken}\n\n` +
           `If you did not request this, please ignore this email and your password will remain unchanged. \n`;
 
         const error =
@@ -268,7 +267,7 @@ exports.resendValidationEmail = async (req, res, next) => {
           const message =
             `You are receiving this because you have registered into Scarlet's services. \n\n` +
             `Please click on the following link to activate your account, or paste it into your browser to complete the process within one hour of receiving it: \n\n` +
-            `${config.NonApiServerUrl}/validate-account/${validationToken}\n\n` +
+            `${process.env.BASE_URL}/validate-account/${validationToken}\n\n` +
             `We hope that you will enjoy our services!. \n`;
           const error =
             "A problem occurred while sending the validation account's Link. Please try again or contact us to solve this problem";
@@ -292,13 +291,13 @@ const sendEmail = async (address, subject, message, error) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: `${config.emailSender}`,
-      pass: `${config.passwordEmail}`
+      user: `${process.env.EMAIL_SENDER}`,
+      pass: `${process.env.EMAIL_PASSWORD}`
     }
   });
 
   const mailOptions = {
-    from: `${config.emailSender}`,
+    from: `[NO-REPLY] Scarlet-services`,
     to: address,
     subject: subject,
     text: message

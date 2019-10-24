@@ -1,6 +1,5 @@
 import { authHeader } from "../helpers";
 
-const config = require("../../../config.default");
 export const userService = {
   facebookLogin,
   login,
@@ -23,12 +22,15 @@ async function login(email, password, CSRFTokenObject) {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": config.NonApiServerUrl
+      "Access-Control-Allow-Origin": process.env.REACT_APP_BASE_URL
     },
     body: JSON.stringify({ email, password, CSRFTokenObject })
   };
 
-  const response = await fetch(`${config.apiUrl}/users/login`, requestOptions);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/users/login`,
+    requestOptions
+  );
   const user = await handleResponse(response);
   console.log("user: ", user);
   // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -41,14 +43,14 @@ async function facebookLogin(access_token) {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": config.NonApiServerUrl
+      "Access-Control-Allow-Origin": process.env.REACT_APP_BASE_URL
     },
     body: JSON.stringify(access_token),
     mode: "cors",
     cache: "default"
   };
   const response = await fetch(
-    `${config.apiUrl}/users/auth/facebook`,
+    `${process.env.REACT_APP_API_URL}/users/auth/facebook`,
     requestOptions
   );
 
@@ -80,7 +82,10 @@ async function getUser(id) {
     headers: authHeader()
   };
 
-  const response = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/users/${id}`,
+    requestOptions
+  );
   return handleResponse(response);
 }
 
@@ -91,7 +96,7 @@ async function register(user, CSRFTokenObject) {
     body: JSON.stringify({ user, CSRFTokenObject })
   };
   const response = await fetch(
-    `${config.apiUrl}/users/register`,
+    `${process.env.REACT_APP_API_URL}/users/register`,
     requestOptions
   );
   return handleResponse(response);
@@ -127,7 +132,7 @@ async function resetPassword(email, CSRFTokenObject) {
   };
 
   const response = await fetch(
-    `${config.apiUrl}/users/reset-password`,
+    `${process.env.REACT_APP_API_URL}/users/reset-password`,
     requestOptions
   );
   return handleResponse(response);
@@ -140,7 +145,7 @@ async function checkResetToken(resetToken) {
   };
 
   const response = await fetch(
-    `${config.apiUrl}/users/check-reset-token?resetToken=${resetToken}`,
+    `${process.env.REACT_APP_API_URL}/users/check-reset-token?resetToken=${resetToken}`,
     requestOptions
   );
   return handleResponse(response);
@@ -154,7 +159,7 @@ async function updatePassword(email, password, CSRFTokenObject) {
   };
 
   const response = await fetch(
-    `${config.apiUrl}/users/update-password`,
+    `${process.env.REACT_APP_API_URL}/users/update-password`,
     requestOptions
   );
   return handleResponse(response);
@@ -167,7 +172,7 @@ async function checkValidationToken(validationToken) {
   };
 
   const response = await fetch(
-    `${config.apiUrl}/users/check-validation-token?validationToken=${validationToken}`,
+    `${process.env.REACT_APP_API_URL}/users/check-validation-token?validationToken=${validationToken}`,
     requestOptions
   );
   return handleResponse(response);
@@ -181,7 +186,7 @@ async function validateAccount(email, CSRFTokenObject) {
   };
 
   const response = await fetch(
-    `${config.apiUrl}/users/validate-account`,
+    `${process.env.REACT_APP_API_URL}/users/validate-account`,
     requestOptions
   );
   return handleResponse(response);
@@ -194,7 +199,7 @@ async function resendValidationEmail(email, CSRFTokenObject) {
     body: JSON.stringify({ email, CSRFTokenObject })
   };
   const response = await fetch(
-    `${config.apiUrl}/users/resend-validation-token`,
+    `${process.env.REACT_APP_API_URL}/users/resend-validation-token`,
     requestOptions
   );
   return handleResponse(response);
