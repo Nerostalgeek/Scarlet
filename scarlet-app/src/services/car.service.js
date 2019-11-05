@@ -8,7 +8,6 @@ export const carService = {
   delete: _delete
 };
 
-
 async function getAll() {
   const requestOptions = {
     method: "GET",
@@ -33,13 +32,14 @@ async function getCar(id) {
 }
 
 async function register(user, CSRFTokenObject) {
+  console.log(user);
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user, CSRFTokenObject })
   };
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL}/users/register`,
+    `${process.env.REACT_APP_API_URL}/cars/register`,
     requestOptions
   );
   return handleResponse(response);
@@ -67,7 +67,6 @@ async function _delete(id) {
   return handleResponse(response);
 }
 
-
 function handleResponse(response) {
   return response.text().then(text => {
     console.log("text: ", text);
@@ -76,7 +75,7 @@ function handleResponse(response) {
     if (!response.ok) {
       if (response.status === 401) {
         // auto logout if 401 response returned from api
-        throw Error("Error")
+        throw Error("Error");
         // location.reload(true);
       }
 

@@ -12,10 +12,6 @@ const Car = new Schema(
       type: Number,
       required: true
     },
-    firstRegistrationYear: {
-      type: Number,
-      required: true
-    },
     type: {
       type: String,
       required: true

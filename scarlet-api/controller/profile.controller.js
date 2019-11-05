@@ -26,7 +26,7 @@ exports.getById = async (req, res) => {
 exports.addProfile = async (req, res) => {
   const profileData = req.body;
   try {
-    const profile = await ProfileService.addCar(profileData);
+    const profile = await ProfileService.register(profileData);
     return res.status(200).json({
       profile
     });

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
+    "@babel/runtime": "^7.6.3",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
@@ -76,6 +77,7 @@
   "scripts": {
     "start": "HTTPS=true node scripts/start.js",
     "startWindows": "set HTTPS=true&&node scripts/start.js",
+    "startNoHTTPS": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""

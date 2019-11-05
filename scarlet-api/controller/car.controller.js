@@ -23,10 +23,11 @@ exports.getById = async (req, res) => {
   }
 };
 
-exports.addCar = async (req, res) => {
+exports.register = async (req, res) => {
   const carData = req.body;
+  
   try {
-    const car = await CarService.addCar(carData);
+    const car = await CarService.register(carData);
     return res.status(200).json({
       car
     });
@@ -36,13 +37,12 @@ exports.addCar = async (req, res) => {
 };
 
 exports.getVehicles = async (req, res) => {
- try{
-  const vehicles = await CarService.getVehicles();
-  return res.status(200).json({
-    vehicles
-  });
- } catch(e) {
-  return res.status(400).json({ status: 400, message: e.message})
- }
-
-}
+  try {
+    const vehicles = await CarService.getVehicles();
+    return res.status(200).json({
+      vehicles
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};

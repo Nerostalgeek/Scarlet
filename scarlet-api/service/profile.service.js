@@ -16,7 +16,7 @@ exports.getById = async query => {
   }
 };
 
-exports.addCar = async query => {
+exports.register = async query => {
   try {
     const profile = new Profile(query);
     return await profile.save();

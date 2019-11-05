@@ -42,7 +42,8 @@ app.use(passport.initialize());
 
 // Setup MongoDB connection
 mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 mongoose.set("useCreateIndex", true);
@@ -55,11 +56,11 @@ connection.once("open", function() {
 // ********* CSRF TOKEN ROUTE *********
 app.use("/token", router.CSRFToken);
 // ********* CSRF CHECK ON POST, PUT, PATCH, DELETE WITH A CUSTOM MIDDLEWARE  *********
-app.post("*", customMiddleware.checkCsrfToken);
+// app.post("*", customMiddleware.checkCsrfToken);
 
-app.put("*", customMiddleware.checkCsrfToken);
+// app.put("*", customMiddleware.checkCsrfToken);
 
-app.patch("*", customMiddleware.checkCsrfToken);
+// app.patch("*", customMiddleware.checkCsrfToken);
 
 app.delete("*", (req, res, next) => {
   console.log("DELETE happen");
