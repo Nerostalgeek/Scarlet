@@ -58,8 +58,9 @@ const Car = new Schema(
       required: true
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "User",
+      type: String,
       required: true
     }
   },

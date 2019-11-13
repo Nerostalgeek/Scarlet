@@ -31,12 +31,12 @@ async function getCar(id) {
   return handleResponse(response);
 }
 
-async function register(user, CSRFTokenObject) {
-  console.log(user);
+async function register(car, CSRFTokenObject) {
+  console.log(car);
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user, CSRFTokenObject })
+    body: JSON.stringify({ car, CSRFTokenObject })
   };
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}/cars/register`,

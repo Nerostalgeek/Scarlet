@@ -24,8 +24,8 @@ exports.getById = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const carData = req.body;
-  
+  const carData = req.body.car;
+
   try {
     const car = await CarService.register(carData);
     return res.status(200).json({

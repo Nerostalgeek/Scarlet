@@ -23,15 +23,15 @@ const RentCar = () => {
 
   const [brandSelected, setBrand] = useState("test");
   const [modelSelected, setModel] = useState("test");
-  const [yearSelected, setYear] = useState("test");
+  const [yearSelected, setYear] = useState("1995");
   const [engineSelected, setEngine] = useState("test");
   const [transmissionSelected, setTransmission] = useState("test");
-  const [kilometersNumber, setKilometers] = useState("test");
-  const [seatsNumber, setSeats] = useState("test");
+  const [kilometersNumber, setKilometers] = useState("195000");
+  const [seatsNumber, setSeats] = useState("4");
   const [registeredYear, setRegisteredYear] = useState("test");
   const [registeredCountry, setRegisteredCountry] = useState("test");
   const [options, setOptions] = useState("test");
-  const [price, setPrice] = useState("test");
+  const [price, setPrice] = useState("90");
   const [description, setDescription] = useState("test");
   const [type, setType] = useState("test");
   const [submitted, setSubmitted] = useState(false);
@@ -153,12 +153,12 @@ const RentCar = () => {
 
     const newCarInformations = {
       owner: "test",
-      make: brandSelected,
+      brand: brandSelected,
       model: modelSelected,
       year: yearSelected,
-      fueltype: engineSelected,
-      trany: transmissionSelected,
-      kilometers: kilometersNumber,
+      engine: engineSelected,
+      transmission: transmissionSelected,
+      kilometer: kilometersNumber,
       seatsNumber: seatsNumber,
       registeredYear: registeredYear,
       registrationCountry: registeredCountry,

@@ -1,9 +1,9 @@
 const Car = require("../model/car.model");
 const Vehicle = require("../model/vehicle.model");
 
-exports.getVehicles = async () => {
+exports.getAll = async () => {
   try {
-    return await Vehicle.find({});
+    return await Car.find({});
   } catch (e) {
     throw Error("Error fetching car " + e);
   }
@@ -18,6 +18,7 @@ exports.getById = async query => {
 };
 
 exports.register = async query => {
+  console.log("QUERY =>=>=>=>=>", query);
   try {
     const car = new Car(query);
     return await car.save();
