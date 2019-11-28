@@ -18,7 +18,6 @@ exports.getById = async query => {
 };
 
 exports.register = async query => {
-  console.log("QUERY =>=>=>=>=>", query);
   try {
     const car = new Car(query);
     return await car.save();
