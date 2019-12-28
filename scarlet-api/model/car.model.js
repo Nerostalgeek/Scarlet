@@ -31,7 +31,7 @@ const Car = new Schema(
       required: true
     },
     kilometer: {
-      type: Number,
+      type: String,
       required: true
     },
     engine: {

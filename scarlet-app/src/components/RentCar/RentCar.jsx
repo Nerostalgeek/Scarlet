@@ -300,37 +300,6 @@ const RentCar = () => {
               </div>
             </div>
             <div className="form-rent-row">
-              <div id="rentForm10" className="form-rent-car-item">
-                <h4>Options</h4>
-                <input
-                  type="checkbox"
-                  name="favorite_pet"
-                  value="Dogs"
-                  id="dogs"
-                />
-                <label for="dogs">Dogs</label>
-                <input
-                  type="checkbox"
-                  name="favorite_pet"
-                  value="Dogs"
-                  id="dogs"
-                />
-                <label for="dogs">Dogs</label>
-                <input
-                  type="checkbox"
-                  name="favorite_pet"
-                  value="Dogs"
-                  id="dogs"
-                />
-                <label for="dogs">Dogs</label>
-                <input
-                  type="checkbox"
-                  name="favorite_pet"
-                  value="Dogs"
-                  id="dogs"
-                />
-                <label for="dogs">Dogs</label>
-              </div>
               <div id="rentForm11" className="form-rent-car-item">
                 <h4>Prix a la journée</h4>
                 <input
