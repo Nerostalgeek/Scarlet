@@ -59,6 +59,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-redux": "^4.0.8",
+    "react-test-renderer": "^16.12.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
@@ -128,6 +129,8 @@
     "moduleFileExtensions": [
       "web.js",
       "js",
+      "js.map",
+      ".js.*",
       "web.ts",
       "ts",
       "web.tsx",
@@ -148,6 +151,9 @@
     ]
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.4"
   }
 }
