@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { alertActions } from "../../actions";
 import { PrivateRoute } from "../PrivateRoute";
@@ -29,18 +29,20 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <div className="App">
-        <NavBar />
-        <Route exact path="/" component={HomePage} />
-        <Route path="/login" component={Login} />
-        <Route path="/reset-password" component={ResetPassword} />
-        <Route path="/rent-cars" component={RentCarsPage} />
-        <Route path="/rent-my-car" component={RentCar} />
-        <Route path="/validate-account" component={validateAccount} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/logout" />
-        <Footer />
-      </div>
+      <Switch>
+        <div className="App">
+          <NavBar />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={Login} />
+          <Route path="/reset-password" component={ResetPassword} />
+          <Route path="/rent-cars" component={RentCarsPage} />
+          <Route path="/rent-my-car" component={RentCar} />
+          <Route path="/validate-account" component={validateAccount} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/logout" />
+          <Footer />
+        </div>
+      </Switch>
     </Router>
   );
 };
