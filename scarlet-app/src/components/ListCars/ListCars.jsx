@@ -20,14 +20,6 @@ const ListCars = props => {
 
   return (
     <div>
-      {query === "true" ? (
-        fetchedCars.map(item => {
-          console.log(item);
-          return <CarItem name={item} />;
-        })
-      ) : (
-        <p>Loading ...</p>
-      )}
     </div>
   );
 };
