@@ -1,4 +1,5 @@
 const Car = require("../model/car.model");
+const Vehicle = require("../model/vehicle.model");
 
 exports.getAll = async () => {
   try {
@@ -16,7 +17,7 @@ exports.getById = async query => {
   }
 };
 
-exports.addCar = async query => {
+exports.register = async query => {
   try {
     const car = new Car(query);
     return await car.save();

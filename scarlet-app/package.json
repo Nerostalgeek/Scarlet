@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
+    "@babel/runtime": "^7.6.3",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
@@ -58,14 +59,13 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-redux": "^4.0.8",
-    "react-slick": "^0.25.2",
+    "react-test-renderer": "^16.12.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
-    "slick-carousel": "^1.8.1",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
@@ -78,6 +78,7 @@
   "scripts": {
     "start": "HTTPS=true node scripts/start.js",
     "startWindows": "set HTTPS=true&&node scripts/start.js",
+    "startNoHTTPS": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
@@ -128,6 +129,8 @@
     "moduleFileExtensions": [
       "web.js",
       "js",
+      "js.map",
+      ".js.*",
       "web.ts",
       "ts",
       "web.tsx",
@@ -148,6 +151,9 @@
     ]
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.4"
   }
 }

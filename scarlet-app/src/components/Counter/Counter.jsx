@@ -12,17 +12,17 @@ const Counter = props => {
           event.preventDefault();
           decrementCounter();
         }}
-        className="counter-button"
+        className="counter-button decrement-button"
       >
         -
       </button>
-      <h2>{initialCount}</h2>
+      <h2 className="counter-value">{initialCount}</h2>
       <button
         onClick={event => {
           event.preventDefault();
           incrementCounter();
         }}
-        className="counter-button"
+        className="counter-button increment-button"
       >
         +
       </button>

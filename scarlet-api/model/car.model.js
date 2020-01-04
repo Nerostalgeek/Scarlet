@@ -12,10 +12,6 @@ const Car = new Schema(
       type: Number,
       required: true
     },
-    firstRegistrationYear: {
-      type: Number,
-      required: true
-    },
     type: {
       type: String,
       required: true
@@ -35,7 +31,7 @@ const Car = new Schema(
       required: true
     },
     kilometer: {
-      type: Number,
+      type: String,
       required: true
     },
     engine: {
@@ -62,8 +58,9 @@ const Car = new Schema(
       required: true
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "User",
+      type: String,
       required: true
     }
   },

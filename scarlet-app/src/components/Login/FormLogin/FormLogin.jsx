@@ -21,7 +21,6 @@ const FormLogin = () => {
 
   const submitHandler = event => {
     event.preventDefault();
-
     setSubmitted(true);
     const email = enteredEmail;
     const password = enteredPassword;

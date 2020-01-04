@@ -76,6 +76,7 @@ User.pre("save", function(next) {
     }
   });
 });
+
 User.pre("save", function(next) {
   if (!this.isModified("password")) {
     return next();
