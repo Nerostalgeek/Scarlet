@@ -11,7 +11,6 @@ configure({ adapter: new Adapter() });
 describe("<HomePage />", () => {
   it("The Homepage renders the Form Reservation correctly", () => {
     const wrapper = mount(<HomePage />);
-    console.log(wrapper.debug());
     expect(wrapper.find(FormReservation).length).toEqual(1);
   });
 });
