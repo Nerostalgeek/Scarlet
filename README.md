@@ -1,8 +1,6 @@
 # Scarlet
 > Scarlet is a React app with a provided Express API
 
-This project is the final work to submit in order to pass the exam.
-
 The given commands are suitable for the `DEV` environment.
 
 
