@@ -30,7 +30,6 @@ const customStyles = {
 const Login = () => {
   const FACEBOOK_AUTH_CLIENT_ID = process.env.REACT_APP_FACEBOOK_AUTH_CLIENT_ID;
 
-  console.log("DOT ENV =====>     ", FACEBOOK_AUTH_CLIENT_ID);
   const dispatch = useDispatch();
   const isModalOpened = useSelector(state => state.displayModal.open);
   const displayPage = useSelector(state => state.displayPage.pageValue);
