@@ -10,6 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("../../img/assets/homepage/homepage-background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .homepage-landing-text {
@@ -22,12 +26,15 @@
   font-size: 60px;
   padding-bottom: 25px;
   font-family: "Quicksand", sans-serif;
+  line-height: 1.1;
+  color: white;
 }
 
 .homepage-landing-text #homepage-landing-description {
   font-size: 20px;
   padding-bottom: 25px;
   font-family: "Open-Sans", sans-serif;
+  color: white;
 }
 
 .landing-cta {
@@ -50,6 +57,7 @@
   padding: 15px 25px;
   font-size: 18px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .landing-cta:last-child {

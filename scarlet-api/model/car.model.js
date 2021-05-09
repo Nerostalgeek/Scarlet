@@ -2,43 +2,69 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-let Car = new Schema({
+const Car = new Schema(
+  {
+    description: {
+      type: String,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    },
     type: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     brand: {
-        type: String,
-        required: true
-    },
-    model: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     color: {
-        type: String,
-        required: true
+      type: String
+    },
+    doorsNumber: {
+      type: Number
+    },
+    model: {
+      type: String,
+      required: true
+    },
+    kilometer: {
+      type: String,
+      required: true
+    },
+    engine: {
+      type: String,
+      required: true
     },
     transmission: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
-    seats: {
-        type: Number,
-        required: true
+    seatsNumber: {
+      type: Number,
+      required: true
     },
     options: {
-        type: Array
+      type: Array
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
+    },
+    registrationCountry: {
+      type: String,
+      required: true
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "User",
+      type: String,
+      required: true
     }
-});
+  },
+  { timestamps: { createdAt: "created_at" } }
+);
 
 module.exports = mongoose.model("Car", Car);

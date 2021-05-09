@@ -1,0 +1,23 @@
+.dashboard-header {
+  height: 30vh;
+  position: relative;
+  background: lightgray;
+}
+
+.dashboard-avatar {
+  position: absolute;
+  left: 50%;
+  bottom: -50px;
+  transform: translate(-50%);
+}
+
+.dashboard-avatar img {
+  height: 150px;
+  width: 150px;
+}
+
+.dashboards-all-cards {
+  padding: 100px 0;
+  display: flex;
+  justify-content: space-evenly;
+}

@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   mongodb:
     image: "mongo"
@@ -6,6 +6,8 @@ services:
       - "27017:27017"
   backend:
     build: ./scarlet-api/
+    env_file:
+    - ./ENV/.env.development
     ports:
       - "6200:6200"
     volumes:
@@ -14,6 +16,8 @@ services:
       - mongodb
   frontend:
     build: scarlet-app/
+    env_file:
+    - ./ENV/.env.front.development
     ports:
       - "3000:3000"
     volumes:

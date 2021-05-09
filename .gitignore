@@ -1,3 +1,5 @@
+ENV
+.env
 config.default.js
 node_modules/
 *.log

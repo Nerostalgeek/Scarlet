@@ -1,81 +1,62 @@
-const User = require('../model/user.model');
-const express = require('express');
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const passport = require('passport');
-const config = require('../../config.default');
+const UserController = require("../controller/user.controller");
 
+const express = require("express");
 
-const secret = config.secretPassport;
+const { generateJwtToken, sendJwtToken } = require("../utils/token.utils");
+
+const passport = require("passport");
+require("../config/passport-config")(passport);
 
 user = express.Router();
 
-// Route for ALL USERS
-user.get('/', (req, res) => {
-    User.find(function (err, listUsers) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(listUsers);
-        }
-    });
-});
+user.get("/", UserController.getAll);
 
-// Route for a specific user
-user.get('/:id', (req, res) => {
-    let id = req.params.id;
-    User.findById(id, (err, user) => {
-        res.json(user);
-    })
-});
+user.get("/check-reset-token", UserController.checkResetToken);
 
-user.route('/register').post(async function (req, res) {
-    try {
-        const user = new User(req.body);
-        const result = await user.save();
-        res.send(result);
-    } catch (err) {
-        res.status(500).send(err);
+user.get("/check-validation-token", UserController.checkValidationToken);
+
+user.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  UserController.getById
+);
+
+user.route("/register").post(UserController.register);
+
+user.route("/login").post(UserController.login);
+
+user.route("/reset-password").post(UserController.resetPassword);
+
+user.route("/update-password").put(UserController.updatePassword);
+
+user
+  .route("/resend-validation-token")
+  .put(UserController.resendValidationEmail);
+
+user.route("/validate-account").put(UserController.validateAccount);
+
+user.post(
+  "/auth/facebook",
+  passport.authenticate("facebook-token", { session: false }),
+  UserController.facebookLogin,
+  generateJwtToken,
+  sendJwtToken
+);
+
+user.route("/auth/google").post(
+  passport.authenticate("google-token", { session: false }),
+  function(req, res, next) {
+    if (!req.user) {
+      return res.send(401, "User Not Authenticated");
     }
-});
+    req.auth = {
+      id: req.user.id
+    };
 
-user.route('/login').post(async (req, res) => {
-    const email = await req.body.email;
-    const password = await req.body.password;
-    User.findOne({email})
-        .then(user => {
-            bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        const payload = {
-                            id: user._id,
-                            lastName: user.lastName,
-                            firstName: user.firstName
-                        };
-                        jwt.sign(payload, secret, {expiresIn: 36000},
-                            (err, token) => {
-                                if (err) res.status(500)
-                                    .json({
-                                        error: "Error signing token",
-                                        raw: err
-                                    });
-                                res.json({
-                                    success: true,
-                                    token: `Bearer ${token}`
-                                });
-                            });
-                    } else {
-                        throw new Error("Invalid credentials");
-                    }
-                }).catch(err => {
-                err = "Email or password is incorrect";
-                return res.status(400).json(err)
-            })
-        }).catch(errors => {
-        errors.email = "No Account Found";
-        return res.status(404).json(errors);
-    })
-});
-
+    next();
+  },
+  generateJwtToken,
+  sendJwtToken
+);
 
 module.exports = user;

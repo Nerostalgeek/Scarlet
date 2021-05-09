@@ -1,39 +1,17 @@
-const Car = require("../model/car.model");
+const CarController = require("../controller/car.controller");
 
-const express = require("express"),
-    car = express.Router();
+const express = require("express");
 
+car = express.Router();
 
 // Route for ALL CARS
-car.get("/", (req, res) => {
-    Car.find(function (err, listCars) {
-        if (err) {
-            return err;
-        } else {
-            res.json(listCars);
-        }
-    })
-        .populate('User')
-        .select('User')
+car.get("/", CarController.getAll);
 
-});
+car.route("/get-vehicles").get(CarController.getVehicles);
 
 // Route for a specific car
-car.get("/:id", (req, res) => {
-    const id = req.params.id;
-    Car.findById(id, (err, car) => {
-        res.json(car);
-    });
-});
+car.get("/:id", CarController.getById);
 
-car.route("/add").post(async function (req, res) {
-    try {
-        const car = new Car(req.body);
-        const result = await car.save();
-        res.send(result);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
+car.route("/register").post(CarController.register);
 
 module.exports = car;

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
+    "@babel/runtime": "^7.6.3",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
@@ -17,7 +18,7 @@
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "css-loader": "2.1.1",
-    "dotenv": "6.2.0",
+    "dotenv": "^8.2.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
@@ -44,13 +45,24 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
+    "react-calendar": "^2.19.2",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.5",
+    "react-modal": "^3.10.1",
+    "react-modal-hook": "^2.0.0",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-router-redux": "^4.0.8",
+    "react-test-renderer": "^16.12.0",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -66,8 +78,10 @@
   "scripts": {
     "start": "HTTPS=true node scripts/start.js",
     "startWindows": "set HTTPS=true&&node scripts/start.js",
+    "startNoHTTPS": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -115,6 +129,8 @@
     "moduleFileExtensions": [
       "web.js",
       "js",
+      "js.map",
+      ".js.*",
       "web.ts",
       "ts",
       "web.tsx",
@@ -133,5 +149,11 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.4"
   }
 }
